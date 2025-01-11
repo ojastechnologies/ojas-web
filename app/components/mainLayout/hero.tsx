@@ -97,7 +97,8 @@ export const Hero = () => {
                 <HiArrowRight className="group-hover:translate-x-1.5 transition-transform" />
               </Link>
               <Link 
-                href="https://github.com"
+                target="_blank"
+                href="https://github.com/ojastechnologies/ojas-web"
                 className="px-8 py-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:shadow-lg transition-all transform hover:scale-105 hover:-translate-y-1 flex items-center gap-3 group"
               >
                 <TbBrandGithub className="w-5 h-5" />

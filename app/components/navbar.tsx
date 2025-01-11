@@ -21,13 +21,12 @@ export const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Solutions', href: '#solutions' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Services', href: '#services' },
-    { name: 'Contact', href: '#contact' }
+      { name: 'Home', href: '#hero' },
+      { name: 'About', href: '#about' },
+      { name: 'Features', href: '#features' },
+      { name: 'Services', href: '#services' },
+      { name: 'Contact', href: '#contact' }
   ];
-
   const socialLinks = [
     { Icon: FaFacebook, href: 'https://facebook.com/ojastech', color: '#1877F2' },
     { Icon: FaXTwitter, href: 'https://x.com/ojastech', color: '#000000' },

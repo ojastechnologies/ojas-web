@@ -58,7 +58,6 @@ const features = [
 export const Features = () => {
     return (
         <section id="features" className="relative py-24 overflow-hidden">
-            {/* Match the gradient background from other sections */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
