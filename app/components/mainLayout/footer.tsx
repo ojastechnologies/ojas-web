@@ -1,30 +1,30 @@
-'use client';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { HiLocationMarker, HiPhone, HiMail, HiArrowRight } from 'react-icons/hi';
-import { FaFacebook, FaTwitter, FaYoutube, FaLinkedinIn } from 'react-icons/fa';
+"use client";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { HiLocationMarker, HiPhone, HiMail, HiArrowRight } from "react-icons/hi";
+import { FaFacebook, FaTwitter, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 
 const services = [
-    'Web Development',
-    'Mobile Application',
-    'Desktop Application',
-    'Graphics Design',
-    'Digital Marketing',
-    'SEO Optimization'
+    "Web Development",
+    "Mobile Application",
+    "Desktop Application",
+    "Graphics Design",
+    "Digital Marketing",
+    "SEO Optimization"
 ];
 
 const contactInfo = [
-    { icon: HiLocationMarker, text: 'Basantanagar, 16, Kathmandu', href: 'https://goo.gl/maps/xyz' },
-    { icon: HiPhone, text: '+977 9841185541', href: 'tel:+9779841185541' },
-    { icon: HiMail, text: 'contact@ojastech.io', href: 'mailto:contact@ojastech.io' }
+    { icon: HiLocationMarker, text: "Basantanagar, 16, Kathmandu", href: "https://goo.gl/maps/xyz" },
+    { icon: HiPhone, text: "+977 9841185541", href: "tel:+9779841185541" },
+    { icon: HiMail, text: "contact@ojastech.io", href: "mailto:contact@ojastech.io" }
 ];
 
 const socialLinks = [
-    { Icon: FaFacebook, href: 'https://facebook.com/ojastech', color: '#1877F2', label: 'Facebook' },
-    { Icon: FaTwitter, href: 'https://twitter.com/ojastechnepal', color: '#1DA1F2', label: 'Twitter' },
-    { Icon: FaYoutube, href: 'https://youtube.com/ojastech', color: '#FF0000', label: 'YouTube' },
-    { Icon: FaLinkedinIn, href: 'https://linkedin.com/company/ojastech', color: '#0A66C2', label: 'LinkedIn' }
+    { Icon: FaFacebook, href: "https://facebook.com/ojastech", color: "#1877F2", label: "Facebook" },
+    { Icon: FaTwitter, href: "https://twitter.com/ojastechnepal", color: "#1DA1F2", label: "Twitter" },
+    { Icon: FaYoutube, href: "https://youtube.com/ojastech", color: "#FF0000", label: "YouTube" },
+    { Icon: FaLinkedinIn, href: "https://linkedin.com/company/ojastech", color: "#0A66C2", label: "LinkedIn" }
 ];
 
 export function Footer() {
@@ -86,7 +86,7 @@ export function Footer() {
                                 >
                                     <HiArrowRight className="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                                     <Link 
-                                        href={`#${service.toLowerCase().replace(' ', '-')}`}
+                                        href={`#${service.toLowerCase().replace(" ", "-")}`}
                                         className="text-gray-600 hover:text-blue-600 transition-colors"
                                     >
                                         {service}

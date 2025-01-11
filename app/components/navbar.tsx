@@ -1,11 +1,11 @@
-'use client';
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { FaFacebook, FaYoutube, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
-import { RiCloseLine, RiMenuLine } from 'react-icons/ri';
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { FaFacebook, FaYoutube, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { RiCloseLine, RiMenuLine } from "react-icons/ri";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,30 +16,30 @@ export const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-      { name: 'Home', href: '#hero' },
-      { name: 'About', href: '#about' },
-      { name: 'Features', href: '#features' },
-      { name: 'Services', href: '#services' },
-      { name: 'Contact', href: '#contact' }
+      { name: "Home", href: "#hero" },
+      { name: "About", href: "#about" },
+      { name: "Features", href: "#features" },
+      { name: "Services", href: "#services" },
+      { name: "Contact", href: "#contact" }
   ];
   const socialLinks = [
-    { Icon: FaFacebook, href: 'https://facebook.com/ojastech', color: '#1877F2' },
-    { Icon: FaXTwitter, href: 'https://x.com/ojastech', color: '#000000' },
-    { Icon: FaWhatsapp, href: 'https://wa.me/+9779841185541', color: '#25D366' },
-    { Icon: FaYoutube, href: 'https://youtube.com/ojastech', color: '#FF0000' },
-    { Icon: FaLinkedin, href: 'https://linkedin.com/company/ojastech', color: '#0A66C2' }
+    { Icon: FaFacebook, href: "https://facebook.com/ojastech", color: "#1877F2" },
+    { Icon: FaXTwitter, href: "https://x.com/ojastech", color: "#000000" },
+    { Icon: FaWhatsapp, href: "https://wa.me/+9779841185541", color: "#25D366" },
+    { Icon: FaYoutube, href: "https://youtube.com/ojastech", color: "#FF0000" },
+    { Icon: FaLinkedin, href: "https://linkedin.com/company/ojastech", color: "#0A66C2" }
   ];
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-lg shadow-lg' : 'bg-white/50 backdrop-blur-sm'
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-lg shadow-lg" : "bg-white/50 backdrop-blur-sm"
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -122,7 +122,7 @@ export const Navbar = () => {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden overflow-hidden bg-white border-t border-gray-100"
           >

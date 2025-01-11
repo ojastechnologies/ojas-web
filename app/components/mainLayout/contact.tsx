@@ -1,36 +1,36 @@
-'use client';
-import { motion } from 'framer-motion';
-import { HiLightBulb, HiLocationMarker, HiPhone, HiMail } from 'react-icons/hi';
-import { FaFacebook, FaTwitter, FaYoutube, FaLinkedinIn } from 'react-icons/fa';
+"use client";
+import { motion } from "framer-motion";
+import { HiLightBulb, HiLocationMarker, HiPhone, HiMail } from "react-icons/hi";
+import { FaFacebook, FaTwitter, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 
 const contactInfo = [
     {
         icon: HiLocationMarker,
-        title: 'Our Office Location',
-        content: 'Basantanagar 16, Kathmandu',
+        title: "Our Office Location",
+        content: "Basantanagar 16, Kathmandu",
         delay: 0.1
     },
     {
         icon: HiPhone,
-        title: 'Call Us',
-        content: '+977 9841185541',
-        link: 'tel:+9779841185541',
+        title: "Call Us",
+        content: "+977 9841185541",
+        link: "tel:+9779841185541",
         delay: 0.2
     },
     {
         icon: HiMail,
-        title: 'Mail Us',
-        content: 'contact@ojastech.io',
-        link: 'mailto:contact@ojastech.io',
+        title: "Mail Us",
+        content: "contact@ojastech.io",
+        link: "mailto:contact@ojastech.io",
         delay: 0.3
     }
 ];
 
 const socialLinks = [
-    { icon: FaFacebook, href: 'https://www.facebook.com/profile.php?id=100084169682453', color: '#1877F2' },
-    { icon: FaTwitter, href: 'https://twitter.com/ojastechnepal', color: '#1DA1F2' },
-    { icon: FaYoutube, href: 'https://www.youtube.com/channel/UCcja0lVIumrcgvtXYSSvNZw', color: '#FF0000' },
-    { icon: FaLinkedinIn, href: 'https://www.linkedin.com/company/ojastech/', color: '#0A66C2' }
+    { icon: FaFacebook, href: "https://www.facebook.com/profile.php?id=100084169682453", color: "#1877F2" },
+    { icon: FaTwitter, href: "https://twitter.com/ojastechnepal", color: "#1DA1F2" },
+    { icon: FaYoutube, href: "https://www.youtube.com/channel/UCcja0lVIumrcgvtXYSSvNZw", color: "#FF0000" },
+    { icon: FaLinkedinIn, href: "https://www.linkedin.com/company/ojastech/", color: "#0A66C2" }
 ];
 
 export function Contact() {
@@ -59,7 +59,7 @@ export function Contact() {
                         </span>
                     </h2>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Ready to collaborate? Have feedback or questions? We'd love to hear from you.
+                        Ready to collaborate? Have feedback or questions? We'd love to hear from you. {/* eslint-disable-line react/no-unescaped-entities */}
                     </p>
                 </motion.div>
 

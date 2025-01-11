@@ -1,50 +1,50 @@
-'use client';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { HiLightBulb, HiArrowRight } from 'react-icons/hi';
+"use client";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { HiLightBulb } from "react-icons/hi";
 
 const services = [
     {
-        title: 'Web Development',
-        description: 'We design and develop sophisticated websites and web applications of all scales, focusing on performance, user experience, and modern technologies.',
-        image: '/img/web.png',
+        title: "Web Development",
+        description: "We design and develop sophisticated websites and web applications of all scales, focusing on performance, user experience, and modern technologies.",
+        image: "/img/web.png",
         delay: 0.1,
-        stats: { 'Projects': '100+', 'Success Rate': '99%' }
+        stats: { "Projects": "100+", "Success Rate": "99%" }
     },
     {
-        title: 'Mobile Application Development',
-        description: 'We create innovative mobile applications that meet your specific requirements, delivering native-like experiences across platforms.',
-        image: '/img/mbile app.png',
+        title: "Mobile Application Development",
+        description: "We create innovative mobile applications that meet your specific requirements, delivering native-like experiences across platforms.",
+        image: "/img/mbile app.png",
         delay: 0.2,
-        stats: { 'Apps Delivered': '50+', 'App Rating': '4.8/5' }
+        stats: { "Apps Delivered": "50+", "App Rating": "4.8/5" }
     },
     {
-        title: 'Desktop Application Development',
-        description: 'We develop powerful desktop applications optimized for Windows, macOS, and Linux, tailored to your business needs.',
-        image: '/img/desktop app.png',
+        title: "Desktop Application Development",
+        description: "We develop powerful desktop applications optimized for Windows, macOS, and Linux, tailored to your business needs.",
+        image: "/img/desktop app.png",
         delay: 0.3,
-        stats: { 'Platforms': '3+', 'Client Satisfaction': '98%' }
+        stats: { "Platforms": "3+", "Client Satisfaction": "98%" }
     },
     {
-        title: 'Graphics Design',
-        description: 'Our expert designers create attractive and innovative visual solutions that elevate your brand identity and communication.',
-        image: '/img/graphics.png',
+        title: "Graphics Design",
+        description: "Our expert designers create attractive and innovative visual solutions that elevate your brand identity and communication.",
+        image: "/img/graphics.png",
         delay: 0.4,
-        stats: { 'Designs Created': '500+', 'Brand Success': '95%' }
+        stats: { "Designs Created": "500+", "Brand Success": "95%" }
     },
     {
-        title: 'Digital Marketing',
-        description: 'Comprehensive digital and social media marketing services to boost your online presence and reach your target audience effectively.',
-        image: '/img/digital-marketting.png',
+        title: "Digital Marketing",
+        description: "Comprehensive digital and social media marketing services to boost your online presence and reach your target audience effectively.",
+        image: "/img/digital-marketting.png",
         delay: 0.5,
-        stats: { 'ROI Average': '300%', 'Growth Rate': '150%' }
+        stats: { "ROI Average": "300%", "Growth Rate": "150%" }
     },
     {
-        title: 'Search Engine Optimization',
-        description: 'Strategic SEO services to improve your online visibility, drive organic traffic, and achieve higher search engine rankings.',
-        image: '/img/seo.png',
+        title: "Search Engine Optimization",
+        description: "Strategic SEO services to improve your online visibility, drive organic traffic, and achieve higher search engine rankings.",
+        image: "/img/seo.png",
         delay: 0.6,
-        stats: { 'Ranking Improvement': '80%', 'Traffic Growth': '200%' }
+        stats: { "Ranking Improvement": "80%", "Traffic Growth": "200%" }
     }
 ];
 

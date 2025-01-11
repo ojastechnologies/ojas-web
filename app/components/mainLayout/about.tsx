@@ -1,8 +1,8 @@
-'use client';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { HiCheckCircle } from 'react-icons/hi';
-import { FiUsers, FiAward, FiCode } from 'react-icons/fi';
+"use client";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { HiCheckCircle } from "react-icons/hi";
+import { FiUsers, FiAward, FiCode } from "react-icons/fi";
 
 export const About = () =>  {
     return (
@@ -42,10 +42,10 @@ export const About = () =>  {
               >
                 <div className="grid grid-cols-4 gap-4">
                   {[
-                    { label: 'Projects', value: '150+' },
-                    { label: 'Clients', value: '50+' },
-                    { label: 'Experience', value: '3+ Years' },
-                    { label: 'Team Size', value: '20+' }
+                    { label: "Projects", value: "150+" },
+                    { label: "Clients", value: "50+" },
+                    { label: "Experience", value: "3+ Years" },
+                    { label: "Team Size", value: "20+" }
                   ].map((stat, index) => (
                     <div key={index} className="text-center">
                       <div className="text-blue-600 font-bold text-lg">{stat.value}</div>

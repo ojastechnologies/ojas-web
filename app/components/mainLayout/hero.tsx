@@ -1,9 +1,9 @@
-'use client';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { HiArrowRight } from 'react-icons/hi';
-import { TbBrain, TbDeviceAnalytics, TbCode, TbDeviceMobile, TbDeviceDesktop, TbBrandGithub } from 'react-icons/tb';
-import { SiDotnet, SiReact, SiVuedotjs, SiBlazor, SiFlutter, SiDocker, SiKubernetes, SiTypescript, SiTailwindcss } from 'react-icons/si';
+"use client";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { HiArrowRight } from "react-icons/hi";
+import { TbBrain, TbDeviceAnalytics, TbCode, TbDeviceMobile, TbBrandGithub } from "react-icons/tb";
+import { SiDotnet, SiReact, SiVuedotjs, SiBlazor, SiFlutter, SiDocker, SiKubernetes, SiTypescript } from "react-icons/si";
 
 const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -112,9 +112,9 @@ export const Hero = () => {
               className="flex gap-8 pt-8 border-t border-gray-200 dark:border-gray-800"
             >
               {[
-                { number: '150+', label: 'Projects Delivered' },
-                { number: '98%', label: 'Client Satisfaction' },
-                { number: '10+', label: 'Years Experience' }
+                { number: "150+", label: "Projects Delivered" },
+                { number: "98%", label: "Client Satisfaction" },
+                { number: "10+", label: "Years Experience" }
               ].map((stat, index) => (
                 <div key={index} className="space-y-1 group">
                   <motion.div 
