@@ -58,6 +58,7 @@ const features = [
 export const Features = () => {
     return (
         <section id="features" className="relative py-24 overflow-hidden">
+            {/* Match the gradient background from other sections */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -96,12 +97,10 @@ export const Features = () => {
                             whileHover={{ y: -5 }}
                             className="group"
                         >
-                            <div className="h-full p-8 rounded-3xl bg-gradient-to-br from-white to-blue-50/50 border border-blue-100 hover:border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
-                                <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(45deg,#000_25%,transparent_25%),linear-gradient(-45deg,#000_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#000_75%),linear-gradient(-45deg,transparent_75%,#000_75%)] bg-[length:20px_20px]" />
-                                
+                            <div className="h-full p-8 rounded-3xl bg-white/80 backdrop-blur-xl border border-blue-100 hover:border-blue-200 shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
                                 <div className="relative space-y-6">
                                     <div className="flex items-start justify-between">
-                                        <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 text-white">
+                                        <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 text-white shadow-lg shadow-blue-500/20">
                                             <feature.icon className="w-6 h-6" />
                                         </div>
                                         <motion.div
@@ -113,7 +112,7 @@ export const Features = () => {
                                     </div>
 
                                     <div>
-                                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                                        <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent mb-2">
                                             {feature.title}
                                         </h3>
                                         <p className="text-gray-600 leading-relaxed">
@@ -123,7 +122,7 @@ export const Features = () => {
 
                                     <div className="flex flex-wrap gap-3 pt-4 border-t border-blue-100">
                                         {feature.technologies.map((Tech, i) => (
-                                            <Tech key={i} className="w-6 h-6 text-blue-600 opacity-75 hover:opacity-100 transition-opacity" />
+                                            <Tech key={i} className="w-6 h-6 text-blue-600 opacity-75 hover:opacity-100 transition-opacity transform hover:scale-110" />
                                         ))}
                                     </div>
 
@@ -131,7 +130,7 @@ export const Features = () => {
                                         {Object.entries(feature.stats).map(([key, value]) => (
                                             <div key={key} className="text-sm">
                                                 <span className="text-gray-500">{key}: </span>
-                                                <span className="font-semibold text-blue-600">{value}</span>
+                                                <span className="font-semibold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">{value}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -145,7 +144,7 @@ export const Features = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-20 p-8 rounded-3xl bg-gradient-to-r from-blue-600 to-sky-500 text-white"
+                    className="mt-20 p-8 rounded-3xl bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-xl shadow-blue-500/20"
                 >
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         {[
