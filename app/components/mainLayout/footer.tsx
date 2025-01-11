@@ -15,7 +15,7 @@ const services = [
 ];
 
 const contactInfo = [
-    { icon: HiLocationMarker, text: "Basantanagar, 16, Kathmandu", href: "https://goo.gl/maps/xyz" },
+    { icon: HiLocationMarker, text: "Tokha - 03, Kathmandu, Nepal", href: "https://goo.gl/maps/xyz" },
     { icon: HiPhone, text: "+977 9841185541", href: "tel:+9779841185541" },
     { icon: HiMail, text: "contact@ojastech.io", href: "mailto:contact@ojastech.io" }
 ];
