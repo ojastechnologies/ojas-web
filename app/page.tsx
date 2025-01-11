@@ -9,7 +9,6 @@ import { Hero } from "./components/mainLayout/hero";
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-  
       <Navbar/>
       <Hero />
       <About />
