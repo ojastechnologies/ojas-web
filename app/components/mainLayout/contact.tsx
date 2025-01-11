@@ -7,7 +7,7 @@ const contactInfo = [
     {
         icon: HiLocationMarker,
         title: "Our Office Location",
-        content: "Basantanagar 16, Kathmandu",
+        content: "Tokha - 03, Kathmandu, Nepal",
         delay: 0.1
     },
     {
