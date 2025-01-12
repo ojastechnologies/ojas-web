@@ -64,7 +64,7 @@ export const Navbar = () => {
                   Ojas Technologies
                 </span>
               </h2>
-              <span className="text-[13px] font-medium text-gray-600 tracking-wide">Digital Solutions Partner</span>
+              <span className="text-[13px] font-medium text-gray-600 tracking-wide">Your Digital Solutions Partner</span>
             </div>
           </motion.div>
 

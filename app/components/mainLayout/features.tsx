@@ -1,23 +1,25 @@
 "use client";
 import { motion } from "framer-motion";
-import { HiClock, HiCode, HiSupport, HiUserGroup, HiLightBulb, HiAcademicCap } from "react-icons/hi";
-import { SiReact, SiTypescript, SiTailwindcss, SiDocker, SiKubernetes, SiDotnet, SiFlutter, SiFigma, SiAdobecreativecloud, SiJira, SiNodedotjs, SiGooglecloud } from "react-icons/si";
-import { BsArrowUpRight } from "react-icons/bs";
+import { HiClock, HiCode, HiSupport, HiUserGroup, HiLightBulb, HiAcademicCap, HiDeviceMobile } from "react-icons/hi";
+import { SiReact, SiTypescript, SiTailwindcss, SiDocker, SiKubernetes, SiDotnet, SiFlutter, SiFigma, SiAdobecreativecloud, SiJira, SiNodedotjs, SiGooglecloud, SiBlazor, SiVuedotjs, SiAmazonwebservices, SiShortcut, SiSlack, SiTeamspeak, SiGooglemeet } from "react-icons/si";
+import { BsArrowUpRight, BsGithub } from "react-icons/bs";
+import { VscAzure } from "react-icons/vsc";
+import { BiCloud } from "react-icons/bi";
 
 const features = [
     {
         icon: HiCode,
         title: "Full-Stack Development",
         description: "End-to-end development using modern tech stack. From responsive frontends to scalable backends, we deliver complete solutions.",
-        technologies: [SiReact, SiTypescript, SiDotnet, SiNodedotjs],
+        technologies: [SiDotnet, SiReact, SiVuedotjs, SiNodedotjs, SiBlazor, SiFlutter, SiFigma],
         stats: { "Projects Delivered": "150+", "Code Quality": "99%" },
         delay: 0.1
     },
     {
-        icon: HiLightBulb,
+        icon: BiCloud,
         title: "Cloud Solutions",
         description: "Cloud-native applications with robust architecture. We leverage AWS and Google Cloud for scalable, reliable deployments.",
-        technologies: [SiGooglecloud, SiGooglecloud, SiDocker, SiKubernetes],
+        technologies: [VscAzure, SiAmazonwebservices, SiGooglecloud, SiDocker, SiKubernetes,],
         stats: { "Uptime": "99.9%", "Performance": "Excellent" },
         delay: 0.2
     },
@@ -25,7 +27,7 @@ const features = [
         icon: HiUserGroup,
         title: "Client Collaboration",
         description: "Transparent development process with regular updates. We use modern project management tools to ensure clear communication.",
-        technologies: [SiJira, SiFigma, SiAdobecreativecloud],
+        technologies: [SiJira, BsGithub, SiFigma, SiShortcut, SiAdobecreativecloud],
         stats: { "Client Satisfaction": "98%", "Return Rate": "85%" },
         delay: 0.3
     },
@@ -33,20 +35,20 @@ const features = [
         icon: HiSupport,
         title: "Technical Support",
         description: "24/7 technical assistance and maintenance. Our dedicated support team ensures your applications run smoothly.",
-        technologies: [SiDocker, SiKubernetes, SiGooglecloud],
+        technologies: [SiSlack, SiGooglemeet, SiJira, SiShortcut, BsGithub],
         stats: { "Response Time": "< 1hr", "Resolution Rate": "95%" },
         delay: 0.4
     },
     {
-        icon: HiAcademicCap,
-        title: "Mobile Development",
-        description: "Cross-platform mobile applications with Flutter. Native-like performance with single codebase efficiency.",
-        technologies: [SiFlutter, SiGooglecloud, SiTypescript],
-        stats: { "App Rating": "4.8/5", "Downloads": "1M+" },
+        icon: HiDeviceMobile,
+        title: "Cross-Platform Solutions",
+        description: "Building high-performance mobile and desktop applications using Flutter, React Native, and .NET MAUI for seamless cross-platform experiences.",
+        technologies: [SiFlutter, SiReact, SiDotnet, SiTypescript],
+        stats: { "App Rating": "4.8/5", "Platform Coverage": "100%" },
         delay: 0.5
     },
     {
-        icon: HiClock,
+        icon: <HiClock></HiClock>,
         title: "UI/UX Excellence",
         description: "User-centric design approach with modern aesthetics. We create engaging interfaces that users love to interact with.",
         technologies: [SiFigma, SiAdobecreativecloud, SiTailwindcss],
