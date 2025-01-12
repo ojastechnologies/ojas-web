@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import { HiClock, HiCode, HiSupport, HiUserGroup, HiLightBulb, HiAcademicCap, HiDeviceMobile } from "react-icons/hi";
-import { SiReact, SiTypescript, SiTailwindcss, SiDocker, SiKubernetes, SiDotnet, SiFlutter, SiFigma, SiAdobecreativecloud, SiJira, SiNodedotjs, SiGooglecloud, SiBlazor, SiVuedotjs, SiAmazonwebservices, SiShortcut, SiSlack, SiTeamspeak, SiGooglemeet } from "react-icons/si";
+import { HiClock, HiCode, HiSupport, HiUserGroup, HiLightBulb, HiDeviceMobile } from "react-icons/hi";
+import { SiReact, SiTypescript, SiTailwindcss, SiDocker, SiKubernetes, SiDotnet, SiFlutter, SiFigma, SiAdobecreativecloud, SiJira, SiNodedotjs, SiGooglecloud, SiBlazor, SiVuedotjs, SiAmazonwebservices, SiShortcut, SiSlack, SiGooglemeet } from "react-icons/si";
 import { BsArrowUpRight, BsGithub } from "react-icons/bs";
 import { VscAzure } from "react-icons/vsc";
 import { BiCloud } from "react-icons/bi";
