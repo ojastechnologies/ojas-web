@@ -48,7 +48,7 @@ const features = [
         delay: 0.5
     },
     {
-        icon: <HiClock></HiClock>,
+        icon: HiClock,
         title: "UI/UX Excellence",
         description: "User-centric design approach with modern aesthetics. We create engaging interfaces that users love to interact with.",
         technologies: [SiFigma, SiAdobecreativecloud, SiTailwindcss],
