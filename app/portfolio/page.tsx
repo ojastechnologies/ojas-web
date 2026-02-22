@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { HiArrowLeft, HiExternalLink, HiGlobeAlt, HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { HiExternalLink, HiGlobeAlt, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud, SiSupabase, SiSqlite } from "react-icons/si";
 import { TbBrandCSharp, TbBrandAzure } from "react-icons/tb";
 import { IconType } from "react-icons";
+import { Navbar } from "../components/navbar";
 
 /* ─── Types ──────────────────────────────────────── */
 interface ProjectLink {
@@ -41,7 +42,7 @@ const projects: Project[] = [
         description: "A comprehensive, HIPAA-compliant healthcare platform connecting patients with every registered healthcare provider in the United States. Features an AI-powered health assistant (DoctorFind.ai) for personalized provider matching, real-time appointment scheduling, medication tracking, blood pressure & weight monitoring, and secure private health reports. The provider side includes profile management, scheduling tools, patient management dashboards, and an integrated advertising system.",
         services: ["Full-Stack Development", "Mobile App Development", "Desktop App Development", "Cloud Architecture", "Cloud Infrastructure Management", "AI Integration", "Security & Compliance"],
         technologies: [SiDotnet, TbBrandCSharp, SiBlazor, TbBrandAzure, SiSqlite, SiTypescript, SiFlutter],
-        techLabels: [".NET Core / C#", "Blazor", ".NET MVC", "Azure Cloud Services", ".NET MAUI", "OpenIdDict Auth", "MSSQL & SQLite", "SignalR", "E2E Encryption"],
+        techLabels: [".NET Core / C#", "Blazor", ".NET MVC", "Azure Cloud Services", ".NET MAUI", "OpenIdDict Auth", "MSSQL & SQLite", "SignalR", "E2E Encryption", "GitHub Actions CI/CD"],
         links: [
             { label: "Website", url: "https://searchmed.com", icon: HiGlobeAlt },
             { label: "Provider Portal", url: "https://provider.searchmed.com", icon: HiExternalLink },
@@ -81,23 +82,39 @@ const projects: Project[] = [
         title: "LeanLaw Billing Platform",
         client: "LeanLaw",
         location: "Boise, Idaho",
-        description: "Cloud-based legal billing software that helps law firms get paid faster. Includes trust accounting, time tracking, invoice generation, and QuickBooks Online integration. Trusted by top legal teams across the US.",
-        services: ["Full-Stack Development", "Mobile App", "Cloud Solutions", "API Integration"],
+        description: "Cloud-based legal billing and practice management platform built on a microservices architecture. Helps law firms manage trust accounting, time tracking, invoice generation, and QuickBooks Online integration. Deployed across Azure and Digital Ocean with Kubernetes orchestration.",
+        services: ["Full-Stack Development", "Mobile App Development", "Cloud Architecture", "Cloud Infrastructure Management", "API Development", "Microservices", "CI/CD"],
         technologies: [SiDotnet, TbBrandCSharp, SiReact, SiTypescript],
+        techLabels: [".NET Core / C#", "Azure Cloud (AKS, Service Bus, Blob Storage, Functions)", "MSSQL / Azure SQL", "Vue.js", "React Native", "Kubernetes & Docker", "RabbitMQ", "Digital Ocean", "JavaScript / TypeScript", "GitHub Actions CI/CD", "Microservices", "Web APIs / gRPC / REST", "Graph API / GraphQL"],
         links: [
             { label: "Product", url: "https://next.myleanlaw.co", icon: HiGlobeAlt },
-            { label: "Company", url: "https://leanlaw.co", icon: HiExternalLink },
+            { label: "Company Website", url: "https://leanlaw.co", icon: HiExternalLink },
             { label: "Android App", url: "https://play.google.com/store/search?q=leanlaw&c=apps&hl=en", icon: HiExternalLink },
             { label: "iOS App", url: "https://apps.apple.com/us/app/leanlaw-legal-billing-tool/id1128609356", icon: HiExternalLink },
         ],
         highlights: [
             "Legal-specific billing & invoicing system",
             "Cross-platform mobile apps (React Native — iOS & Android)",
+            "Microservices architecture with Kubernetes orchestration",
             "Trust accounting with compliance",
-            "QuickBooks Online integration",
+            "QuickBooks Online integration via Graph API",
             "Time tracking & expense management",
+            "Azure & Digital Ocean hybrid cloud deployment",
+            "RabbitMQ message queuing for async workflows",
+            "CI/CD pipelines with GitHub Actions",
         ],
-        apps: [],
+        apps: [
+            { name: "LeanLaw Web App", platform: "Vue.js" },
+            { name: "LeanLaw Mobile App", platform: "React Native (iOS & Android)" },
+            { name: "LeanLaw REST API", platform: ".NET Core Web API + MSSQL" },
+            { name: "GraphQL API", platform: ".NET Core + GraphQL" },
+            { name: "QuickBooks Sync Service", platform: ".NET Core Microservice" },
+            { name: "Invoicing Service", platform: ".NET Core Microservice" },
+            { name: "Payment Service", platform: ".NET Core Microservice" },
+            { name: "Webhooks Service", platform: ".NET Core Microservice" },
+            { name: "Email Service", platform: ".NET Core Microservice" },
+            { name: "Background Services", platform: ".NET Core Workers" },
+        ],
         logo: "/img/clients/leanlaw.png",
         brandColor: "#1e3a5f",
         screenshots: [
@@ -217,15 +234,11 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; label
 export default function PortfolioPage() {
     return (
         <main className="min-h-screen bg-gray-50">
+            <Navbar />
+
             {/* Header */}
             <div className="bg-white border-b border-gray-100">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="mb-10">
-                        <Link href="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 text-sm font-medium transition-colors">
-                            <HiArrowLeft className="w-4 h-4" />
-                            Back to Home
-                        </Link>
-                    </motion.div>
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
 
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                         <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">Our Work</p>
