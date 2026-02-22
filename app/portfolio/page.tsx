@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { HiArrowLeft, HiExternalLink, HiGlobeAlt } from "react-icons/hi";
 import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud } from "react-icons/si";
 import { TbBrandCSharp } from "react-icons/tb";
@@ -26,6 +27,7 @@ const projects = [
             "Secure authentication server",
         ],
         color: "from-blue-600 to-sky-500",
+        logo: "/img/clients/searchmed.png",
         featured: true,
     },
     {
@@ -46,6 +48,7 @@ const projects = [
             "Time tracking & expense management",
         ],
         color: "from-indigo-600 to-blue-500",
+        logo: "/img/clients/leanlaw.png",
         featured: true,
     },
     {
@@ -83,15 +86,16 @@ const projects = [
             "Mobile-responsive design",
         ],
         color: "from-emerald-500 to-teal-500",
+        logo: "/img/clients/visionsign.png",
         featured: false,
     },
 ];
 
 const clients = [
-    { name: "SearchMed Inc.", location: "Fort Lauderdale, Florida", flag: "🇺🇸" },
+    { name: "SearchMed Inc.", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/searchmed.png" },
     { name: "AeroTechLabs", location: "Fort Lauderdale, Florida", flag: "🇺🇸" },
-    { name: "LeanLaw", location: "Boise, Idaho", flag: "🇺🇸" },
-    { name: "Vision Sign Advertising", location: "Lalitpur, Nepal", flag: "🇳🇵" },
+    { name: "LeanLaw", location: "Boise, Idaho", flag: "🇺🇸", logo: "/img/clients/leanlaw.png" },
+    { name: "Vision Sign Advertising", location: "Lalitpur, Nepal", flag: "🇳🇵", logo: "/img/clients/visionsign.png" },
 ];
 
 export default function PortfolioPage() {
@@ -148,14 +152,21 @@ export default function PortfolioPage() {
                                 {/* Project Header */}
                                 <div className={`bg-gradient-to-r ${project.color} p-8 text-white`}>
                                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                                        <div>
-                                            {project.featured && (
-                                                <span className="inline-block px-3 py-1 text-xs font-semibold bg-white/20 rounded-full mb-3 backdrop-blur-sm">
-                                                    Featured Project
-                                                </span>
+                                        <div className="flex items-center gap-4">
+                                            {project.logo && (
+                                                <div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm p-2 flex items-center justify-center flex-shrink-0">
+                                                    <Image src={project.logo} alt={project.title} width={48} height={48} className="object-contain" />
+                                                </div>
                                             )}
-                                            <h2 className="text-3xl font-bold">{project.title}</h2>
-                                            <p className="text-white/80 mt-1">{project.client} • {project.location}</p>
+                                            <div>
+                                                {project.featured && (
+                                                    <span className="inline-block px-3 py-1 text-xs font-semibold bg-white/20 rounded-full mb-2 backdrop-blur-sm">
+                                                        Featured Project
+                                                    </span>
+                                                )}
+                                                <h2 className="text-3xl font-bold">{project.title}</h2>
+                                                <p className="text-white/80 mt-1">{project.client} • {project.location}</p>
+                                            </div>
                                         </div>
                                         <div className="flex flex-wrap gap-2">
                                             {project.links.map((link, i) => (
@@ -263,9 +274,15 @@ export default function PortfolioPage() {
                                 whileHover={{ y: -5 }}
                                 className="p-6 rounded-2xl bg-white/80 backdrop-blur-xl border border-blue-100 hover:border-blue-200 shadow-lg hover:shadow-blue-500/20 transition-all duration-300 text-center"
                             >
-                                <div className="text-4xl mb-3">{client.flag}</div>
+                                {client.logo ? (
+                                    <div className="w-16 h-16 mx-auto mb-3 rounded-xl bg-gray-50 p-2 flex items-center justify-center">
+                                        <Image src={client.logo} alt={client.name} width={56} height={56} className="object-contain" />
+                                    </div>
+                                ) : (
+                                    <div className="text-4xl mb-3">{client.flag}</div>
+                                )}
                                 <h3 className="text-lg font-bold text-gray-900 mb-1">{client.name}</h3>
-                                <p className="text-sm text-gray-500">{client.location}</p>
+                                <p className="text-sm text-gray-500">{client.flag} {client.location}</p>
                             </motion.div>
                         ))}
                     </div>
