@@ -24,6 +24,7 @@ const projects = [
         ],
         highlights: [
             "AI-powered healthcare provider search & matching (DoctorFind.ai)",
+            "AI chat assistant in patient portal — diagnoses symptoms, recommends providers based on conditions, and offers basic first aid guidance",
             "HIPAA-compliant patient portal with end-to-end encrypted messaging",
             "Real-time appointment scheduling with calendar management",
             "Cross-platform patient app built with .NET MAUI (Android live; iOS releasing soon)",
