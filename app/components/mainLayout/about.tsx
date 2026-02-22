@@ -78,10 +78,9 @@ export const About = () => {
             </div>
 
             <p className="text-gray-600 leading-relaxed">
-              Ojas Technologies (Pvt) Ltd is a premier development and design company,
-              established in 2020 with a vision to deliver exceptional software solutions.
-              Our technology innovation center in Nepal serves as a hub for creating
-              cutting-edge web, mobile, and creative design solutions for businesses worldwide.
+              Ojas Technologies (Pvt) Ltd is a premier offshore IT outsourcing and custom software development company based in Kathmandu, Nepal.
+              Established in 2020, our technology innovation center serves as a dedicated remote hub, providing
+              top-tier .NET, React, and Full-Stack engineering talent for startups, agencies, and enterprises worldwide.
             </p>
 
             {/* Core Values with matching card styles */}
@@ -94,8 +93,8 @@ export const About = () => {
                 },
                 {
                   icon: FiUsers,
-                  title: "Client-Centric Approach",
-                  description: "Dedicated to understanding and exceeding client expectations"
+                  title: "IT Outstaffing & Dedicated Teams",
+                  description: "Integrate our expert Nepal-based developers as a seamless extension of your in-house team"
                 },
                 {
                   icon: FiAward,

@@ -14,23 +14,26 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ojastech.io"),
-  title: "Ojas Technologies | Software Development Company in Nepal",
-  description: "Ojas Technologies is a leading software development company based in Nepal, specializing in web development, mobile apps, cloud solutions, and IT services to help businesses achieve their goals efficiently.",
-  keywords: ["software development", "web development", "mobile apps", "Nepal", "IT services", "Ojas Technologies", "cloud solutions", "digital marketing"],
-  authors: [{ name: "Ojas Technologies Pvt. Ltd." }],
+  title: {
+    default: "Ojas Technologies | IT Outstaffing & Software Development in Kathmandu",
+    template: "%s | Ojas Technologies",
+  },
+  description: "Ojas Technologies is a top-tier offshore software development and IT outstaffing company in Kathmandu, Nepal. We provide dedicated teams, custom software, and scalable modern web apps using .NET Core, React, Next.js, and Azure Cloud Solutions.",
+  keywords: ["offshore software development Nepal", "IT outsourcing Kathmandu", "IT outstaffing Nepal", "dedicated development team", "hire developers Nepal", "custom software development", "software outsourcing company", ".NET Core development", "React development", "Next.js developers", "Azure cloud experts", "microservices architecture", "Ojas Technologies", "tech partner Nepal", "scalable software solutions"],
+  authors: [{ name: "Ojas Technologies" }],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://ojastech.io",
     siteName: "Ojas Technologies",
-    title: "Ojas Technologies | Software Development Company in Nepal",
-    description: "Leading software development company in Nepal — web, mobile, cloud, and digital solutions.",
-    images: [{ url: "/img/full logo.jpeg", width: 600, height: 600, alt: "Ojas Technologies" }],
+    title: "Ojas Technologies | IT Outstaffing & Offshore Software Development",
+    description: "Partner with Kathmandu's leading IT outstaffing and software agency. We build scalable custom software using .NET, React, Next.js, and Azure Cloud for global clients.",
+    images: [{ url: "/img/full logo.jpeg", width: 600, height: 600, alt: "Ojas Technologies - Offshore Software Development Nepal" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ojas Technologies | Software Development Company in Nepal",
-    description: "Leading software development company in Nepal — web, mobile, cloud, and digital solutions.",
+    title: "Ojas Technologies | Software Outsourcing Nepal",
+    description: "Top-tier offshore software development company in Kathmandu. Expert teams in .NET, React, Next.js, and Cloud Solutions.",
     images: ["/img/full logo.jpeg"],
   },
   robots: {

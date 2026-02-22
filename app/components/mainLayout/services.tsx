@@ -19,11 +19,11 @@ const services = [
         stats: { "Apps Delivered": "50+", "App Rating": "4.8/5" }
     },
     {
-        title: "Desktop Application Development",
-        description: "We develop powerful desktop applications optimized for Windows, macOS, and Linux, tailored to your business needs.",
-        image: "/img/desktop app.png",
+        title: "IT Outstaffing & Dedicated Teams",
+        description: "Scale your team seamlessly with our top-tier Nepal-based developers. We provide dedicated React, .NET, and Full-Stack engineers for your projects.",
+        image: "/img/web.png",
         delay: 0.3,
-        stats: { "Platforms": "3+", "Client Satisfaction": "98%" }
+        stats: { "Retention Rate": "95%", "Time Zone Coverage": "overlap" }
     },
     {
         title: "Graphics Design",
@@ -52,7 +52,7 @@ function Services() {
     return (
         <section id="services" className="relative py-24 overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
-            
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

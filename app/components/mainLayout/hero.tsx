@@ -21,7 +21,7 @@ const textVariants = {
 
 export const Hero = () => {
   return (
-    <div id="hero" className="relative min-h-screen md:min-h-[90vh] w-full overflow-hidden pt-20">
+    <section id="hero" className="relative min-h-screen md:min-h-[90vh] w-full overflow-hidden pt-20">
       {/* Enhanced gradient background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
 
@@ -47,7 +47,7 @@ export const Hero = () => {
                 custom={0.4}
                 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent tracking-wide"
               >
-                Full-Stack Development Excellence
+                IT Outstaffing & Software Development
               </motion.h2>
               <motion.div
                 variants={textVariants}
@@ -81,7 +81,7 @@ export const Hero = () => {
                 custom={0.8}
                 className="text-gray-600 text-lg md:text-xl max-w-xl leading-relaxed"
               >
-                Building next-generation web applications with cutting-edge technologies and scalable architecture for exceptional digital experiences.
+                Targeting enterprise-grade scalability? Partner with Kathmandu's premier IT outstaffing and software agency. We provide dedicated development teams and build custom SaaS platforms using .NET Core, React, Next.js, and Azure Cloud.
               </motion.p>
             </div>
 
@@ -295,6 +295,6 @@ export const Hero = () => {
           </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

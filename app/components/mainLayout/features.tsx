@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { HiClock, HiCode, HiSupport, HiUserGroup, HiLightBulb, HiAcademicCap } from "react-icons/hi";
 import { SiReact, SiTypescript, SiTailwindcss, SiDocker, SiKubernetes, SiDotnet, SiFlutter, SiFigma, SiAdobecreativecloud, SiJira, SiNodedotjs, SiGooglecloud } from "react-icons/si";
+import { TbBrandAzure } from "react-icons/tb";
 import { BsArrowUpRight } from "react-icons/bs";
 import { COMPANY_STATS } from "@/app/constants";
 
@@ -16,9 +17,9 @@ const features = [
     },
     {
         icon: HiLightBulb,
-        title: "Cloud Solutions",
-        description: "Cloud-native applications with robust architecture. We leverage AWS and Google Cloud for scalable, reliable deployments.",
-        technologies: [SiGooglecloud, SiDocker, SiKubernetes],
+        title: "Cloud Solutions & Microservices",
+        description: "Cloud-native applications with robust microservices architecture. We leverage Azure, AWS, and Google Cloud for scalable, reliable deployments.",
+        technologies: [TbBrandAzure, SiGooglecloud, SiDocker, SiKubernetes],
         stats: { "Uptime": "99.9%", "Performance": "Excellent" },
         delay: 0.2
     },
