@@ -73,7 +73,7 @@ const projects: Project[] = [
             { name: "SearchMed API", platform: ".NET Core Web API + MSSQL Database" },
         ],
         logo: "/img/clients/searchmed.png",
-        brandColor: "#2563eb",
+        brandColor: "#1a4f7a",
         screenshots: [
             { src: "/img/portfolio/searchmed-web.png", label: "SearchMed — Provider Search" },
         ],
