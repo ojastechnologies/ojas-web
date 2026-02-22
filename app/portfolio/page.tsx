@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { HiExternalLink, HiGlobeAlt, HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud, SiSupabase, SiSqlite } from "react-icons/si";
+import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud, SiSupabase, SiSqlite, SiHtml5, SiCss3, SiJavascript } from "react-icons/si";
 import { TbBrandCSharp, TbBrandAzure } from "react-icons/tb";
 import { IconType } from "react-icons";
 import { Navbar } from "../components/navbar";
@@ -159,7 +159,8 @@ const projects: Project[] = [
         location: "Lalitpur, Nepal",
         description: "Complete digital presence for a leading printing, advertising, and event management company in Nepal. Features service showcasing, portfolio gallery, and client engagement tools.",
         services: ["Web Development", "UI/UX Design", "SEO"],
-        technologies: [SiNextdotjs, SiReact, SiTypescript, SiTailwindcss],
+        technologies: [SiHtml5, SiCss3, SiJavascript],
+        techLabels: ["HTML5", "CSS3", "JavaScript"],
         links: [
             { label: "Website", url: "https://visionsignadvertising.com.np", icon: HiGlobeAlt },
         ],
