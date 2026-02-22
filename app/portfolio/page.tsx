@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { HiArrowLeft, HiExternalLink, HiGlobeAlt } from "react-icons/hi";
-import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud } from "react-icons/si";
+import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud, SiSupabase } from "react-icons/si";
 import { TbBrandCSharp } from "react-icons/tb";
 
 const projects = [
@@ -60,9 +60,9 @@ const projects = [
         title: "Custom Filleer",
         client: "AeroTechLabs",
         location: "Fort Lauderdale, Florida",
-        description: "Custom web platform developed for AeroTechLabs, providing specialized digital solutions tailored to their business operations and client engagement needs.",
-        services: ["Web Development", "UI/UX Design"],
-        technologies: [SiNextdotjs, SiReact, SiTypescript, SiTailwindcss],
+        description: "Custom web platform developed for AeroTechLabs, providing specialized digital solutions with a Supabase-powered backend for real-time data, authentication, and seamless client engagement.",
+        services: ["Web Development", "UI/UX Design", "Backend (Supabase)"],
+        technologies: [SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, SiSupabase],
         links: [
             { label: "Website", url: "https://customfiller.com", icon: HiGlobeAlt },
         ],
