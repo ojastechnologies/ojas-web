@@ -2,37 +2,15 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { HiLocationMarker, HiPhone, HiMail, HiArrowRight } from "react-icons/hi";
-import { FaFacebook, FaTwitter, FaYoutube, FaLinkedinIn } from "react-icons/fa";
-
-const services = [
-    "Web Development",
-    "Mobile Application",
-    "Desktop Application",
-    "Graphics Design",
-    "Digital Marketing",
-    "SEO Optimization"
-];
-
-const contactInfo = [
-    { icon: HiLocationMarker, text: "Tokha - 03, Kathmandu, Nepal", href: "https://goo.gl/maps/xyz" },
-    { icon: HiPhone, text: "+977 9841185541", href: "tel:+9779841185541" },
-    { icon: HiMail, text: "contact@ojastech.io", href: "mailto:contact@ojastech.io" }
-];
-
-const socialLinks = [
-    { Icon: FaFacebook, href: "https://facebook.com/ojastech", color: "#1877F2", label: "Facebook" },
-    { Icon: FaTwitter, href: "https://twitter.com/ojastechnepal", color: "#1DA1F2", label: "Twitter" },
-    { Icon: FaYoutube, href: "https://youtube.com/ojastech", color: "#FF0000", label: "YouTube" },
-    { Icon: FaLinkedinIn, href: "https://linkedin.com/company/ojastech", color: "#0A66C2", label: "LinkedIn" }
-];
+import { HiArrowRight } from "react-icons/hi";
+import { CONTACT_INFO, SOCIAL_LINKS, SERVICES_LIST } from "@/app/constants";
 
 export function Footer() {
     return (
         <footer className="relative pt-24 pb-6 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/50 to-blue-100/20" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
-            
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-8">
                     {/* Company Info */}
@@ -58,7 +36,7 @@ export function Footer() {
                                 <p className="text-sm text-gray-600">Digital Solutions Partner</p>
                             </div>
                         </Link>
-                        
+
                         <div className="p-6 rounded-3xl bg-white/80 backdrop-blur-xl border border-blue-100 shadow-lg">
                             <p className="text-gray-600 leading-relaxed">
                                 At Ojas Technologies, we are committed to becoming a leading organization that provides measurable business value through effective use of technology and resources. Our team of highly professional and trained individuals takes pride in delivering exceptional solutions.
@@ -78,15 +56,15 @@ export function Footer() {
                             Our Services
                         </h3>
                         <ul className="space-y-4">
-                            {services.map((service, index) => (
-                                <motion.li 
+                            {SERVICES_LIST.map((service, index) => (
+                                <motion.li
                                     key={index}
                                     whileHover={{ x: 5 }}
                                     className="group flex items-center gap-2"
                                 >
                                     <HiArrowRight className="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    <Link 
-                                        href={`#${service.toLowerCase().replace(" ", "-")}`}
+                                    <Link
+                                        href="#services"
                                         className="text-gray-600 hover:text-blue-600 transition-colors"
                                     >
                                         {service}
@@ -109,17 +87,17 @@ export function Footer() {
                                 Get In Touch
                             </h3>
                             <div className="space-y-4">
-                                {contactInfo.map((info, index) => (
+                                {CONTACT_INFO.map((info, index) => (
                                     <motion.a
                                         key={index}
-                                        href={info.href}
+                                        href={info.link || info.href}
                                         whileHover={{ x: 5 }}
                                         className="flex items-center gap-4 p-4 rounded-2xl bg-white/80 backdrop-blur-xl border border-blue-100 hover:border-blue-200 shadow-sm hover:shadow-md transition-all duration-300"
                                     >
                                         <div className="p-2 rounded-xl bg-gradient-to-br from-blue-600 to-sky-500 text-white">
                                             <info.icon className="w-5 h-5" />
                                         </div>
-                                        <span className="text-gray-600">{info.text}</span>
+                                        <span className="text-gray-600">{info.content}</span>
                                     </motion.a>
                                 ))}
                             </div>
@@ -130,7 +108,7 @@ export function Footer() {
                                 Follow Us
                             </h3>
                             <div className="flex gap-4">
-                                {socialLinks.map(({ Icon, href, color, label }, index) => (
+                                {SOCIAL_LINKS.map(({ Icon, href, color, name }, index) => (
                                     <motion.a
                                         key={index}
                                         href={href}
@@ -138,7 +116,7 @@ export function Footer() {
                                         rel="noopener noreferrer"
                                         whileHover={{ y: -5 }}
                                         className="p-4 rounded-2xl bg-white/80 backdrop-blur-xl border border-blue-100 hover:border-blue-200 shadow-sm hover:shadow-md transition-all duration-300"
-                                        aria-label={label}
+                                        aria-label={name}
                                     >
                                         <Icon className="w-5 h-5" style={{ color }} />
                                     </motion.a>

@@ -1,25 +1,24 @@
 "use client";
 import { motion } from "framer-motion";
-import { HiClock, HiCode, HiSupport, HiUserGroup, HiLightBulb, HiDeviceMobile } from "react-icons/hi";
-import { SiReact, SiTypescript, SiTailwindcss, SiDocker, SiKubernetes, SiDotnet, SiFlutter, SiFigma, SiAdobecreativecloud, SiJira, SiNodedotjs, SiGooglecloud, SiBlazor, SiVuedotjs, SiAmazonwebservices, SiShortcut, SiSlack, SiGooglemeet } from "react-icons/si";
-import { BsArrowUpRight, BsGithub } from "react-icons/bs";
-import { VscAzure } from "react-icons/vsc";
-import { BiCloud } from "react-icons/bi";
+import { HiClock, HiCode, HiSupport, HiUserGroup, HiLightBulb, HiAcademicCap } from "react-icons/hi";
+import { SiReact, SiTypescript, SiTailwindcss, SiDocker, SiKubernetes, SiDotnet, SiFlutter, SiFigma, SiAdobecreativecloud, SiJira, SiNodedotjs, SiGooglecloud } from "react-icons/si";
+import { BsArrowUpRight } from "react-icons/bs";
+import { COMPANY_STATS } from "@/app/constants";
 
 const features = [
     {
         icon: HiCode,
         title: "Full-Stack Development",
         description: "End-to-end development using modern tech stack. From responsive frontends to scalable backends, we deliver complete solutions.",
-        technologies: [SiDotnet, SiReact, SiVuedotjs, SiNodedotjs, SiBlazor, SiFlutter, SiFigma],
-        stats: { "Projects Delivered": "150+", "Code Quality": "99%" },
+        technologies: [SiReact, SiTypescript, SiDotnet, SiNodedotjs],
+        stats: { "Projects Delivered": COMPANY_STATS.projectsDelivered, "Code Quality": "99%" },
         delay: 0.1
     },
     {
-        icon: BiCloud,
+        icon: HiLightBulb,
         title: "Cloud Solutions",
         description: "Cloud-native applications with robust architecture. We leverage AWS and Google Cloud for scalable, reliable deployments.",
-        technologies: [VscAzure, SiAmazonwebservices, SiGooglecloud, SiDocker, SiKubernetes,],
+        technologies: [SiGooglecloud, SiDocker, SiKubernetes],
         stats: { "Uptime": "99.9%", "Performance": "Excellent" },
         delay: 0.2
     },
@@ -27,24 +26,24 @@ const features = [
         icon: HiUserGroup,
         title: "Client Collaboration",
         description: "Transparent development process with regular updates. We use modern project management tools to ensure clear communication.",
-        technologies: [SiJira, BsGithub, SiFigma, SiShortcut, SiAdobecreativecloud],
-        stats: { "Client Satisfaction": "98%", "Return Rate": "85%" },
+        technologies: [SiJira, SiFigma, SiAdobecreativecloud],
+        stats: { "Client Satisfaction": COMPANY_STATS.clientSatisfaction, "Return Rate": "85%" },
         delay: 0.3
     },
     {
         icon: HiSupport,
         title: "Technical Support",
         description: "24/7 technical assistance and maintenance. Our dedicated support team ensures your applications run smoothly.",
-        technologies: [SiSlack, SiGooglemeet, SiJira, SiShortcut, BsGithub],
+        technologies: [SiDocker, SiKubernetes, SiGooglecloud],
         stats: { "Response Time": "< 1hr", "Resolution Rate": "95%" },
         delay: 0.4
     },
     {
-        icon: HiDeviceMobile,
-        title: "Cross-Platform Solutions",
-        description: "Building high-performance mobile and desktop applications using Flutter, React Native, and .NET MAUI for seamless cross-platform experiences.",
-        technologies: [SiFlutter, SiReact, SiDotnet, SiTypescript],
-        stats: { "App Rating": "4.8/5", "Platform Coverage": "100%" },
+        icon: HiAcademicCap,
+        title: "Mobile Development",
+        description: "Cross-platform mobile applications with Flutter. Native-like performance with single codebase efficiency.",
+        technologies: [SiFlutter, SiReact, SiTypescript],
+        stats: { "App Rating": "4.8/5", "Platforms": "iOS & Android" },
         delay: 0.5
     },
     {
@@ -61,7 +60,7 @@ export const Features = () => {
     return (
         <section id="features" className="relative py-24 overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
-            
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -149,10 +148,10 @@ export const Features = () => {
                 >
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         {[
-                            { label: "Projects Completed", value: "500+" },
-                            { label: "Client Satisfaction", value: "98%" },
-                            { label: "Team Experts", value: "50+" },
-                            { label: "Global Presence", value: "10+ Countries" }
+                            { label: "Projects Completed", value: COMPANY_STATS.projectsDelivered },
+                            { label: "Client Satisfaction", value: COMPANY_STATS.clientSatisfaction },
+                            { label: "Team Experts", value: COMPANY_STATS.teamSize },
+                            { label: "Global Presence", value: `${COMPANY_STATS.countries} Countries` }
                         ].map((stat, index) => (
                             <div key={index} className="space-y-2">
                                 <div className="text-3xl font-bold">{stat.value}</div>
