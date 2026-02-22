@@ -8,6 +8,7 @@ import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTa
 import { TbBrandCSharp, TbBrandAzure } from "react-icons/tb";
 import { IconType } from "react-icons";
 import { Navbar } from "../components/navbar";
+import { Footer } from "../components/mainLayout/footer";
 
 /* ─── Types ──────────────────────────────────────── */
 interface ProjectLink {
@@ -242,219 +243,222 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; label
 /* ─── Page ───────────────────────────────────────── */
 export default function PortfolioPage() {
     return (
-        <main className="min-h-screen bg-gray-50">
-            <Navbar />
+        <>
+            <main className="min-h-screen bg-gray-50">
+                <Navbar />
 
-            {/* Header */}
-            <div className="bg-white border-b border-gray-100">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
+                {/* Header */}
+                <div className="bg-white border-b border-gray-100">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
 
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                        <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">Our Work</p>
-                        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">
-                            Projects & Case Studies
-                        </h1>
-                        <p className="text-lg text-gray-500 max-w-xl">
-                            From healthcare platforms to legal tech — we build software that powers businesses across the globe.
-                        </p>
-                    </motion.div>
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                            <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">Our Work</p>
+                            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">
+                                Projects & Case Studies
+                            </h1>
+                            <p className="text-lg text-gray-500 max-w-xl">
+                                From healthcare platforms to legal tech — we build software that powers businesses across the globe.
+                            </p>
+                        </motion.div>
+                    </div>
                 </div>
-            </div>
 
-            {/* Projects */}
-            <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="space-y-20">
-                    {projects.map((project, index) => (
-                        <motion.article
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
-                            transition={{ duration: 0.5, ease: "easeOut" }}
-                            className="group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
-                            style={{ boxShadow: `0 4px 24px -4px ${project.brandColor}15` }}
-                        >
-                            {/* Project Header */}
-                            <div className="px-6 sm:px-8 py-5 flex items-center justify-between" style={{ backgroundColor: project.brandColor }}>
-                                <div className="flex items-center gap-4">
-                                    {project.logo && (
-                                        <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm p-1.5 flex items-center justify-center">
-                                            <Image src={project.logo} alt={project.title} width={32} height={32} className="object-contain" />
-                                        </div>
-                                    )}
-                                    <div>
-                                        <h2 className="text-xl font-bold text-white">{project.title}</h2>
-                                        <p className="text-white/60 text-xs">{project.client} · {project.location}</p>
-                                    </div>
-                                </div>
-                                {project.featured && (
-                                    <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white rounded-full backdrop-blur-sm">
-                                        Featured
-                                    </span>
-                                )}
-                            </div>
-
-                            {/* Top: Screenshot + Info */}
-                            <div className="grid lg:grid-cols-2 bg-white">
-                                {/* Screenshot carousel */}
-                                <div className="p-6 sm:p-8 bg-gray-50/80 border-b lg:border-b-0 lg:border-r border-gray-100">
-                                    <ScreenshotCarousel screenshots={project.screenshots} />
-                                </div>
-
-                                {/* Project info */}
-                                <div className="p-6 sm:p-8 flex flex-col">
-                                    <p className="text-gray-600 leading-relaxed text-sm mb-5 flex-1">
-                                        {project.description}
-                                    </p>
-
-                                    {/* Apps */}
-                                    {project.apps.length > 0 && (
-                                        <div className="mb-5">
-                                            <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Apps Built</h3>
-                                            <div className="space-y-1.5">
-                                                {project.apps.map((app, i) => (
-                                                    <div key={i} className="flex items-center gap-2 text-xs">
-                                                        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.brandColor }} />
-                                                        <span className="font-medium text-gray-700">{app.name}</span>
-                                                        <span className="text-gray-400">— {app.platform}</span>
-                                                    </div>
-                                                ))}
+                {/* Projects */}
+                <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <div className="space-y-20">
+                        {projects.map((project, index) => (
+                            <motion.article
+                                key={index}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-80px" }}
+                                transition={{ duration: 0.5, ease: "easeOut" }}
+                                className="group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                                style={{ boxShadow: `0 4px 24px -4px ${project.brandColor}15` }}
+                            >
+                                {/* Project Header */}
+                                <div className="px-6 sm:px-8 py-5 flex items-center justify-between" style={{ backgroundColor: project.brandColor }}>
+                                    <div className="flex items-center gap-4">
+                                        {project.logo && (
+                                            <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm p-1.5 flex items-center justify-center">
+                                                <Image src={project.logo} alt={project.title} width={32} height={32} className="object-contain" />
                                             </div>
+                                        )}
+                                        <div>
+                                            <h2 className="text-xl font-bold text-white">{project.title}</h2>
+                                            <p className="text-white/60 text-xs">{project.client} · {project.location}</p>
                                         </div>
-                                    )}
-
-                                    {/* Links */}
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.links.map((link, i) => (
-                                            <a
-                                                key={i}
-                                                href={link.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
-                                                style={{ color: project.brandColor, backgroundColor: `${project.brandColor}08`, border: `1px solid ${project.brandColor}20` }}
-                                                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = `${project.brandColor}15`; }}
-                                                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = `${project.brandColor}08`; }}
-                                            >
-                                                <link.icon className="w-3.5 h-3.5" />
-                                                {link.label}
-                                            </a>
-                                        ))}
                                     </div>
+                                    {project.featured && (
+                                        <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white rounded-full backdrop-blur-sm">
+                                            Featured
+                                        </span>
+                                    )}
                                 </div>
-                            </div>
 
-                            {/* Highlights */}
-                            <div className="px-6 sm:px-8 py-6 border-t border-gray-100 bg-white">
-                                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Highlights</h3>
-                                <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
-                                    {project.highlights.map((h, i) => (
-                                        <div key={i} className="flex items-start gap-2.5 py-1">
-                                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.brandColor }} />
-                                            <span className="text-sm text-gray-600">{h}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                                {/* Top: Screenshot + Info */}
+                                <div className="grid lg:grid-cols-2 bg-white">
+                                    {/* Screenshot carousel */}
+                                    <div className="p-6 sm:p-8 bg-gray-50/80 border-b lg:border-b-0 lg:border-r border-gray-100">
+                                        <ScreenshotCarousel screenshots={project.screenshots} />
+                                    </div>
 
-                            {/* Bottom bar: Services + Tech */}
-                            <div className="px-6 sm:px-8 py-5 bg-gray-50 border-t border-gray-100">
-                                <div className="grid lg:grid-cols-2 gap-6">
-                                    <div>
-                                        <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Services</h3>
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {project.services.map((s, i) => (
-                                                <span key={i} className="px-2.5 py-1 text-[11px] font-medium text-gray-500 bg-white border border-gray-200 rounded-md">
-                                                    {s}
-                                                </span>
+                                    {/* Project info */}
+                                    <div className="p-6 sm:p-8 flex flex-col">
+                                        <p className="text-gray-600 leading-relaxed text-sm mb-5 flex-1">
+                                            {project.description}
+                                        </p>
+
+                                        {/* Apps */}
+                                        {project.apps.length > 0 && (
+                                            <div className="mb-5">
+                                                <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Apps Built</h3>
+                                                <div className="space-y-1.5">
+                                                    {project.apps.map((app, i) => (
+                                                        <div key={i} className="flex items-center gap-2 text-xs">
+                                                            <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.brandColor }} />
+                                                            <span className="font-medium text-gray-700">{app.name}</span>
+                                                            <span className="text-gray-400">— {app.platform}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Links */}
+                                        <div className="flex flex-wrap gap-2">
+                                            {project.links.map((link, i) => (
+                                                <a
+                                                    key={i}
+                                                    href={link.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
+                                                    style={{ color: project.brandColor, backgroundColor: `${project.brandColor}08`, border: `1px solid ${project.brandColor}20` }}
+                                                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = `${project.brandColor}15`; }}
+                                                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = `${project.brandColor}08`; }}
+                                                >
+                                                    <link.icon className="w-3.5 h-3.5" />
+                                                    {link.label}
+                                                </a>
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="lg:border-l lg:border-gray-200 lg:pl-6">
-                                        <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Tech Stack</h3>
-                                        {project.techLabels ? (
+                                </div>
+
+                                {/* Highlights */}
+                                <div className="px-6 sm:px-8 py-6 border-t border-gray-100 bg-white">
+                                    <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Highlights</h3>
+                                    <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
+                                        {project.highlights.map((h, i) => (
+                                            <div key={i} className="flex items-start gap-2.5 py-1">
+                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.brandColor }} />
+                                                <span className="text-sm text-gray-600">{h}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Bottom bar: Services + Tech */}
+                                <div className="px-6 sm:px-8 py-5 bg-gray-50 border-t border-gray-100">
+                                    <div className="grid lg:grid-cols-2 gap-6">
+                                        <div>
+                                            <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Services</h3>
                                             <div className="flex flex-wrap gap-1.5">
-                                                {project.techLabels.map((t, i) => (
+                                                {project.services.map((s, i) => (
                                                     <span key={i} className="px-2.5 py-1 text-[11px] font-medium text-gray-500 bg-white border border-gray-200 rounded-md">
-                                                        {t}
+                                                        {s}
                                                     </span>
                                                 ))}
                                             </div>
-                                        ) : (
-                                            <div className="flex flex-wrap gap-2.5">
-                                                {project.technologies.map((Tech, i) => (
-                                                    <Tech key={i} className="w-5 h-5 text-gray-400" />
-                                                ))}
-                                            </div>
-                                        )}
+                                        </div>
+                                        <div className="lg:border-l lg:border-gray-200 lg:pl-6">
+                                            <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Tech Stack</h3>
+                                            {project.techLabels ? (
+                                                <div className="flex flex-wrap gap-1.5">
+                                                    {project.techLabels.map((t, i) => (
+                                                        <span key={i} className="px-2.5 py-1 text-[11px] font-medium text-gray-500 bg-white border border-gray-200 rounded-md">
+                                                            {t}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <div className="flex flex-wrap gap-2.5">
+                                                    {project.technologies.map((Tech, i) => (
+                                                        <Tech key={i} className="w-5 h-5 text-gray-400" />
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </motion.article>
-                    ))}
-                </div>
-            </section>
-
-            {/* Clients Section */}
-            <section className="bg-white border-t border-gray-100 py-16">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-10"
-                    >
-                        <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Partnerships</p>
-                        <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Our Clients</h2>
-                    </motion.div>
-
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {clients.map((client, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.08 }}
-                                className="p-5 rounded-xl bg-gray-50 border border-gray-200 hover:border-gray-300 transition-colors text-center"
-                            >
-                                {client.logo ? (
-                                    <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-white border border-gray-100 p-2 flex items-center justify-center">
-                                        <Image src={client.logo} alt={client.name} width={44} height={44} className="object-contain" />
-                                    </div>
-                                ) : (
-                                    <div className="text-3xl mb-3">{client.flag}</div>
-                                )}
-                                <h3 className="text-sm font-semibold text-gray-900 mb-0.5">{client.name}</h3>
-                                <p className="text-xs text-gray-400">{client.flag} {client.location}</p>
-                            </motion.div>
+                            </motion.article>
                         ))}
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* CTA */}
-            <section className="py-16 bg-gray-50">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <h2 className="text-2xl font-bold text-gray-900 mb-3">Ready to Build Something Great?</h2>
-                        <p className="text-gray-500 mb-8">
-                            Let&apos;s discuss how we can help bring your project to life.
-                        </p>
-                        <Link
-                            href="/#contact"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition-colors shadow-sm"
+                {/* Clients Section */}
+                <section className="bg-white border-t border-gray-100 py-16">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="mb-10"
                         >
-                            Start a Conversation
-                            <HiExternalLink className="w-4 h-4" />
-                        </Link>
-                    </motion.div>
-                </div>
-            </section>
-        </main>
+                            <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Partnerships</p>
+                            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Our Clients</h2>
+                        </motion.div>
+
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {clients.map((client, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.08 }}
+                                    className="p-5 rounded-xl bg-gray-50 border border-gray-200 hover:border-gray-300 transition-colors text-center"
+                                >
+                                    {client.logo ? (
+                                        <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-white border border-gray-100 p-2 flex items-center justify-center">
+                                            <Image src={client.logo} alt={client.name} width={44} height={44} className="object-contain" />
+                                        </div>
+                                    ) : (
+                                        <div className="text-3xl mb-3">{client.flag}</div>
+                                    )}
+                                    <h3 className="text-sm font-semibold text-gray-900 mb-0.5">{client.name}</h3>
+                                    <p className="text-xs text-gray-400">{client.flag} {client.location}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* CTA */}
+                <section className="py-16 bg-gray-50">
+                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <h2 className="text-2xl font-bold text-gray-900 mb-3">Ready to Build Something Great?</h2>
+                            <p className="text-gray-500 mb-8">
+                                Let&apos;s discuss how we can help bring your project to life.
+                            </p>
+                            <Link
+                                href="/#contact"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition-colors shadow-sm"
+                            >
+                                Start a Conversation
+                                <HiExternalLink className="w-4 h-4" />
+                            </Link>
+                        </motion.div>
+                    </div>
+                </section>
+            </main>
+            <Footer />
+        </>
     );
 }
