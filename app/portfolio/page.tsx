@@ -2,19 +2,46 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { HiArrowLeft, HiExternalLink, HiGlobeAlt } from "react-icons/hi";
+import { useState } from "react";
+import { HiArrowLeft, HiExternalLink, HiGlobeAlt, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud, SiSupabase, SiSqlite } from "react-icons/si";
 import { TbBrandCSharp, TbBrandAzure } from "react-icons/tb";
+import { IconType } from "react-icons";
 
-const projects = [
+/* ─── Types ──────────────────────────────────────── */
+interface ProjectLink {
+    label: string;
+    url: string;
+    icon: IconType;
+}
+
+interface Project {
+    brandColor: string;
+    title: string;
+    client: string;
+    location: string;
+    description: string;
+    services: string[];
+    technologies: IconType[];
+    techLabels?: string[];
+    links: ProjectLink[];
+    highlights: string[];
+    apps: { name: string; platform: string }[];
+    logo: string;
+    screenshots: { src: string; label: string }[];
+    featured: boolean;
+}
+
+/* ─── Data ───────────────────────────────────────── */
+const projects: Project[] = [
     {
         title: "SearchMed",
         client: "SearchMed Inc.",
         location: "Fort Lauderdale, Florida",
         description: "A comprehensive, HIPAA-compliant healthcare platform connecting patients with every registered healthcare provider in the United States. Features an AI-powered health assistant (DoctorFind.ai) for personalized provider matching, real-time appointment scheduling, medication tracking, blood pressure & weight monitoring, and secure private health reports. The provider side includes profile management, scheduling tools, patient management dashboards, and an integrated advertising system.",
-        services: ["Full-Stack Development", "Mobile App Development", "Desktop App Development", "Cloud Architecture", "AI Integration", "Security & Compliance"],
+        services: ["Full-Stack Development", "Mobile App Development", "Desktop App Development", "Cloud Architecture", "Cloud Infrastructure Management", "AI Integration", "Security & Compliance"],
         technologies: [SiDotnet, TbBrandCSharp, SiBlazor, TbBrandAzure, SiSqlite, SiTypescript, SiFlutter],
-        techLabels: [".NET Core / C#", "Blazor", "Azure Cloud Services", ".NET MAUI", "OpenIdDict Auth", "MSSQL & SQLite", "SignalR", "E2E Encryption"],
+        techLabels: [".NET Core / C#", "Blazor", ".NET MVC", "Azure Cloud Services", ".NET MAUI", "OpenIdDict Auth", "MSSQL & SQLite", "SignalR", "E2E Encryption"],
         links: [
             { label: "Website", url: "https://searchmed.com", icon: HiGlobeAlt },
             { label: "Provider Portal", url: "https://provider.searchmed.com", icon: HiExternalLink },
@@ -34,8 +61,20 @@ const projects = [
             "Custom OpenIdDict-based authentication server (auth.searchmed.net)",
             "MSSQL primary database with SQLite for offline-capable mobile storage",
         ],
-        color: "from-blue-600 to-sky-500",
+        apps: [
+            { name: "SearchMed Web App", platform: "Web" },
+            { name: "Provider Portal", platform: "Web (Blazor)" },
+            { name: "Patient Portal App", platform: "Android (.NET MAUI)" },
+            { name: "Patient Portal App", platform: "iOS (.NET MAUI) — Releasing Soon" },
+            { name: "Provider Scheduler", platform: "Windows Desktop (.NET MAUI)" },
+            { name: "Auth Server", platform: "auth.searchmed.net (.NET MVC + OpenIdDict)" },
+            { name: "SearchMed API", platform: ".NET Core Web API + MSSQL Database" },
+        ],
         logo: "/img/clients/searchmed.png",
+        brandColor: "#2563eb",
+        screenshots: [
+            { src: "/img/portfolio/searchmed-web.png", label: "SearchMed — Provider Search" },
+        ],
         featured: true,
     },
     {
@@ -58,12 +97,16 @@ const projects = [
             "QuickBooks Online integration",
             "Time tracking & expense management",
         ],
-        color: "from-indigo-600 to-blue-500",
+        apps: [],
         logo: "/img/clients/leanlaw.png",
+        brandColor: "#1e3a5f",
+        screenshots: [
+            { src: "/img/portfolio/leanlaw-web.png", label: "LeanLaw — Legal Billing" },
+        ],
         featured: true,
     },
     {
-        title: "Custom Filleer",
+        title: "Custom Filler",
         client: "AeroTechLabs",
         location: "Fort Lauderdale, Florida",
         description: "Custom web platform developed for AeroTechLabs, providing specialized digital solutions with a Supabase-powered backend for real-time data, authentication, and seamless client engagement.",
@@ -77,8 +120,12 @@ const projects = [
             "Modern, responsive design",
             "Optimized for performance",
         ],
-        color: "from-sky-500 to-cyan-500",
+        apps: [],
         logo: "/img/clients/aerotechlabs.png",
+        brandColor: "#0f172a",
+        screenshots: [
+            { src: "/img/portfolio/customfiller-web.png", label: "Custom Filler — Homepage" },
+        ],
         featured: false,
     },
     {
@@ -97,8 +144,12 @@ const projects = [
             "SEO optimized",
             "Mobile-responsive design",
         ],
-        color: "from-emerald-500 to-teal-500",
+        apps: [],
         logo: "/img/clients/visionsign.png",
+        brandColor: "#dc2626",
+        screenshots: [
+            { src: "/img/portfolio/visionsign-web.png", label: "Vision Sign — Homepage" },
+        ],
         featured: false,
     },
 ];
@@ -110,39 +161,78 @@ const clients = [
     { name: "Vision Sign Advertising", location: "Lalitpur, Nepal", flag: "🇳🇵", logo: "/img/clients/visionsign.png" },
 ];
 
+/* ─── Screenshot Carousel ────────────────────────── */
+function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; label: string }[] }) {
+    const [current, setCurrent] = useState(0);
+
+    if (screenshots.length === 0) return null;
+
+    return (
+        <div className="relative group/carousel">
+            <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-gray-100 shadow-inner">
+                <Image
+                    src={screenshots[current].src}
+                    alt={screenshots[current].label}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                />
+            </div>
+
+            {/* Label */}
+            <p className="mt-3 text-xs text-gray-400 text-center">{screenshots[current].label}</p>
+
+            {/* Navigation */}
+            {screenshots.length > 1 && (
+                <>
+                    <button
+                        onClick={() => setCurrent((c) => (c - 1 + screenshots.length) % screenshots.length)}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md opacity-0 group-hover/carousel:opacity-100 transition-opacity"
+                    >
+                        <HiChevronLeft className="w-5 h-5 text-gray-700" />
+                    </button>
+                    <button
+                        onClick={() => setCurrent((c) => (c + 1) % screenshots.length)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md opacity-0 group-hover/carousel:opacity-100 transition-opacity"
+                    >
+                        <HiChevronRight className="w-5 h-5 text-gray-700" />
+                    </button>
+                    {/* Dots */}
+                    <div className="flex justify-center gap-1.5 mt-2">
+                        {screenshots.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => setCurrent(i)}
+                                className={`w-1.5 h-1.5 rounded-full transition-all ${i === current ? "bg-gray-800 w-4" : "bg-gray-300"}`}
+                            />
+                        ))}
+                    </div>
+                </>
+            )}
+        </div>
+    );
+}
+
+/* ─── Page ───────────────────────────────────────── */
 export default function PortfolioPage() {
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-gray-50">
             {/* Header */}
-            <div className="relative pt-24 pb-16 overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="mb-8"
-                    >
-                        <Link
-                            href="/"
-                            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
-                        >
-                            <HiArrowLeft className="w-5 h-5" />
+            <div className="bg-white border-b border-gray-100">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="mb-10">
+                        <Link href="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 text-sm font-medium transition-colors">
+                            <HiArrowLeft className="w-4 h-4" />
                             Back to Home
                         </Link>
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-center"
-                    >
-                        <h1 className="text-5xl font-bold tracking-tight mb-4">
-                            <span className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
-                                Our Portfolio
-                            </span>
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                        <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">Our Work</p>
+                        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">
+                            Projects & Case Studies
                         </h1>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        <p className="text-lg text-gray-500 max-w-xl">
                             From healthcare platforms to legal tech — we build software that powers businesses across the globe.
                         </p>
                     </motion.div>
@@ -150,164 +240,171 @@ export default function PortfolioPage() {
             </div>
 
             {/* Projects */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-                <div className="space-y-16">
+            <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div className="space-y-20">
                     {projects.map((project, index) => (
-                        <motion.div
+                        <motion.article
                             key={index}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                            className="group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                            style={{ boxShadow: `0 4px 24px -4px ${project.brandColor}15` }}
                         >
-                            <div className={`rounded-3xl overflow-hidden border border-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-300 ${project.featured ? "ring-2 ring-blue-200" : ""}`}>
-                                {/* Project Header */}
-                                <div className={`bg-gradient-to-r ${project.color} p-8 text-white`}>
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                                        <div className="flex items-center gap-4">
-                                            {project.logo && (
-                                                <div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm p-2 flex items-center justify-center flex-shrink-0">
-                                                    <Image src={project.logo} alt={project.title} width={48} height={48} className="object-contain" />
-                                                </div>
-                                            )}
-                                            <div>
-                                                {project.featured && (
-                                                    <span className="inline-block px-3 py-1 text-xs font-semibold bg-white/20 rounded-full mb-2 backdrop-blur-sm">
-                                                        Featured Project
-                                                    </span>
-                                                )}
-                                                <h2 className="text-3xl font-bold">{project.title}</h2>
-                                                <p className="text-white/80 mt-1">{project.client} • {project.location}</p>
-                                            </div>
+                            {/* Project Header */}
+                            <div className="px-6 sm:px-8 py-5 flex items-center justify-between" style={{ backgroundColor: project.brandColor }}>
+                                <div className="flex items-center gap-4">
+                                    {project.logo && (
+                                        <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm p-1.5 flex items-center justify-center">
+                                            <Image src={project.logo} alt={project.title} width={32} height={32} className="object-contain" />
                                         </div>
-                                        <div className="flex flex-wrap gap-2">
-                                            {project.links.map((link, i) => (
-                                                <a
-                                                    key={i}
-                                                    href={link.url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-xl text-sm font-medium transition-colors backdrop-blur-sm"
-                                                >
-                                                    <link.icon className="w-4 h-4" />
-                                                    {link.label}
-                                                </a>
-                                            ))}
-                                        </div>
+                                    )}
+                                    <div>
+                                        <h2 className="text-xl font-bold text-white">{project.title}</h2>
+                                        <p className="text-white/60 text-xs">{project.client} · {project.location}</p>
                                     </div>
                                 </div>
+                                {project.featured && (
+                                    <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white rounded-full backdrop-blur-sm">
+                                        Featured
+                                    </span>
+                                )}
+                            </div>
 
-                                {/* Project Body */}
-                                <div className="p-8 bg-white/80 backdrop-blur-xl">
-                                    <div className="grid lg:grid-cols-3 gap-8">
-                                        {/* Description */}
-                                        <div className="lg:col-span-2 space-y-6">
-                                            <p className="text-gray-600 leading-relaxed text-lg">
-                                                {project.description}
-                                            </p>
+                            {/* Top: Screenshot + Info */}
+                            <div className="grid lg:grid-cols-2 bg-white">
+                                {/* Screenshot carousel */}
+                                <div className="p-6 sm:p-8 bg-gray-50/80 border-b lg:border-b-0 lg:border-r border-gray-100">
+                                    <ScreenshotCarousel screenshots={project.screenshots} />
+                                </div>
 
-                                            <div>
-                                                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Key Highlights</h3>
-                                                <ul className="space-y-2">
-                                                    {project.highlights.map((highlight, i) => (
-                                                        <li key={i} className="flex items-start gap-3 text-gray-700">
-                                                            <span className="mt-1.5 w-2 h-2 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 flex-shrink-0" />
-                                                            {highlight}
-                                                        </li>
-                                                    ))}
-                                                </ul>
+                                {/* Project info */}
+                                <div className="p-6 sm:p-8 flex flex-col">
+                                    <p className="text-gray-600 leading-relaxed text-sm mb-5 flex-1">
+                                        {project.description}
+                                    </p>
+
+                                    {/* Apps */}
+                                    {project.apps.length > 0 && (
+                                        <div className="mb-5">
+                                            <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Apps Built</h3>
+                                            <div className="space-y-1.5">
+                                                {project.apps.map((app, i) => (
+                                                    <div key={i} className="flex items-center gap-2 text-xs">
+                                                        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.brandColor }} />
+                                                        <span className="font-medium text-gray-700">{app.name}</span>
+                                                        <span className="text-gray-400">— {app.platform}</span>
+                                                    </div>
+                                                ))}
                                             </div>
                                         </div>
+                                    )}
 
-                                        {/* Sidebar */}
-                                        <div className="space-y-6">
-                                            <div>
-                                                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Services Provided</h3>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {project.services.map((service, i) => (
-                                                        <span
-                                                            key={i}
-                                                            className="px-3 py-1.5 text-sm bg-blue-50 text-blue-700 rounded-lg font-medium"
-                                                        >
-                                                            {service}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Technologies</h3>
-                                                {project.techLabels ? (
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {project.techLabels.map((label: string, i: number) => (
-                                                            <span
-                                                                key={i}
-                                                                className="px-3 py-1.5 text-xs bg-gray-100 text-gray-700 rounded-lg font-medium"
-                                                            >
-                                                                {label}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                ) : (
-                                                    <div className="flex flex-wrap gap-3">
-                                                        {project.technologies.map((Tech, i) => (
-                                                            <Tech
-                                                                key={i}
-                                                                className="w-7 h-7 text-blue-600 opacity-75 hover:opacity-100 transition-opacity"
-                                                            />
-                                                        ))}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
+                                    {/* Links */}
+                                    <div className="flex flex-wrap gap-2">
+                                        {project.links.map((link, i) => (
+                                            <a
+                                                key={i}
+                                                href={link.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
+                                                style={{ color: project.brandColor, backgroundColor: `${project.brandColor}08`, border: `1px solid ${project.brandColor}20` }}
+                                                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = `${project.brandColor}15`; }}
+                                                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = `${project.brandColor}08`; }}
+                                            >
+                                                <link.icon className="w-3.5 h-3.5" />
+                                                {link.label}
+                                            </a>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
+
+                            {/* Highlights */}
+                            <div className="px-6 sm:px-8 py-6 border-t border-gray-100 bg-white">
+                                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Highlights</h3>
+                                <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
+                                    {project.highlights.map((h, i) => (
+                                        <div key={i} className="flex items-start gap-2.5 py-1">
+                                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.brandColor }} />
+                                            <span className="text-sm text-gray-600">{h}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Bottom bar: Services + Tech */}
+                            <div className="px-6 sm:px-8 py-5 bg-gray-50 border-t border-gray-100">
+                                <div className="grid lg:grid-cols-2 gap-6">
+                                    <div>
+                                        <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Services</h3>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {project.services.map((s, i) => (
+                                                <span key={i} className="px-2.5 py-1 text-[11px] font-medium text-gray-500 bg-white border border-gray-200 rounded-md">
+                                                    {s}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="lg:border-l lg:border-gray-200 lg:pl-6">
+                                        <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Tech Stack</h3>
+                                        {project.techLabels ? (
+                                            <div className="flex flex-wrap gap-1.5">
+                                                {project.techLabels.map((t, i) => (
+                                                    <span key={i} className="px-2.5 py-1 text-[11px] font-medium text-gray-500 bg-white border border-gray-200 rounded-md">
+                                                        {t}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div className="flex flex-wrap gap-2.5">
+                                                {project.technologies.map((Tech, i) => (
+                                                    <Tech key={i} className="w-5 h-5 text-gray-400" />
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.article>
                     ))}
                 </div>
             </section>
 
             {/* Clients Section */}
-            <section className="py-20 relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/50 to-white pointer-events-none" />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <section className="bg-white border-t border-gray-100 py-16">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-12"
+                        className="mb-10"
                     >
-                        <h2 className="text-3xl font-bold tracking-tight mb-4">
-                            <span className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
-                                Our Clients
-                            </span>
-                        </h2>
-                        <p className="text-gray-600">
-                            Trusted by businesses across the globe
-                        </p>
+                        <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Partnerships</p>
+                        <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Our Clients</h2>
                     </motion.div>
 
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         {clients.map((client, index) => (
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                whileHover={{ y: -5 }}
-                                className="p-6 rounded-2xl bg-white/80 backdrop-blur-xl border border-blue-100 hover:border-blue-200 shadow-lg hover:shadow-blue-500/20 transition-all duration-300 text-center"
+                                transition={{ delay: index * 0.08 }}
+                                className="p-5 rounded-xl bg-gray-50 border border-gray-200 hover:border-gray-300 transition-colors text-center"
                             >
                                 {client.logo ? (
-                                    <div className="w-16 h-16 mx-auto mb-3 rounded-xl bg-gray-50 p-2 flex items-center justify-center">
-                                        <Image src={client.logo} alt={client.name} width={56} height={56} className="object-contain" />
+                                    <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-white border border-gray-100 p-2 flex items-center justify-center">
+                                        <Image src={client.logo} alt={client.name} width={44} height={44} className="object-contain" />
                                     </div>
                                 ) : (
-                                    <div className="text-4xl mb-3">{client.flag}</div>
+                                    <div className="text-3xl mb-3">{client.flag}</div>
                                 )}
-                                <h3 className="text-lg font-bold text-gray-900 mb-1">{client.name}</h3>
-                                <p className="text-sm text-gray-500">{client.flag} {client.location}</p>
+                                <h3 className="text-sm font-semibold text-gray-900 mb-0.5">{client.name}</h3>
+                                <p className="text-xs text-gray-400">{client.flag} {client.location}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -315,24 +412,23 @@ export default function PortfolioPage() {
             </section>
 
             {/* CTA */}
-            <section className="py-20">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <section className="py-16 bg-gray-50">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="p-12 rounded-3xl bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-xl"
                     >
-                        <h2 className="text-3xl font-bold mb-4">Ready to Build Something Great?</h2>
-                        <p className="text-blue-100 mb-8 text-lg">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-3">Ready to Build Something Great?</h2>
+                        <p className="text-gray-500 mb-8">
                             Let&apos;s discuss how we can help bring your project to life.
                         </p>
                         <Link
                             href="/#contact"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition-colors shadow-sm"
                         >
                             Start a Conversation
-                            <HiExternalLink className="w-5 h-5" />
+                            <HiExternalLink className="w-4 h-4" />
                         </Link>
                     </motion.div>
                 </div>
