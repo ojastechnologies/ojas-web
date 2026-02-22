@@ -67,6 +67,7 @@ const projects = [
             "Optimized for performance",
         ],
         color: "from-sky-500 to-cyan-500",
+        logo: "/img/clients/aerotechlabs.png",
         featured: false,
     },
     {
@@ -93,7 +94,7 @@ const projects = [
 
 const clients = [
     { name: "SearchMed Inc.", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/searchmed.png" },
-    { name: "AeroTechLabs", location: "Fort Lauderdale, Florida", flag: "🇺🇸" },
+    { name: "AeroTechLabs", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/aerotechlabs.png" },
     { name: "LeanLaw", location: "Boise, Idaho", flag: "🇺🇸", logo: "/img/clients/leanlaw.png" },
     { name: "Vision Sign Advertising", location: "Lalitpur, Nepal", flag: "🇳🇵", logo: "/img/clients/visionsign.png" },
 ];
