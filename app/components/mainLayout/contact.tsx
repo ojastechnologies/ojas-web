@@ -105,24 +105,6 @@ export function Contact() {
                             </motion.div>
                         ))}
 
-                        <div className="p-6 rounded-2xl bg-white/80 backdrop-blur-xl border border-blue-100">
-                            <h3 className="text-sm text-gray-500 mb-4">Follow Us</h3>
-                            <div className="flex gap-4">
-                                {SOCIAL_LINKS.map((social, index) => (
-                                    <motion.a
-                                        key={index}
-                                        href={social.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        whileHover={{ scale: 1.1 }}
-                                        className="p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
-                                        aria-label={social.name}
-                                    >
-                                        <social.Icon className="w-5 h-5" style={{ color: social.color }} />
-                                    </motion.a>
-                                ))}
-                            </div>
-                        </div>
                     </motion.div>
 
                     {/* Right: Contact Form */}

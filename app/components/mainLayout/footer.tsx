@@ -33,7 +33,7 @@ export function Footer() {
                                 <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
                                     Ojas Technologies
                                 </h2>
-                                <p className="text-sm text-gray-600">Digital Solutions Partner</p>
+                                <p className="text-sm text-gray-600">Your Digital Solutions Partner</p>
                             </div>
                         </Link>
 
@@ -98,27 +98,6 @@ export function Footer() {
                                             <info.icon className="w-5 h-5" />
                                         </div>
                                         <span className="text-gray-600">{info.content}</span>
-                                    </motion.a>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 className="text-lg font-bold mb-6 bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
-                                Follow Us
-                            </h3>
-                            <div className="flex gap-4">
-                                {SOCIAL_LINKS.map(({ Icon, href, color, name }, index) => (
-                                    <motion.a
-                                        key={index}
-                                        href={href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        whileHover={{ y: -5 }}
-                                        className="p-4 rounded-2xl bg-white/80 backdrop-blur-xl border border-blue-100 hover:border-blue-200 shadow-sm hover:shadow-md transition-all duration-300"
-                                        aria-label={name}
-                                    >
-                                        <Icon className="w-5 h-5" style={{ color }} />
                                     </motion.a>
                                 ))}
                             </div>
