@@ -64,7 +64,7 @@ const projects = [
         services: ["Web Development", "UI/UX Design"],
         technologies: [SiNextdotjs, SiReact, SiTypescript, SiTailwindcss],
         links: [
-            { label: "Website", url: "https://customfilleer.com", icon: HiGlobeAlt },
+            { label: "Website", url: "https://customfiller.com", icon: HiGlobeAlt },
         ],
         highlights: [
             "Custom-built web application",
