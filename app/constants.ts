@@ -48,11 +48,12 @@ export const COMPANY_EMAIL = "contact@ojastech.io";
 
 // ─── Navigation Items ──────────────────────────────────────────────
 export const NAV_ITEMS = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Features", href: "#features" },
-    { name: "Services", href: "#services" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/#about" },
+    { name: "Features", href: "/#features" },
+    { name: "Services", href: "/#services" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Contact", href: "/#contact" },
 ];
 
 // ─── Services List ─────────────────────────────────────────────────
