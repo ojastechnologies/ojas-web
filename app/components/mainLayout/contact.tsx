@@ -67,6 +67,7 @@ export function Contact() {
                     </p>
                 </motion.div>
 
+                {/* Two-column: Contact Info + Form */}
                 <div className="grid lg:grid-cols-2 gap-12 items-start">
                     {/* Left: Contact Info + Social */}
                     <motion.div
@@ -122,25 +123,6 @@ export function Contact() {
                                 ))}
                             </div>
                         </div>
-
-                        {/* Google Map */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="rounded-3xl overflow-hidden shadow-lg"
-                        >
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d441.41531714000524!2d85.30881983087787!3d27.738196049931144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1931736dce2d%3A0xeb001e1f31d42268!2sOjas%20Technologies%20Pvt%20Ltd!5e0!3m2!1sen!2snp!4v1673256483179!5m2!1sen!2snp"
-                                width="100%"
-                                height="250"
-                                style={{ border: 0 }}
-                                allowFullScreen
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                title="Ojas Technologies office location"
-                            />
-                        </motion.div>
                     </motion.div>
 
                     {/* Right: Contact Form */}
@@ -219,8 +201,8 @@ export function Contact() {
                                 whileHover={{ scale: formState === "sending" ? 1 : 1.02 }}
                                 whileTap={{ scale: formState === "sending" ? 1 : 0.98 }}
                                 className={`w-full py-4 rounded-xl font-semibold text-white transition-all duration-300 shadow-lg ${formState === "sending"
-                                        ? "bg-gray-400 cursor-not-allowed"
-                                        : "bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-700 hover:to-sky-600 hover:shadow-blue-500/30"
+                                    ? "bg-gray-400 cursor-not-allowed"
+                                    : "bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-700 hover:to-sky-600 hover:shadow-blue-500/30"
                                     }`}
                             >
                                 {formState === "sending" ? (
@@ -236,7 +218,6 @@ export function Contact() {
                                 )}
                             </motion.button>
 
-                            {/* Status Messages */}
                             {formState === "success" && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }}
@@ -258,6 +239,25 @@ export function Contact() {
                         </form>
                     </motion.div>
                 </div>
+
+                {/* Full-width Google Map */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mt-12 rounded-2xl overflow-hidden shadow-lg border border-blue-100"
+                >
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1000!2d85.3339263!3d27.7664155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!1s0x0%3A0x0!5e0!3m2!1sen!2snp"
+                        width="100%"
+                        height="350"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Ojas Technologies office location - Tokha, Kathmandu"
+                    />
+                </motion.div>
             </div>
         </section>
     );
