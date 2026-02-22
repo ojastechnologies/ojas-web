@@ -3,17 +3,18 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { HiArrowLeft, HiExternalLink, HiGlobeAlt } from "react-icons/hi";
-import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud, SiSupabase } from "react-icons/si";
-import { TbBrandCSharp } from "react-icons/tb";
+import { SiReact, SiDotnet, SiTypescript, SiNextdotjs, SiBlazor, SiFlutter, SiTailwindcss, SiGooglecloud, SiSupabase, SiSqlite } from "react-icons/si";
+import { TbBrandCSharp, TbBrandAzure } from "react-icons/tb";
 
 const projects = [
     {
         title: "SearchMed",
         client: "SearchMed Inc.",
         location: "Fort Lauderdale, Florida",
-        description: "A comprehensive healthcare platform with AI-powered provider search, patient health management, and appointment scheduling. Features include AI health assistant (DoctorFind.ai), medication tracking, blood pressure monitoring, and secure health reports.",
-        services: ["Full-Stack Development", "Mobile App", "Desktop App", "Cloud Infrastructure", "AI Integration"],
-        technologies: [SiReact, SiDotnet, SiBlazor, SiTypescript, SiFlutter, SiGooglecloud],
+        description: "A comprehensive, HIPAA-compliant healthcare platform connecting patients with every registered healthcare provider in the United States. Features an AI-powered health assistant (DoctorFind.ai) for personalized provider matching, real-time appointment scheduling, medication tracking, blood pressure & weight monitoring, and secure private health reports. The provider side includes profile management, scheduling tools, patient management dashboards, and an integrated advertising system.",
+        services: ["Full-Stack Development", "Mobile App Development", "Desktop App Development", "Cloud Architecture", "AI Integration", "Security & Compliance"],
+        technologies: [SiDotnet, TbBrandCSharp, SiBlazor, TbBrandAzure, SiSqlite, SiTypescript, SiFlutter],
+        techLabels: [".NET Core / C#", "Blazor", "Azure Cloud Services", ".NET MAUI", "OpenIdDict Auth", "MSSQL & SQLite", "SignalR", "E2E Encryption"],
         links: [
             { label: "Website", url: "https://searchmed.com", icon: HiGlobeAlt },
             { label: "Provider Portal", url: "https://provider.searchmed.com", icon: HiExternalLink },
@@ -22,11 +23,15 @@ const projects = [
             { label: "Provider Scheduler (Windows)", url: "ms-windows-store://pdp/?ProductId=9PFDTW1MMHZ6&cid=PCCongratsBnr", icon: HiExternalLink },
         ],
         highlights: [
-            "AI-powered healthcare provider matching",
-            "Cross-platform patient portal (Android; iOS releasing soon)",
-            "Provider scheduling & appointment management",
-            "Windows desktop app for provider scheduling",
-            "Secure authentication server",
+            "AI-powered healthcare provider search & matching (DoctorFind.ai)",
+            "HIPAA-compliant patient portal with end-to-end encrypted messaging",
+            "Real-time appointment scheduling with calendar management",
+            "Cross-platform patient app built with .NET MAUI (Android live; iOS releasing soon)",
+            "Windows desktop Provider Scheduler app (.NET MAUI)",
+            "Blazor-based provider portal with profile, scheduling & patient management",
+            "Azure cloud infrastructure — App Services, Service Bus, Blob Storage, Notification Hubs, SignalR",
+            "Custom OpenIdDict-based authentication server (auth.searchmed.net)",
+            "MSSQL primary database with SQLite for offline-capable mobile storage",
         ],
         color: "from-blue-600 to-sky-500",
         logo: "/img/clients/searchmed.png",
@@ -231,14 +236,27 @@ export default function PortfolioPage() {
 
                                             <div>
                                                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Technologies</h3>
-                                                <div className="flex flex-wrap gap-3">
-                                                    {project.technologies.map((Tech, i) => (
-                                                        <Tech
-                                                            key={i}
-                                                            className="w-7 h-7 text-blue-600 opacity-75 hover:opacity-100 transition-opacity"
-                                                        />
-                                                    ))}
-                                                </div>
+                                                {project.techLabels ? (
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {project.techLabels.map((label: string, i: number) => (
+                                                            <span
+                                                                key={i}
+                                                                className="px-3 py-1.5 text-xs bg-gray-100 text-gray-700 rounded-lg font-medium"
+                                                            >
+                                                                {label}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {project.technologies.map((Tech, i) => (
+                                                            <Tech
+                                                                key={i}
+                                                                className="w-7 h-7 text-blue-600 opacity-75 hover:opacity-100 transition-opacity"
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
