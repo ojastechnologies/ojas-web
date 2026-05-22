@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
-import { CONTACT_INFO, SOCIAL_LINKS, SERVICES_LIST } from "@/app/constants";
+import { CONTACT_INFO, SOCIAL_LINKS } from "@/app/constants";
 
 export function Footer() {
     return (
@@ -67,20 +67,33 @@ export function Footer() {
                         className="lg:col-span-3 lg:col-start-6"
                     >
                         <h3 className="text-lg font-semibold text-white mb-6 tracking-wide">
-                            Our Expertise
+                            Quick Links
                         </h3>
                         <ul className="space-y-3">
-                            {SERVICES_LIST.map((service, index) => (
-                                <li key={index}>
-                                    <Link
-                                        href="/#services"
-                                        className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors"
-                                    >
-                                        <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
-                                        <span>{service}</span>
-                                    </Link>
-                                </li>
-                            ))}
+                            <li>
+                                <Link href="/hire-developers" className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
+                                    <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
+                                    <span>Hire Developers</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/portfolio" className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
+                                    <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
+                                    <span>Portfolio</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/about" className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
+                                    <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
+                                    <span>About Us</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/contact" className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
+                                    <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
+                                    <span>Contact</span>
+                                </Link>
+                            </li>
                         </ul>
                     </motion.div>
 
@@ -127,8 +140,8 @@ export function Footer() {
                         © {new Date().getFullYear()} Ojas Technologies Pvt. Ltd. All Rights Reserved.
                     </p>
                     <div className="flex items-center gap-6 text-sm text-slate-500">
-                        <span className="hover:text-slate-300 transition-colors cursor-pointer">Privacy Policy</span>
-                        <span className="hover:text-slate-300 transition-colors cursor-pointer">Terms of Service</span>
+                        <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
+                        <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
                     </div>
                 </motion.div>
             </div>

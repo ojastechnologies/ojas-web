@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
-import { TbBrain, TbDeviceAnalytics, TbCode, TbDeviceMobile, TbBrandGithub } from "react-icons/tb";
+import { TbBrain, TbDeviceAnalytics, TbCode, TbDeviceMobile } from "react-icons/tb";
 import { SiDotnet, SiReact, SiVuedotjs, SiBlazor, SiFlutter, SiDocker, SiKubernetes, SiTypescript, SiGooglecloud, SiAmazonwebservices } from "react-icons/si";
 import { COMPANY_STATS } from "@/app/constants";
 
@@ -38,50 +38,48 @@ export const Hero = () => {
               className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-sky-50 border border-blue-100 hover:border-blue-200 transition-all duration-300 backdrop-blur-sm shadow-lg shadow-blue-500/10"
             >
               <TbBrain className="w-5 h-5 text-blue-600 animate-pulse" />
-              <span className="text-blue-700 font-medium tracking-wide">Modern Web Solutions</span>
+              <span className="text-blue-700 font-medium tracking-wide">Microsoft Ecosystem Specialists</span>
             </motion.div>
 
             <div className="space-y-6">
-              <motion.h2
+              <motion.h1
                 variants={textVariants}
                 custom={0.4}
-                className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent tracking-wide"
+                className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1] drop-shadow-sm"
               >
-                IT Outstaffing & Software Development
-              </motion.h2>
-              <motion.div
+                <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 bg-clip-text text-transparent animate-gradient">
+                  Dedicated .NET, React &
+                </span>
+                <br />
+                <span className="relative">
+                  Full-Stack Teams from Nepal
+                  <motion.span
+                    className="absolute -z-10 inset-0 bg-gradient-to-r from-blue-100 to-sky-100 blur-2xl opacity-30"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.3, 0.5, 0.3]
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </span>
+              </motion.h1>
+              <motion.h2
                 variants={textVariants}
-                custom={0.6}
-                className="relative"
+                custom={0.5}
+                className="text-xl md:text-2xl font-semibold text-gray-500 tracking-wide"
               >
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1] drop-shadow-sm">
-                  <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 bg-clip-text text-transparent animate-gradient">
-                    Crafting Digital
-                  </span>
-                  <br />
-                  <span className="relative">
-                    Experiences
-                    <motion.span
-                      className="absolute -z-10 inset-0 bg-gradient-to-r from-blue-100 to-sky-100 blur-2xl opacity-30"
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        opacity: [0.3, 0.5, 0.3]
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  </span>
-                </h1>
-              </motion.div>
+                Crafting Digital Experiences
+              </motion.h2>
               <motion.p
                 variants={textVariants}
                 custom={0.8}
                 className="text-gray-600 text-lg md:text-xl max-w-xl leading-relaxed"
               >
-                Targeting enterprise-grade scalability? Partner with Kathmandu's premier IT outstaffing and software agency. We provide dedicated development teams and build custom SaaS platforms using .NET Core, React, Next.js, and Azure Cloud.
+                Targeting enterprise-grade scalability? Partner with Kathmandu&apos;s premier IT outstaffing and software agency. We provide dedicated development teams and build custom SaaS platforms using .NET Core, React, Next.js, and Azure Cloud.
               </motion.p>
             </div>
 
@@ -91,17 +89,17 @@ export const Hero = () => {
               className="flex gap-4 flex-wrap"
             >
               <Link
-                href="#contact"
+                href="/hire-developers"
                 className="px-8 py-4 bg-gradient-to-r from-blue-600 to-sky-500 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-sky-600 transition-all transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-blue-500/30 flex items-center gap-3 group"
               >
-                Start Project
+                Hire Developers
                 <HiArrowRight className="group-hover:translate-x-1.5 transition-transform" />
               </Link>
               <Link
-                href="#services"
+                href="/portfolio"
                 className="px-8 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:shadow-lg transition-all transform hover:scale-105 hover:-translate-y-1 flex items-center gap-3 group"
               >
-                Explore Services
+                See Our Work
                 <HiArrowRight className="group-hover:translate-x-1.5 transition-transform" />
               </Link>
             </motion.div>
@@ -136,8 +134,29 @@ export const Hero = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative h-[500px] lg:h-[600px] mt-8 lg:mt-0 hidden md:block"
+            className="mt-12 md:mt-8 lg:mt-0"
           >
+            {/* Mobile: simplified tech badges */}
+            <div className="md:hidden flex flex-wrap gap-3 justify-center mb-8">
+              {[
+                { label: ".NET Core", color: "bg-purple-100 text-purple-700" },
+                { label: "React / Next.js", color: "bg-cyan-100 text-cyan-700" },
+                { label: "Azure Cloud", color: "bg-blue-100 text-blue-700" },
+                { label: "Flutter", color: "bg-sky-100 text-sky-700" },
+                { label: "Docker / K8s", color: "bg-indigo-100 text-indigo-700" },
+                { label: "TypeScript", color: "bg-blue-100 text-blue-700" },
+              ].map((tech) => (
+                <span
+                  key={tech.label}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-full ${tech.color} border border-current/10`}
+                >
+                  {tech.label}
+                </span>
+              ))}
+            </div>
+
+            {/* Desktop: floating cards */}
+            <div className="hidden md:block relative h-[500px] lg:h-[600px]">
             <div className="absolute inset-0 grid grid-cols-2 gap-6">
               <div className="space-y-6">
                 {/* Full Stack Development Card */}
@@ -291,6 +310,7 @@ export const Hero = () => {
                   </div>
                 </motion.div>
               </div>
+            </div>
             </div>
           </motion.div>
         </div>

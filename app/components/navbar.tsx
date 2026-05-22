@@ -53,7 +53,7 @@ export const Navbar = () => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-10">
+          <div className="hidden md:flex items-center space-x-8">
             {NAV_ITEMS.map((item) => (
               <motion.div
                 key={item.name}
@@ -62,7 +62,7 @@ export const Navbar = () => {
               >
                 <Link
                   href={item.href}
-                  className="text-[16px] font-semibold text-gray-800 hover:text-blue-600 relative group"
+                  className="text-[15px] font-semibold text-gray-800 hover:text-blue-600 relative group"
                 >
                   {item.name}
                   <span className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
@@ -71,8 +71,8 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* Desktop Social Icons */}
-          <div className="hidden md:flex items-center space-x-3">
+          {/* Desktop Right Section: Social + CTA */}
+          <div className="hidden md:flex items-center space-x-4">
             {SOCIAL_LINKS.map(({ Icon, href, color, name }) => (
               <motion.div
                 key={href}
@@ -82,13 +82,19 @@ export const Navbar = () => {
                 <Link
                   href={href}
                   target="_blank"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-all duration-300"
+                  className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-gray-100 transition-all duration-300"
                   aria-label={name}
                 >
                   <Icon className="w-5 h-5" style={{ color }} />
                 </Link>
               </motion.div>
             ))}
+            <Link
+              href="/contact"
+              className="ml-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-sky-500 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-sky-600 transition-all shadow-md hover:shadow-blue-500/30"
+            >
+              Start Project
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
