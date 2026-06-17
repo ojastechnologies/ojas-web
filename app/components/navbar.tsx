@@ -7,143 +7,94 @@ import { RiCloseLine, RiMenuLine } from "react-icons/ri";
 import { NAV_ITEMS, SOCIAL_LINKS } from "@/app/constants";
 
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
+      initial={{ y: -80 }}
       animate={{ y: 0 }}
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-lg shadow-lg" : "bg-white/50 backdrop-blur-sm"
-        }`}
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white/80 backdrop-blur-xl border-b border-indigo-100/50" : "bg-transparent"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo Section */}
-          <motion.div
-            className="flex items-center space-x-3"
-            whileHover={{ scale: 1.02 }}
-          >
-            <div className="relative overflow-hidden rounded-xl">
-              <Image
-                src="/img/logo.jpg"
-                alt="Ojas Technologies Nepal"
-                width={45}
-                height={45}
-                className="w-auto h-12"
-                priority
-              />
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg overflow-hidden ring-1 ring-indigo-200">
+              <Image src="/img/logo.jpg" alt="Ojas Technologies logo - Offshore .NET and React development company" width={36} height={36} className="object-cover" priority />
             </div>
-            <div className="flex flex-col">
-              <h2 className="text-[22px] font-bold tracking-tight">
-                <span className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500 bg-clip-text text-transparent [text-shadow:_0_1px_1px_rgb(0_0_0_/_10%)]">
-                  Ojas Technologies
-                </span>
-              </h2>
-              <span className="text-[13px] font-medium text-gray-600 tracking-wide">Your Digital Solutions Partner</span>
+            <div className="hidden sm:block">
+              <span className={`text-base font-bold ${scrolled ? "text-gray-900" : "text-white"}`}>Ojas Technologies</span>
+              <span className={`block text-[10px] font-medium tracking-wide ${scrolled ? "text-gray-400" : "text-white/60"}`}>Offshore .NET & React Development</span>
             </div>
-          </motion.div>
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-10">
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-1">
             {NAV_ITEMS.map((item) => (
-              <motion.div
-                key={item.name}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  href={item.href}
-                  className="text-[16px] font-semibold text-gray-800 hover:text-blue-600 relative group"
-                >
-                  {item.name}
-                  <span className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
-                </Link>
-              </motion.div>
+              <Link key={item.name} href={item.href} className={`btn-ghost text-xs ${scrolled ? "text-gray-700 hover:text-gray-900" : "text-white hover:text-white/80 hover:bg-white/10"}`}>
+                {item.name}
+              </Link>
             ))}
           </div>
 
-          {/* Desktop Social Icons */}
-          <div className="hidden md:flex items-center space-x-3">
-            {SOCIAL_LINKS.map(({ Icon, href, color, name }) => (
-              <motion.div
-                key={href}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Link
-                  href={href}
-                  target="_blank"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-all duration-300"
-                  aria-label={name}
-                >
-                  <Icon className="w-5 h-5" style={{ color }} />
-                </Link>
-              </motion.div>
+          {/* Right */}
+          <div className="hidden md:flex items-center gap-2">
+            {SOCIAL_LINKS.slice(0, 2).map(({ Icon, href, color, name }) => (
+              <Link key={href} href={href} target="_blank" className={`btn-ghost !p-2 ${scrolled ? "text-gray-700 hover:text-gray-900" : "text-white hover:text-white/80 hover:bg-white/10"}`} aria-label={name}>
+                <Icon className="w-4 h-4" style={{ color }} />
+              </Link>
             ))}
+            <Link href="/contact" className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold rounded-xl transition-all duration-200 ml-2 ${
+              scrolled
+                ? "bg-gradient-to-r from-indigo-600 to-blue-500 text-white hover:from-indigo-700 hover:to-blue-600"
+                : "border-2 border-white/30 text-white hover:bg-white/10"
+            }`}>
+              Start Project
+            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden rounded-lg p-2 hover:bg-gray-100"
-            whileTap={{ scale: 0.95 }}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-          >
-            {isOpen ? <RiCloseLine className="w-6 h-6" /> : <RiMenuLine className="w-6 h-6" />}
-          </motion.button>
+          {/* Mobile toggle */}
+          <button onClick={() => setOpen(!open)} className={`md:hidden btn-ghost !p-2 ${scrolled ? "text-gray-700 hover:text-gray-900" : "text-white hover:text-white/80 hover:bg-white/10"}`} aria-label="Menu">
+            {open ? <RiCloseLine className="w-5 h-5" /> : <RiMenuLine className="w-5 h-5" />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-white border-t border-gray-100"
+            className="md:hidden overflow-hidden bg-white/95 backdrop-blur-lg border-t border-indigo-100/50"
           >
-            <div className="max-w-7xl mx-auto px-4 py-4 space-y-2">
+            <div className="px-4 py-3 space-y-1">
               {NAV_ITEMS.map((item) => (
-                <motion.div
-                  key={item.name}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Link
-                    href={item.href}
-                    className="block px-4 py-2 text-gray-800 hover:text-blue-600 hover:bg-gray-50 rounded-lg font-medium transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                </motion.div>
+                <Link key={item.name} href={item.href} className="block btn-ghost !justify-start" onClick={() => setOpen(false)}>
+                  {item.name}
+                </Link>
               ))}
-              <div className="grid grid-cols-5 gap-2 px-4 py-4">
-                {SOCIAL_LINKS.map(({ Icon, href, color, name }) => (
-                  <motion.div
-                    key={href}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Link
-                      href={href}
-                      target="_blank"
-                      className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
-                      aria-label={name}
-                    >
-                      <Icon className="w-5 h-5" style={{ color }} />
+              <div className="border-t border-indigo-100 pt-3 mt-3">
+                <div className="flex gap-2 mb-3">
+                  {SOCIAL_LINKS.map(({ Icon, href, color, name }) => (
+                    <Link key={href} href={href} target="_blank" className="btn-ghost !p-2" aria-label={name}>
+                      <Icon className="w-4 h-4" style={{ color }} />
                     </Link>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-blue-500 text-white text-xs font-semibold rounded-xl hover:from-indigo-700 hover:to-blue-600 w-full text-center" onClick={() => setOpen(false)}>
+                  Start Project
+                </Link>
               </div>
             </div>
           </motion.div>

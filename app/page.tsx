@@ -1,19 +1,21 @@
 import { Navbar } from "./components/navbar";
-import { About } from "./components/mainLayout/about";
-import { Features } from "./components/mainLayout/features";
-import { Services } from "./components/mainLayout/services";
+import { Hero } from "./components/mainLayout/hero";
+import { Pillars } from "./components/mainLayout/pillars";
+import { TechBar } from "./components/mainLayout/techbar";
+import { PortfolioPreview } from "./components/mainLayout/portfolio-preview";
+import { Testimonials } from "./components/mainLayout/testimonials";
 import { Contact } from "./components/mainLayout/contact";
 import { Footer } from "./components/mainLayout/footer";
-import { Hero } from "./components/mainLayout/hero";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar/>
+      <Navbar />
       <Hero />
-      <About />
-      <Features />
-      <Services />
+      <Pillars />
+      <TechBar />
+      <PortfolioPreview />
+      <Testimonials />
       <Contact />
       <Footer />
     </div>

@@ -1,7 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
-import { HiClock, HiCode, HiSupport, HiUserGroup, HiLightBulb, HiAcademicCap } from "react-icons/hi";
+import { HiClock, HiCode, HiSupport, HiUserGroup, HiChip, HiAcademicCap } from "react-icons/hi";
 import { SiReact, SiTypescript, SiTailwindcss, SiDocker, SiKubernetes, SiDotnet, SiFlutter, SiFigma, SiAdobecreativecloud, SiJira, SiNodedotjs, SiGooglecloud } from "react-icons/si";
+import { TbBrandAzure } from "react-icons/tb";
 import { BsArrowUpRight } from "react-icons/bs";
 import { COMPANY_STATS } from "@/app/constants";
 
@@ -9,23 +10,23 @@ const features = [
     {
         icon: HiCode,
         title: "Full-Stack Development",
-        description: "End-to-end development using modern tech stack. From responsive frontends to scalable backends, we deliver complete solutions.",
+        description: "End-to-end development from responsive frontends to scalable backends, delivering complete, production-ready solutions.",
         technologies: [SiReact, SiTypescript, SiDotnet, SiNodedotjs],
         stats: { "Projects Delivered": COMPANY_STATS.projectsDelivered, "Code Quality": "99%" },
         delay: 0.1
     },
     {
-        icon: HiLightBulb,
-        title: "Cloud Solutions",
-        description: "Cloud-native applications with robust architecture. We leverage AWS and Google Cloud for scalable, reliable deployments.",
-        technologies: [SiGooglecloud, SiDocker, SiKubernetes],
+        icon: HiChip,
+        title: "Cloud Solutions & Microservices",
+        description: "Cloud-native applications with robust microservices architecture on Azure, Google Cloud, and Docker/Kubernetes.",
+        technologies: [TbBrandAzure, SiGooglecloud, SiDocker, SiKubernetes],
         stats: { "Uptime": "99.9%", "Performance": "Excellent" },
         delay: 0.2
     },
     {
         icon: HiUserGroup,
         title: "Client Collaboration",
-        description: "Transparent development process with regular updates. We use modern project management tools to ensure clear communication.",
+        description: "Transparent development with regular updates and modern project management tools for clear communication.",
         technologies: [SiJira, SiFigma, SiAdobecreativecloud],
         stats: { "Client Satisfaction": COMPANY_STATS.clientSatisfaction, "Return Rate": "85%" },
         delay: 0.3
@@ -33,7 +34,7 @@ const features = [
     {
         icon: HiSupport,
         title: "Technical Support",
-        description: "24/7 technical assistance and maintenance. Our dedicated support team ensures your applications run smoothly.",
+        description: "Round-the-clock maintenance and support. Our team keeps your applications running smoothly with fast response times.",
         technologies: [SiDocker, SiKubernetes, SiGooglecloud],
         stats: { "Response Time": "< 1hr", "Resolution Rate": "95%" },
         delay: 0.4
@@ -41,7 +42,7 @@ const features = [
     {
         icon: HiAcademicCap,
         title: "Mobile Development",
-        description: "Cross-platform mobile applications with Flutter. Native-like performance with single codebase efficiency.",
+        description: "Cross-platform mobile apps with Flutter and React Native. Native performance, single codebase efficiency.",
         technologies: [SiFlutter, SiReact, SiTypescript],
         stats: { "App Rating": "4.8/5", "Platforms": "iOS & Android" },
         delay: 0.5
@@ -49,7 +50,7 @@ const features = [
     {
         icon: HiClock,
         title: "UI/UX Excellence",
-        description: "User-centric design approach with modern aesthetics. We create engaging interfaces that users love to interact with.",
+        description: "User-centric design with modern aesthetics. Creating engaging interfaces that drive results.",
         technologies: [SiFigma, SiAdobecreativecloud, SiTailwindcss],
         stats: { "Design Systems": "50+", "User Satisfaction": "96%" },
         delay: 0.6
@@ -59,34 +60,25 @@ const features = [
 export const Features = () => {
     return (
         <section id="features" className="relative py-24 overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-mesh pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-20"
+                    className="section-head"
                 >
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-sky-50 border border-blue-100 mb-6"
-                    >
-                        <HiLightBulb className="w-5 h-5 text-blue-600 animate-pulse" />
-                        <span className="text-blue-700 font-medium">Our Core Capabilities</span>
-                    </motion.div>
-
-                    <h2 className="text-4xl font-bold tracking-tight mb-4">
-                        <span className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
+                    <div className="section-badge">Core Capabilities</div>
+                    <h2 className="section-title">
+                        <span className="bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">
                             Technology Excellence Hub
                         </span>
                     </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Delivering innovative solutions with cutting-edge technologies and industry best practices
-                    </p>
+                    <p className="section-sub">Cutting-edge solutions built with industry best practices</p>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}
@@ -94,46 +86,44 @@ export const Features = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: feature.delay }}
-                            whileHover={{ y: -5 }}
-                            className="group"
+                            whileHover={{ y: -4 }}
+                            className="card-hover p-6"
                         >
-                            <div className="h-full p-8 rounded-3xl bg-white/80 backdrop-blur-xl border border-blue-100 hover:border-blue-200 shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
-                                <div className="relative space-y-6">
-                                    <div className="flex items-start justify-between">
-                                        <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 text-white shadow-lg shadow-blue-500/20">
-                                            <feature.icon className="w-6 h-6" />
+                            <div className="space-y-5">
+                                <div className="flex items-start justify-between">
+                                    <div className="icon-box">
+                                        <feature.icon className="w-5 h-5" />
+                                    </div>
+                                    <motion.div
+                                        whileHover={{ rotate: 45 }}
+                                        className="text-gray-400"
+                                    >
+                                        <BsArrowUpRight className="w-5 h-5" />
+                                    </motion.div>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 mb-2">
+                                        {feature.title}
+                                    </h3>
+                                    <p className="text-body text-sm">
+                                        {feature.description}
+                                    </p>
+                                </div>
+
+                                <div className="flex flex-wrap gap-3 pt-4 border-t border-indigo-100">
+                                    {feature.technologies.map((Tech, i) => (
+                                        <Tech key={i} className="w-5 h-5 text-gray-400" />
+                                    ))}
+                                </div>
+
+                                <div className="flex justify-between pt-4 border-t border-indigo-100">
+                                    {Object.entries(feature.stats).map(([key, value]) => (
+                                        <div key={key} className="text-xs">
+                                            <span className="text-gray-400">{key}: </span>
+                                            <span className="font-semibold bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">{value}</span>
                                         </div>
-                                        <motion.div
-                                            whileHover={{ rotate: 45 }}
-                                            className="text-blue-600"
-                                        >
-                                            <BsArrowUpRight className="w-6 h-6" />
-                                        </motion.div>
-                                    </div>
-
-                                    <div>
-                                        <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent mb-2">
-                                            {feature.title}
-                                        </h3>
-                                        <p className="text-gray-600 leading-relaxed">
-                                            {feature.description}
-                                        </p>
-                                    </div>
-
-                                    <div className="flex flex-wrap gap-3 pt-4 border-t border-blue-100">
-                                        {feature.technologies.map((Tech, i) => (
-                                            <Tech key={i} className="w-6 h-6 text-blue-600 opacity-75 hover:opacity-100 transition-opacity transform hover:scale-110" />
-                                        ))}
-                                    </div>
-
-                                    <div className="flex justify-between pt-4 border-t border-blue-100">
-                                        {Object.entries(feature.stats).map(([key, value]) => (
-                                            <div key={key} className="text-sm">
-                                                <span className="text-gray-500">{key}: </span>
-                                                <span className="font-semibold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">{value}</span>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </motion.div>
@@ -141,10 +131,10 @@ export const Features = () => {
                 </div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 12 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-20 p-8 rounded-3xl bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-xl shadow-blue-500/20"
+                    className="mt-14 p-8 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-500 text-white"
                 >
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         {[
@@ -155,7 +145,7 @@ export const Features = () => {
                         ].map((stat, index) => (
                             <div key={index} className="space-y-2">
                                 <div className="text-3xl font-bold">{stat.value}</div>
-                                <div className="text-blue-100">{stat.label}</div>
+                                <div className="text-blue-100 text-sm">{stat.label}</div>
                             </div>
                         ))}
                     </div>
