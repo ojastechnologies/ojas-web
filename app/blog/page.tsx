@@ -32,13 +32,13 @@ export default function BlogPage() {
                 <Navbar />
 
                 {/* Header */}
-                <div className="bg-white border-b border-indigo-100">
+                <div className="bg-gradient-to-br from-indigo-900 via-blue-900">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
-                        <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">Our Blog</p>
-                        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">
+                        <p className="text-sm font-semibold text-blue-200/70 uppercase tracking-widest mb-3">Our Blog</p>
+                        <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
                             Insights & Resources
                         </h1>
-                        <p className="text-lg text-gray-500 max-w-xl">
+                        <p className="text-lg text-blue-200/70 max-w-xl">
                             AI automation guides, software development tips, and industry insights from the Ojas team.
                         </p>
                     </div>

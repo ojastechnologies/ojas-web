@@ -3,13 +3,14 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { HiArrowRight, HiCheckCircle } from "react-icons/hi";
 import { SiDotnet, SiReact, SiBlazor, SiTypescript, SiDocker, SiKubernetes } from "react-icons/si";
-import { TbBrandAzure } from "react-icons/tb";
+import { TbBrandAzure, TbBrandReactNative } from "react-icons/tb";
 
 const techs = [
   { name: ".NET Core / C#", level: "Primary", Icon: SiDotnet },
   { name: "Blazor", level: "Specialized", Icon: SiBlazor },
-  { name: ".NET MAUI", level: "Specialized", Icon: SiTypescript },
+  { name: ".NET MAUI", level: "Specialized", Icon: SiDotnet },
   { name: "React / Next.js", level: "Primary", Icon: SiReact },
+  { name: "React Native", level: "Strong", Icon: TbBrandReactNative },
   { name: "Azure Cloud", level: "Primary", Icon: TbBrandAzure },
   { name: "Docker & K8s", level: "Strong", Icon: SiDocker },
   { name: "TypeScript", level: "Primary", Icon: SiTypescript },
@@ -33,14 +34,14 @@ export function HireContent() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-28 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-mesh pointer-events-none" />
+      <section className="pt-28 pb-16 overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900">
+        <div className="absolute inset-0 bg-dot-grid opacity-[0.06] pointer-events-none" />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
-            <div className="section-badge">IT Outstaffing</div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-5">Hire .NET, Blazor & React Developers <span className="bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">from Nepal</span></h1>
-            <p className="text-body text-lg max-w-2xl mb-7">Scale your engineering capacity with AI-adept Microsoft-ecosystem developers. We handle recruiting, retention, and operations — you get a high-performing remote team that ships.</p>
-            <Link href="/contact" className="btn-primary px-8 py-3.5">Start a Conversation <HiArrowRight className="w-4 h-4" /></Link>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 text-xs font-semibold uppercase tracking-wider mb-5">IT Outstaffing</div>
+            <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-5">Hire .NET, Blazor & React Developers <span className="bg-gradient-to-r from-indigo-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">from Nepal</span></h1>
+            <p className="text-blue-200/70 text-lg max-w-2xl mb-7">Scale your engineering capacity with AI-adept Microsoft-ecosystem developers. We handle recruiting, retention, and operations — you get a high-performing remote team that ships.</p>
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-200">Start a Conversation <HiArrowRight className="w-4 h-4" /></Link>
           </motion.div>
         </div>
       </section>
