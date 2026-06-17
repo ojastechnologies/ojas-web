@@ -177,13 +177,19 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-        {/* Plausible Analytics */}
+        {/* Google Analytics */}
         <Script
-          defer
-          data-domain="ojastech.io"
-          src="https://plausible.io/js/script.js"
+          src="https://www.googletagmanager.com/gtag/js?id=G-S8CHW8DB9E"
           strategy="afterInteractive"
         />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-S8CHW8DB9E');
+          `}
+        </Script>
         {children}
       </body>
     </html>
