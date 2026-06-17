@@ -1,7 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
-import { SiDotnet, SiReact, SiBlazor, SiTypescript, SiDocker, SiKubernetes } from "react-icons/si";
+import { SiDotnet, SiReact, SiBlazor, SiTypescript, SiDocker, SiKubernetes, SiSupabase, SiVercel, SiNetlify } from "react-icons/si";
 import { TbBrandAzure, TbBrandReactNative } from "react-icons/tb";
+import { HiChartBar } from "react-icons/hi";
 
 const techs = [
   { name: ".NET Core", Icon: SiDotnet },
@@ -10,6 +11,10 @@ const techs = [
   { name: "React",    Icon: SiReact },
   { name: "React Native", Icon: TbBrandReactNative },
   { name: "Azure",    Icon: TbBrandAzure },
+  { name: "Supabase", Icon: SiSupabase },
+  { name: "Vercel",   Icon: SiVercel },
+  { name: "Netlify",  Icon: SiNetlify },
+  { name: "SEO",      Icon: HiChartBar },
   { name: "Docker",   Icon: SiDocker },
   { name: "Kubernetes", Icon: SiKubernetes },
   { name: "TypeScript", Icon: SiTypescript },
