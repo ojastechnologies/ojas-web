@@ -6,6 +6,15 @@ import { HiArrowRight, HiCode, HiUserGroup, HiLightningBolt } from "react-icons/
 import { COMPANY_STATS } from "@/app/constants";
 
 export function AboutContent() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ojastech.io" },
+      { "@type": "ListItem", position: 2, name: "About", item: "https://ojastech.io/about" },
+    ],
+  };
+
   const values = [
     { icon: HiCode,          title: "Microsoft Ecosystem DNA",     desc: ".NET Core, Blazor, MAUI, C#, Azure — deep specialization, not just familiarity." },
     { icon: HiLightningBolt, title: "AI-Adept Workflow",           desc: "Every developer uses AI agents for code generation, review, and testing — consistent quality without cutting corners." },
@@ -14,6 +23,10 @@ export function AboutContent() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Dark Hero */}
       <section className="pt-28 pb-16 overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900">
         <div className="absolute inset-0 bg-dot-grid opacity-[0.06] pointer-events-none" />
@@ -35,7 +48,7 @@ export function AboutContent() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <div className="rounded-xl overflow-hidden bg-gradient-to-br from-indigo-500/10 to-blue-500/10 p-1">
-                <Image src="/img/full logo.jpeg" alt="Ojas Technologies" width={600} height={600} className="rounded-xl object-cover" loading="lazy" />
+                <Image src="/img/full logo.jpeg" alt="Ojas Technologies company - IT outstaffing and software development Nepal" width={600} height={600} className="rounded-xl object-cover" loading="lazy" />
               </div>
             </motion.div>
 

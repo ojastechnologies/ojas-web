@@ -31,8 +31,21 @@ const teams = [
 ];
 
 export function HireContent() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ojastech.io" },
+      { "@type": "ListItem", position: 2, name: "Hire Developers", item: "https://ojastech.io/hire-developers" },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero */}
       <section className="pt-28 pb-16 overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900">
         <div className="absolute inset-0 bg-dot-grid opacity-[0.06] pointer-events-none" />

@@ -9,6 +9,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ojastech.io"),
+  alternates: {
+    canonical: "https://ojastech.io",
+  },
   title: {
     default: "Ojas Technologies | IT Outstaffing & Software Development in Kathmandu",
     template: "%s | Ojas Technologies",

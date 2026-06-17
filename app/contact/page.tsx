@@ -5,7 +5,10 @@ import { Contact } from "../components/mainLayout/contact";
 export const metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Ojas Technologies — a custom software development and AI automation agency in Kathmandu, Nepal. Start your project, hire .NET or React developers.",
+    "Contact Ojas Technologies to start your offshore software development project. Hire dedicated .NET, Blazor, and React developers from Kathmandu, Nepal. We respond within 24 hours.",
+  alternates: {
+    canonical: "https://ojastech.io/contact",
+  },
   keywords: [
     "contact Ojas Technologies",
     "hire developers Nepal",
@@ -13,11 +16,13 @@ export const metadata = {
     "IT outstaffing contact",
     "offshore .NET development Nepal",
     "AI automation agency Kathmandu",
+    "start software project",
+    "custom development quote",
   ],
   openGraph: {
     title: "Contact — Ojas Technologies",
     description:
-      "Start a conversation with Ojas Technologies. We respond within 24 hours.",
+      "Contact Ojas Technologies to hire offshore .NET, Blazor, and React developers from Nepal. Start your project today — we respond within 24 hours.",
   },
 };
 

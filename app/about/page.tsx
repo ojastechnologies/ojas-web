@@ -5,18 +5,24 @@ import { AboutContent } from "./AboutContent";
 export const metadata = {
   title: "About Us",
   description:
-    "Ojas Technologies is a Microsoft-ecosystem software engineering company based in Kathmandu, Nepal. .NET, Blazor, MAUI, React, and Azure specialists since 2020.",
+    "Discover Ojas Technologies — a leading .NET, Blazor, and Azure software engineering company in Kathmandu, Nepal. Hire expert offshore developers since 2020. Start your project today.",
+  alternates: {
+    canonical: "https://ojastech.io/about",
+  },
   keywords: [
     "software company Kathmandu",
     ".NET development Nepal",
     "Microsoft technology partner",
     "IT outstaffing company",
     "Blazor developers",
+    "offshore software development Nepal",
+    "hire .NET developers",
+    "Azure cloud consultants",
   ],
   openGraph: {
     title: "About — Ojas Technologies",
     description:
-      "Microsoft-ecosystem specialists in Kathmandu, Nepal. .NET, Blazor, MAUI, and Azure engineering since 2020.",
+      "Leading .NET, Blazor, MAUI, and Azure software engineering company in Kathmandu, Nepal. Hire dedicated offshore developers since 2020.",
   },
 };
 

@@ -6,10 +6,14 @@ import { getAllPosts } from "./lib";
 
 export const metadata: Metadata = {
     title: "Blog — .NET Development, AI Automation & Tech Insights",
-    description: "Expert insights on offshore .NET development, AI automation for businesses, hiring React developers in Nepal, custom software, and technology trends from Ojas Technologies.",
+    description: "Expert insights on offshore .NET development, AI automation for businesses, and software engineering from Ojas Technologies. Learn about Blazor, React, Azure, and hiring developers in Nepal.",
+    alternates: {
+        canonical: "https://ojastech.io/blog",
+    },
+    keywords: [".NET development blog", "AI automation insights", "offshore software development tips", "Nepal tech blog", "Blazor tutorials", "React development tips", "Azure cloud guides", "hire developers Nepal blog", "Ojas Technologies blog"],
     openGraph: {
         title: "Blog | Ojas Technologies",
-        description: "Expert insights on offshore .NET development, AI automation, hiring React developers in Nepal, and custom software.",
+        description: "Expert insights on offshore .NET development, AI automation, hiring React developers in Nepal, and custom software engineering from Kathmandu.",
         url: "https://ojastech.io/blog",
         siteName: "Ojas Technologies",
         type: "website",
@@ -18,7 +22,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Blog | Ojas Technologies",
-        description: "Expert insights on offshore .NET development, AI automation, hiring React developers in Nepal, and custom software.",
+        description: "Expert insights on offshore .NET development, AI automation, hiring React developers in Nepal, and custom software engineering from Kathmandu.",
         images: ["/img/full logo.jpeg"],
     },
 };

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Navbar } from "../../components/navbar";
 import { Footer } from "../../components/mainLayout/footer";
-import { getPostBySlug, getAllSlugs } from "../lib";
+import { getPostBySlug, getAllSlugs, getAllPosts } from "../lib";
 import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
@@ -25,12 +25,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: post.title,
         description: post.description,
+        alternates: {
+            canonical: `https://ojastech.io/blog/${post.slug}`,
+        },
+        keywords: [...post.tags, "Ojas Technologies", "offshore software development", ".NET development", ...(post.tags.some(t => t.toLowerCase().includes("ai") || t.toLowerCase().includes("automation")) ? ["AI automation"] : []), ...(post.tags.some(t => t.toLowerCase().includes("react") || t.toLowerCase().includes("blazor") || t.toLowerCase().includes(".net")) ? ["hire developers Nepal"] : [])],
         openGraph: {
             title: `${post.title} | Ojas Technologies`,
             description: post.description,
             url: `https://ojastech.io/blog/${post.slug}`,
             siteName: "Ojas Technologies",
             type: "article",
+            publishedTime: post.date,
+            authors: [post.author || "Ojas Technologies"],
             images: [{ url: "/img/full logo.jpeg", width: 600, height: 600, alt: post.title }],
         },
         twitter: {
@@ -57,8 +63,62 @@ export default async function BlogPostPage({ params }: Props) {
 
     const contentHtml = await renderMarkdown(post.content);
 
+    // Get related posts based on shared tags
+    const allPosts = getAllPosts();
+    const relatedPosts = allPosts
+        .filter((p) => p.slug !== slug && p.tags.some((t) => post.tags.includes(t)))
+        .slice(0, 3);
+
+    const articleJsonLd = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Article",
+                "@id": `https://ojastech.io/blog/${post.slug}#article`,
+                headline: post.title,
+                description: post.description,
+                datePublished: post.date,
+                dateModified: post.date,
+                author: {
+                    "@type": "Person",
+                    name: post.author || "Ojas Technologies",
+                },
+                publisher: {
+                    "@type": "Organization",
+                    "@id": "https://ojastech.io/#organization",
+                    name: "Ojas Technologies",
+                    logo: {
+                        "@type": "ImageObject",
+                        url: "https://ojastech.io/img/full logo.jpeg",
+                    },
+                },
+                image: {
+                    "@type": "ImageObject",
+                    url: "https://ojastech.io/img/full logo.jpeg",
+                },
+                mainEntityOfPage: {
+                    "@type": "WebPage",
+                    "@id": `https://ojastech.io/blog/${post.slug}`,
+                },
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": `https://ojastech.io/blog/${post.slug}#breadcrumb`,
+                itemListElement: [
+                    { "@type": "ListItem", position: 1, name: "Home", item: "https://ojastech.io" },
+                    { "@type": "ListItem", position: 2, name: "Blog", item: "https://ojastech.io/blog" },
+                    { "@type": "ListItem", position: 3, name: post.title, item: `https://ojastech.io/blog/${post.slug}` },
+                ],
+            },
+        ],
+    };
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+            />
             <main className="min-h-screen bg-gradient-to-b from-indigo-50/50 to-white">
                 <Navbar />
 
@@ -104,6 +164,26 @@ export default async function BlogPostPage({ params }: Props) {
                             prose-table:w-full prose-table:border-collapse prose-th:text-left prose-th:font-semibold prose-th:pb-2 prose-th:pr-4 prose-td:py-2 prose-td:pr-4 prose-td:border-b prose-td:border-indigo-100"
                         dangerouslySetInnerHTML={{ __html: contentHtml }}
                     />
+
+                    {/* Related Posts */}
+                    {relatedPosts.length > 0 && (
+                        <div className="mt-16">
+                            <h3 className="text-lg font-bold text-gray-900 mb-6">Related Posts</h3>
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {relatedPosts.map((rp) => (
+                                    <Link key={rp.slug} href={`/blog/${rp.slug}`} className="group p-4 rounded-xl bg-white border border-indigo-100 hover:border-indigo-200 transition-colors">
+                                        <div className="flex flex-wrap gap-1.5 mb-2">
+                                            {rp.tags.slice(0, 2).map((tag) => (
+                                                <span key={tag} className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-600 font-medium">{tag}</span>
+                                            ))}
+                                        </div>
+                                        <h4 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-1 leading-snug">{rp.title}</h4>
+                                        <p className="text-xs text-gray-500 line-clamp-2">{rp.description}</p>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
                     {/* Footer CTA */}
                     <div className="mt-16 p-8 rounded-xl bg-gradient-to-b from-indigo-50/50 to-white border border-indigo-100 text-center">

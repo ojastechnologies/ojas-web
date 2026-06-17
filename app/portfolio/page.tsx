@@ -533,6 +533,15 @@ export default function PortfolioPage() {
     []
   );
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ojastech.io" },
+      { "@type": "ListItem", position: 2, name: "Portfolio", item: "https://ojastech.io/portfolio" },
+    ],
+  };
+
   const heroStats = [
     { value: `${totalAppCount}+`, label: "Apps Built" },
     { value: "4", label: "Platforms" },
@@ -554,6 +563,10 @@ export default function PortfolioPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <main className="min-h-screen bg-white">
         <Navbar />
 
