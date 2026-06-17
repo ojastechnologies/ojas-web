@@ -5,12 +5,14 @@ import { Contact } from "../components/mainLayout/contact";
 export const metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Ojas Technologies. Start your project, hire developers, or discuss your requirements. Based in Kathmandu, Nepal — serving clients worldwide.",
+    "Get in touch with Ojas Technologies — a custom software development and AI automation agency in Kathmandu, Nepal. Start your project, hire .NET or React developers.",
   keywords: [
     "contact Ojas Technologies",
     "hire developers Nepal",
     "software development inquiry",
     "IT outstaffing contact",
+    "offshore .NET development Nepal",
+    "AI automation agency Kathmandu",
   ],
   openGraph: {
     title: "Contact — Ojas Technologies",

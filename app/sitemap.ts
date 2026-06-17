@@ -1,48 +1,27 @@
 import type { MetadataRoute } from "next";
+import { getAllSlugs } from "./blog/lib";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    return [
-        {
-            url: "https://ojastech.io",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 1,
-        },
-        {
-            url: "https://ojastech.io/hire-developers",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.9,
-        },
-        {
-            url: "https://ojastech.io/portfolio",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.8,
-        },
-        {
-            url: "https://ojastech.io/about",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.7,
-        },
-        {
-            url: "https://ojastech.io/contact",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.6,
-        },
-        {
-            url: "https://ojastech.io/privacy",
-            lastModified: new Date(),
-            changeFrequency: "yearly",
-            priority: 0.3,
-        },
-        {
-            url: "https://ojastech.io/terms",
-            lastModified: new Date(),
-            changeFrequency: "yearly",
-            priority: 0.3,
-        },
+    const baseUrl = "https://ojastech.io";
+
+    const staticPages: MetadataRoute.Sitemap = [
+        { url: baseUrl, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
+        { url: `${baseUrl}/hire-developers`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+        { url: `${baseUrl}/portfolio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+        { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+        { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+        { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+        { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+        { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     ];
+
+    const blogSlugs = getAllSlugs();
+    const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
+        url: `${baseUrl}/blog/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+    }));
+
+    return [...staticPages, ...blogPages];
 }

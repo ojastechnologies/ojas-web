@@ -2,41 +2,129 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ══════════════════════════════════════════════════
+   OJAS TECHNOLOGIES — Design System
+   Every component MUST use these utilities.
+   No inline styles, no custom border radii, no drift.
+   ══════════════════════════════════════════════════ */
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
+/* ─── Animations ────────────────────────────────── */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0);
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.1); }
+  50% { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+html { scroll-behavior: smooth; }
+body { color: #374151; background: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
-  50% {
-    transform: translateY(-20px);
-  }
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+/* ─── Background Patterns ───────────────────────── */
+.bg-mesh {
+  background:
+    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(79,70,229,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 100% 50%, rgba(56,189,248,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(99,102,241,0.03) 0%, transparent 50%);
+}
+.bg-dot-grid {
+  background-image: radial-gradient(circle, #c7d2fe 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* ─── Section ────────────────────────────────────── */
+.section { @apply py-20 md:py-28; }
+.section-alt { @apply section bg-gradient-to-b from-indigo-50/50 to-white; }
+
+/* ─── Section Header ─────────────────────────────── */
+.section-badge {
+  @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full 
+         bg-indigo-100 border border-indigo-200 
+         text-xs font-semibold text-indigo-700 uppercase tracking-wider mb-5;
+}
+.section-title {
+  @apply text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-3;
+}
+.section-sub {
+  @apply text-base md:text-lg text-gray-500 max-w-2xl;
+}
+.section-head {
+  @apply text-center max-w-3xl mx-auto mb-14 md:mb-16;
 }
 
-.animate-gradient {
-  background-size: 200% auto;
-  animation: gradient 4s linear infinite;
+/* ─── Card ───────────────────────────────────────── */
+.card {
+  @apply bg-white rounded-xl border border-indigo-100
+         hover:border-indigo-200
+         transition-colors duration-200;
+}
+.card-hover {
+  @apply card;
+}
+
+/* ─── Buttons ────────────────────────────────────── */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 
+         text-sm font-semibold rounded-xl 
+         transition-all duration-200 
+         focus:outline-none focus:ring-2 focus:ring-indigo-400/30;
+}
+.btn-primary {
+  @apply btn px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-500 text-white rounded-xl
+         hover:from-indigo-700 hover:to-blue-600;
+}
+.btn-outline {
+  @apply btn px-6 py-3 border-2 border-indigo-200 text-indigo-700 rounded-xl
+         hover:border-indigo-400 hover:bg-indigo-50;
+}
+.btn-ghost {
+  @apply btn px-4 py-2 rounded-lg hover:bg-gray-100;
+}
+.btn-gradient {
+  @apply btn px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-500 text-white rounded-xl
+         hover:from-indigo-700 hover:to-blue-600;
+}
+
+/* ─── Icon Box ───────────────────────────────────── */
+.icon-box {
+  @apply p-2.5 rounded-lg bg-indigo-100 text-indigo-600 shrink-0;
+}
+.icon-box-dark {
+  @apply p-2.5 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 text-white shrink-0;
+}
+
+/* ─── Text ───────────────────────────────────────── */
+.text-body { @apply text-gray-600 leading-relaxed; }
+.text-muted { @apply text-sm text-gray-400; }
+
+/* ─── Tags ───────────────────────────────────────── */
+.tag {
+  @apply inline-flex px-2.5 py-1 rounded-md text-xs font-medium 
+         bg-indigo-50 text-indigo-600;
+}
+
+/* ─── Input ──────────────────────────────────────── */
+.input {
+  @apply w-full px-4 py-3 rounded-xl border border-indigo-200 bg-white text-gray-900
+         placeholder:text-gray-400
+         focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/10
+         transition-all duration-200;
+}
+
+/* ─── Badge (inline dot) ────────────────────────── */
+.status-dot {
+  @apply inline-block w-2 h-2 rounded-full bg-emerald-400;
 }

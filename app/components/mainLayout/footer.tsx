@@ -4,147 +4,99 @@ import Image from "next/image";
 import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
 import { CONTACT_INFO, SOCIAL_LINKS } from "@/app/constants";
+import { useState } from "react";
+
+function Newsletter() {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState<"idle"|"sending"|"success"|"error">("idle");
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setState("sending");
+    try {
+      const leads = JSON.parse(localStorage.getItem("ojastech_leads") || "[]");
+      leads.push({ email, timestamp: new Date().toISOString() });
+      localStorage.setItem("ojastech_leads", JSON.stringify(leads));
+      setState("success");
+      setEmail("");
+      setTimeout(() => setState("idle"), 3000);
+    } catch { setState("error"); setTimeout(() => setState("idle"), 3000); }
+  };
+  return (
+    <form onSubmit={submit} className="relative flex gap-2">
+      <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email" required className="flex-1 px-3.5 py-2.5 rounded-lg bg-indigo-900/50 border border-indigo-800/50 text-sm text-indigo-200 placeholder-indigo-400/60 focus:outline-none focus:border-blue-500/50 transition-all" />
+      <button type="submit" disabled={state === "sending"} className="px-4 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-500 hover:to-blue-400 text-white text-xs font-semibold transition-colors disabled:opacity-50 shrink-0">
+        {state === "sending" ? "..." : "Subscribe"}
+      </button>
+      {state === "success" && <span className="absolute -bottom-5 left-0 text-[11px] text-emerald-400">✓ Subscribed!</span>}
+    </form>
+  );
+}
 
 export function Footer() {
-    return (
-        <footer className="relative pt-24 pb-8 overflow-hidden bg-slate-950 text-slate-300">
-            {/* Dark premium background effects */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(30,58,138,0.2),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(14,165,233,0.15),transparent_40%)] pointer-events-none" />
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-50" />
+  return (
+    <footer className="relative py-16 bg-indigo-950 text-indigo-300/60 overflow-hidden">
+      <div className="absolute inset-0 bg-dot-grid opacity-[0.04] pointer-events-none" />
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-12 gap-10 mb-12">
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-4">
+            <Link href="/" className="inline-flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg overflow-hidden bg-indigo-900/50 p-1 ring-1 ring-indigo-800/50">
+                <Image src="/img/logo.jpg" alt="Ojas Technologies" width={40} height={40} className="object-contain" />
+              </div>
+              <span className="text-lg font-bold text-indigo-200">Ojas Technologies</span>
+            </Link>
+            <p className="text-sm text-indigo-300/50 leading-relaxed max-w-xs">A premier offshore .NET development and AI automation agency. Custom software from Kathmandu — web, mobile, and cloud solutions for global clients.</p>
+          </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+          {/* Quick Links */}
+          <div className="lg:col-span-2">
+            <h3 className="text-xs font-semibold text-indigo-200 uppercase tracking-wider mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              {[{n:"Hire Developers",h:"/hire-developers"},{n:"Portfolio",h:"/portfolio"},{n:"About Us",h:"/about"},{n:"Contact",h:"/contact"}].map(({n,h}) => (
+                <li key={h}><Link href={h} className="text-sm text-indigo-300/60 hover:text-blue-400 transition-colors flex items-center gap-1"><HiArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />{n}</Link></li>
+              ))}
+            </ul>
+          </div>
 
-                    {/* Company Info */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="lg:col-span-4"
-                    >
-                        <Link href="/" className="inline-flex items-center gap-4 group mb-6">
-                            <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-white p-1 ring-2 ring-white/10 group-hover:ring-blue-500/50 transition-all duration-300">
-                                <Image
-                                    src="/img/logo.jpg"
-                                    alt="Ojas Technologies"
-                                    fill
-                                    className="object-contain"
-                                />
-                            </div>
-                            <div>
-                                <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-                                    Ojas Technologies
-                                </h2>
-                            </div>
-                        </Link>
+          {/* Newsletter */}
+          <div className="lg:col-span-3">
+            <h3 className="text-xs font-semibold text-indigo-200 uppercase tracking-wider mb-4">Stay Updated</h3>
+            <p className="text-sm text-indigo-300/60 mb-3">AI automation tips, dev insights, and company news.</p>
+            <Newsletter />
+          </div>
 
-                        <p className="text-slate-400 leading-relaxed mb-8">
-                            A premier offshore IT outsourcing and custom software development company. We deliver scalable web, mobile, and cloud solutions for startups and enterprises worldwide.
-                        </p>
-
-                        <div className="flex gap-4">
-                            {SOCIAL_LINKS.map((social, index) => (
-                                <motion.a
-                                    key={index}
-                                    href={social.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    whileHover={{ y: -3, scale: 1.1 }}
-                                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white hover:border-blue-500 transition-all duration-300 shadow-lg"
-                                >
-                                    <social.Icon className="w-5 h-5" />
-                                </motion.a>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Quick Links */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="lg:col-span-3 lg:col-start-6"
-                    >
-                        <h3 className="text-lg font-semibold text-white mb-6 tracking-wide">
-                            Quick Links
-                        </h3>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link href="/hire-developers" className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
-                                    <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
-                                    <span>Hire Developers</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/portfolio" className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
-                                    <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
-                                    <span>Portfolio</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/about" className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
-                                    <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
-                                    <span>About Us</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/contact" className="group flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
-                                    <HiArrowRight className="w-4 h-4 text-blue-500/0 group-hover:text-blue-400 -ml-6 group-hover:ml-0 transition-all duration-300" />
-                                    <span>Contact</span>
-                                </Link>
-                            </li>
-                        </ul>
-                    </motion.div>
-
-                    {/* Contact Info */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="lg:col-span-4 space-y-6"
-                    >
-                        <h3 className="text-lg font-semibold text-white mb-6 tracking-wide">
-                            Get In Touch
-                        </h3>
-                        <div className="space-y-4">
-                            {CONTACT_INFO.map((info, index) => (
-                                <motion.a
-                                    key={index}
-                                    href={info.link || info.href}
-                                    whileHover={{ x: 5 }}
-                                    className="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-blue-500/50 hover:bg-white/[0.05] transition-all duration-300 group"
-                                >
-                                    <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300 shrink-0">
-                                        <info.icon className="w-5 h-5" />
-                                    </div>
-                                    <span className="text-slate-400 group-hover:text-slate-200 mt-1.5 leading-snug">
-                                        {info.content}
-                                    </span>
-                                </motion.a>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                </div>
-
-                {/* Copyright */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
-                >
-                    <p className="text-slate-500 text-sm">
-                        © {new Date().getFullYear()} Ojas Technologies Pvt. Ltd. All Rights Reserved.
-                    </p>
-                    <div className="flex items-center gap-6 text-sm text-slate-500">
-                        <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
-                        <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
-                    </div>
-                </motion.div>
+          {/* Contact */}
+          <div className="lg:col-span-3">
+            <h3 className="text-xs font-semibold text-indigo-200 uppercase tracking-wider mb-4">Get In Touch</h3>
+            <div className="space-y-3">
+              {CONTACT_INFO.map((info, i) => (
+                <a key={i} href={info.link || info.href} className="flex items-start gap-3 text-sm text-indigo-300/60 hover:text-indigo-200 transition-colors">
+                  <info.icon className="w-4 h-4 mt-0.5 shrink-0 text-blue-400" />
+                  <span>{info.content}</span>
+                </a>
+              ))}
             </div>
-        </footer>
-    );
+            <div className="flex gap-2 mt-4">
+              {SOCIAL_LINKS.map(({ Icon, href, color, name }) => (
+                <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-indigo-900/50 border border-indigo-800/50 flex items-center justify-center text-indigo-300/60 hover:bg-indigo-800 hover:text-blue-400 hover:border-indigo-700 transition-all" aria-label={name}>
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-indigo-800/50 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-indigo-300/40">
+          <p>&copy; {new Date().getFullYear()} Ojas Technologies Pvt. Ltd. All Rights Reserved.</p>
+          <div className="flex gap-4">
+            <Link href="/privacy" className="hover:text-blue-400 transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-blue-400 transition-colors">Terms</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }

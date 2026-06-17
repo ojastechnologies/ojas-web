@@ -2,316 +2,138 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
-import { TbBrain, TbDeviceAnalytics, TbCode, TbDeviceMobile } from "react-icons/tb";
-import { SiDotnet, SiReact, SiVuedotjs, SiBlazor, SiFlutter, SiDocker, SiKubernetes, SiTypescript, SiGooglecloud, SiAmazonwebservices } from "react-icons/si";
 import { COMPANY_STATS } from "@/app/constants";
+import { SiDotnet, SiReact, SiBlazor, SiDocker, SiKubernetes } from "react-icons/si";
+import { TbBrandAzure } from "react-icons/tb";
 
-const textVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      delay,
-      ease: "easeOut"
-    }
-  })
-};
+const techFloats = [
+  { Icon: SiDotnet,   label: ".NET",   x: "12%",  y: "22%",  delay: 0 },
+  { Icon: SiBlazor,   label: "Blazor", x: "78%",  y: "12%",  delay: 0.2 },
+  { Icon: SiReact,    label: "React",  x: "85%",  y: "58%",  delay: 0.4 },
+  { Icon: TbBrandAzure, label: "Azure", x: "8%",  y: "65%",  delay: 0.1 },
+  { Icon: SiDocker,   label: "Docker", x: "72%",  y: "78%",  delay: 0.3 },
+  { Icon: SiKubernetes, label: "K8s",  x: "82%",  y: "80%",  delay: 0.5 },
+];
 
 export const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-screen md:min-h-[90vh] w-full overflow-hidden pt-20">
-      {/* Enhanced gradient background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
+    <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900 to-indigo-900">
+      {/* Backgrounds */}
+      <div className="absolute inset-0 bg-mesh pointer-events-none opacity-30" />
+      <div className="absolute inset-0 bg-dot-grid opacity-[0.08] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
+      {/* Floating tech badges */}
+      <div className="hidden lg:block absolute inset-0 pointer-events-none">
+        {techFloats.map((t, i) => (
           <motion.div
-            initial="hidden"
-            animate="visible"
-            className="space-y-8 md:space-y-10"
+            key={i}
+            className="absolute flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/20"
+            style={{ left: t.x, top: t.y }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8 + t.delay, duration: 0.4 }}
           >
+            <t.Icon className="w-4 h-4 text-blue-300" />
+            <span className="text-xs font-semibold text-white/70">{t.label}</span>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 md:pt-44 pb-20">
+        <div className="max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-8"
+          >
+            {/* Badge */}
             <motion.div
-              variants={textVariants}
-              custom={0.2}
-              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-sky-50 border border-blue-100 hover:border-blue-200 transition-all duration-300 backdrop-blur-sm shadow-lg shadow-blue-500/10"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
             >
-              <TbBrain className="w-5 h-5 text-blue-600 animate-pulse" />
-              <span className="text-blue-700 font-medium tracking-wide">Microsoft Ecosystem Specialists</span>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 text-xs font-semibold uppercase tracking-wider">
+                <span className="status-dot" />
+                Microsoft Ecosystem Specialists
+              </span>
             </motion.div>
 
-            <div className="space-y-6">
-              <motion.h1
-                variants={textVariants}
-                custom={0.4}
-                className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1] drop-shadow-sm"
-              >
-                <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 bg-clip-text text-transparent animate-gradient">
-                  Dedicated .NET, React &
-                </span>
-                <br />
-                <span className="relative">
-                  Full-Stack Teams from Nepal
-                  <motion.span
-                    className="absolute -z-10 inset-0 bg-gradient-to-r from-blue-100 to-sky-100 blur-2xl opacity-30"
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.3, 0.5, 0.3]
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                </span>
-              </motion.h1>
-              <motion.h2
-                variants={textVariants}
-                custom={0.5}
-                className="text-xl md:text-2xl font-semibold text-gray-500 tracking-wide"
-              >
-                Crafting Digital Experiences
-              </motion.h2>
-              <motion.p
-                variants={textVariants}
-                custom={0.8}
-                className="text-gray-600 text-lg md:text-xl max-w-xl leading-relaxed"
-              >
-                Targeting enterprise-grade scalability? Partner with Kathmandu&apos;s premier IT outstaffing and software agency. We provide dedicated development teams and build custom SaaS platforms using .NET Core, React, Next.js, and Azure Cloud.
-              </motion.p>
-            </div>
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]"
+            >
+              <span className="text-white">Dedicated .NET, Blazor & React</span>
+              <br />
+              <span className="bg-gradient-to-r from-indigo-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
+                Teams from Nepal
+              </span>
+            </motion.h1>
 
+            {/* Sub */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-white/70 text-lg max-w-xl"
+            >
+              Leading offshore .NET development company in Kathmandu. Hire React developers
+              and Azure-ready engineers who embed into your team — same tools,
+              same timezone, better economics.
+            </motion.p>
+
+            {/* CTAs */}
             <motion.div
-              variants={textVariants}
-              custom={1}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
               className="flex gap-4 flex-wrap"
             >
-              <Link
-                href="/hire-developers"
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-sky-500 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-sky-600 transition-all transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-blue-500/30 flex items-center gap-3 group"
-              >
+              <Link href="/hire-developers" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-200 text-base">
                 Hire Developers
-                <HiArrowRight className="group-hover:translate-x-1.5 transition-transform" />
+                <HiArrowRight className="w-4 h-4" />
               </Link>
-              <Link
-                href="/portfolio"
-                className="px-8 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:shadow-lg transition-all transform hover:scale-105 hover:-translate-y-1 flex items-center gap-3 group"
-              >
+              <Link href="/portfolio" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-200 text-base">
                 See Our Work
-                <HiArrowRight className="group-hover:translate-x-1.5 transition-transform" />
+                <HiArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
 
+            {/* Mobile tech badges */}
             <motion.div
-              variants={textVariants}
-              custom={1.2}
-              className="flex gap-8 pt-8 border-t border-gray-200"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="md:hidden flex flex-wrap gap-2"
+            >
+              {[".NET Core","Blazor",".NET MAUI","React","Azure","Docker / K8s"].map((t) => (
+                <span key={t} className="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-white/10 text-white/70 border border-white/20">{t}</span>
+              ))}
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="flex gap-10 pt-8 border-t border-indigo-700/50"
             >
               {[
-                { number: COMPANY_STATS.projectsDelivered, label: "Projects Delivered" },
-                { number: COMPANY_STATS.clientSatisfaction, label: "Client Satisfaction" },
-                { number: COMPANY_STATS.yearsExperience, label: "Years Experience" }
-              ].map((stat, index) => (
-                <div key={index} className="space-y-1 group">
-                  <motion.div
-                    className="text-2xl font-bold text-blue-600"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    {stat.number}
-                  </motion.div>
-                  <div className="text-sm text-gray-600 group-hover:text-blue-500 transition-colors">
-                    {stat.label}
+                { n: COMPANY_STATS.projectsDelivered, l: "Projects Delivered" },
+                { n: COMPANY_STATS.clientSatisfaction, l: "Client Satisfaction" },
+                { n: COMPANY_STATS.yearsExperience, l: "Years Experience" },
+              ].map((s, i) => (
+                <div key={i} className="space-y-0.5">
+                  <div className="text-3xl font-bold text-white">
+                    {s.n}
                   </div>
+                  <div className="text-sm text-white/60">{s.l}</div>
                 </div>
               ))}
             </motion.div>
-          </motion.div>
-
-          {/* Enhanced Visual Section */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="mt-12 md:mt-8 lg:mt-0"
-          >
-            {/* Mobile: simplified tech badges */}
-            <div className="md:hidden flex flex-wrap gap-3 justify-center mb-8">
-              {[
-                { label: ".NET Core", color: "bg-purple-100 text-purple-700" },
-                { label: "React / Next.js", color: "bg-cyan-100 text-cyan-700" },
-                { label: "Azure Cloud", color: "bg-blue-100 text-blue-700" },
-                { label: "Flutter", color: "bg-sky-100 text-sky-700" },
-                { label: "Docker / K8s", color: "bg-indigo-100 text-indigo-700" },
-                { label: "TypeScript", color: "bg-blue-100 text-blue-700" },
-              ].map((tech) => (
-                <span
-                  key={tech.label}
-                  className={`px-3 py-1.5 text-sm font-medium rounded-full ${tech.color} border border-current/10`}
-                >
-                  {tech.label}
-                </span>
-              ))}
-            </div>
-
-            {/* Desktop: floating cards */}
-            <div className="hidden md:block relative h-[500px] lg:h-[600px]">
-            <div className="absolute inset-0 grid grid-cols-2 gap-6">
-              <div className="space-y-6">
-                {/* Full Stack Development Card */}
-                <motion.div
-                  animate={{
-                    y: [-10, 10, -10],
-                    rotate: [-2, 2, -2]
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="h-[280px] bg-gradient-to-br from-blue-500/90 via-blue-600/80 to-sky-500/90 rounded-3xl p-6 text-white shadow-xl backdrop-blur-xl border border-white/20 hover:border-white/30 hover:shadow-blue-500/20 transition-all group"
-                >
-                  <div className="flex justify-between items-start">
-                    <TbCode className="w-10 h-10 text-white/90" />
-                    <span className="text-xs font-medium bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">Full Stack</span>
-                  </div>
-                  <div className="mt-6">
-                    <h3 className="text-xl font-bold mb-4">Modern Web Stack</h3>
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <span className="text-xs text-white/80">Frontend</span>
-                          <div className="flex flex-wrap gap-2">
-                            {[SiReact, SiVuedotjs, SiTypescript].map((Icon, i) => (
-                              <Icon key={i} className="w-5 h-5 text-white/90 transform group-hover:scale-110 transition-transform" />
-                            ))}
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <span className="text-xs text-white/80">Backend</span>
-                          <div className="flex flex-wrap gap-2">
-                            {[SiDotnet, SiBlazor].map((Icon, i) => (
-                              <Icon key={i} className="w-5 h-5 text-white/90 transform group-hover:scale-110 transition-transform" />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Mobile Development Card */}
-                <motion.div
-                  animate={{
-                    y: [5, -5, 5],
-                    rotate: [1, -1, 1]
-                  }}
-                  transition={{
-                    duration: 7,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="h-[240px] bg-gradient-to-br from-indigo-500/90 via-indigo-600/80 to-blue-500/90 rounded-3xl p-6 text-white shadow-xl backdrop-blur-xl border border-white/20 hover:border-white/30 hover:shadow-indigo-500/20 transition-all group"
-                >
-                  <div className="flex justify-between items-start">
-                    <TbDeviceMobile className="w-10 h-10 text-white/90" />
-                    <span className="text-xs font-medium bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">Mobile</span>
-                  </div>
-                  <div className="mt-6">
-                    <h3 className="text-xl font-bold mb-4">Cross-Platform Solutions</h3>
-                    <div className="flex flex-wrap gap-4">
-                      <div className="space-y-2">
-                        <span className="text-xs text-white/80">Technologies</span>
-                        <div className="flex flex-wrap gap-3">
-                          <SiFlutter className="w-5 h-5 text-white/90 transform group-hover:scale-110 transition-transform" />
-                          <SiReact className="w-5 h-5 text-white/90 transform group-hover:scale-110 transition-transform" />
-                          <SiDotnet className="w-5 h-5 text-white/90 transform group-hover:scale-110 transition-transform" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-
-              <div className="space-y-6 mt-12">
-                {/* Cloud Solutions Card */}
-                <motion.div
-                  animate={{
-                    y: [-8, 8, -8],
-                    rotate: [-1, 1, -1]
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="h-[260px] bg-gradient-to-br from-sky-500/90 via-sky-600/80 to-blue-500/90 rounded-3xl p-6 text-white shadow-xl backdrop-blur-xl border border-white/20 hover:border-white/30 hover:shadow-sky-500/20 transition-all group overflow-hidden"
-                >
-                  <div className="flex justify-between items-start">
-                    <TbDeviceAnalytics className="w-10 h-10 text-white/90" />
-                    <span className="text-xs font-medium bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">Cloud</span>
-                  </div>
-                  <div className="mt-6">
-                    <h3 className="text-xl font-bold mb-4">Cloud Solutions</h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="space-y-2">
-                        <span className="text-xs text-white/80">Platforms</span>
-                        <div className="flex gap-2">
-                          <SiGooglecloud className="w-5 h-5 text-white/90 transform group-hover:scale-110 transition-transform" />
-                          <SiAmazonwebservices className="w-5 h-5 text-white/90 transform group-hover:scale-110 transition-transform" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <span className="text-xs text-white/80">DevOps</span>
-                        <div className="flex gap-2">
-                          {[SiDocker, SiKubernetes].map((Icon, i) => (
-                            <Icon key={i} className="w-5 h-5 text-white/90 transform group-hover:scale-110 transition-transform" />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Performance Card */}
-                <motion.div
-                  animate={{
-                    y: [5, -5, 5],
-                    rotate: [1, -1, 1]
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="h-[220px] bg-gradient-to-br from-blue-500/90 via-blue-600/80 to-indigo-500/90 rounded-3xl p-6 text-white shadow-xl backdrop-blur-xl border border-white/20 hover:border-white/30 hover:shadow-blue-500/20 transition-all"
-                >
-                  <div className="flex justify-between items-start mb-6">
-                    <TbDeviceAnalytics className="w-10 h-10 text-white/90" />
-                    <span className="text-xs font-medium bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">Metrics</span>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-white/80">Response Time</span>
-                      <span className="font-bold">{"< 100ms"}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-white/80">Availability</span>
-                      <span className="font-bold">99.99%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-white/80">Performance</span>
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                        <span className="font-bold">Excellent</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-            </div>
           </motion.div>
         </div>
       </div>

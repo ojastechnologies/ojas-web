@@ -1,10 +1,9 @@
-import { FaWhatsapp } from "react-icons/fa";
-// import { FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { FaWhatsapp, FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { HiLocationMarker, HiPhone, HiMail } from "react-icons/hi";
 
 // ─── Company Stats (single source of truth) ────────────────────────
 export const COMPANY_STATS = {
-    projectsDelivered: "150+",
+    projectsDelivered: "30+",
     clientSatisfaction: "98%",
     yearsExperience: "5+",
     clients: "50+",
@@ -14,18 +13,18 @@ export const COMPANY_STATS = {
 
 // ─── Social Links ──────────────────────────────────────────────────
 export const SOCIAL_LINKS = [
-    // {
-    //     name: "LinkedIn",
-    //     Icon: FaLinkedinIn,
-    //     href: "https://linkedin.com/company/ojastech",
-    //     color: "#0A66C2",
-    // },
-    // {
-    //     name: "GitHub",
-    //     Icon: FaGithub,
-    //     href: "https://github.com/ojastech",
-    //     color: "#6e5491",
-    // },
+    {
+        name: "LinkedIn",
+        Icon: FaLinkedinIn,
+        href: "https://linkedin.com/company/ojastech",
+        color: "#0A66C2",
+    },
+    {
+        name: "GitHub",
+        Icon: FaGithub,
+        href: "https://github.com/ojastechnologies",
+        color: "#333",
+    },
     {
         name: "WhatsApp",
         Icon: FaWhatsapp,
@@ -64,6 +63,7 @@ export const NAV_ITEMS = [
     { name: "Home", href: "/" },
     { name: "Hire Developers", href: "/hire-developers" },
     { name: "Portfolio", href: "/portfolio" },
+    { name: "Blog", href: "/blog" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
 ];
@@ -75,4 +75,5 @@ export const SERVICES_LIST = [
     "Desktop Application",
     "Cloud & DevOps",
     "IT Outstaffing",
+    "AI Automation",
 ];

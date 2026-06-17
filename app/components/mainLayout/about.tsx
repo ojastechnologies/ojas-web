@@ -2,140 +2,100 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { HiCheckCircle } from "react-icons/hi";
-import { FiUsers, FiAward, FiCode } from "react-icons/fi";
+import { HiCheckCircle, HiCode, HiUserGroup, HiLightningBolt } from "react-icons/hi";
 import { COMPANY_STATS } from "@/app/constants";
+
+const values = [
+  { icon: HiCode,          title: "Microsoft Ecosystem DNA",     desc: ".NET Core, Blazor, MAUI, C#, Azure — these aren't tools we use, they're our core expertise." },
+  { icon: HiLightningBolt, title: "AI-Adept Workflow",           desc: "Every developer uses AI agents for code gen, review, and testing — consistent quality, faster delivery." },
+  { icon: HiUserGroup,     title: "Nepal Advantage",             desc: "Western-quality engineering at significant cost savings. Timezone overlap with EST and PST for real-time collaboration." },
+];
 
 export const About = () => {
   return (
-    <section id="about" className="relative py-20 overflow-hidden">
-      {/* Enhanced gradient background to match hero section */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(29,78,216,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="section overflow-hidden">
+      <div className="absolute inset-0 bg-mesh pointer-events-none" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-          {/* Image Section with Repositioned Stats */}
+          {/* Image */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-blue-500/10 to-sky-500/10 p-1">
-              <Image
-                src="/img/full logo.jpeg"
-                alt="Ojas Technologies"
-                width={600}
-                height={600}
-                className="rounded-3xl object-cover"
-              />
-              <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-blue-500/20" />
+            <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-indigo-500/10 to-blue-500/10 p-1">
+              <Image src="/img/full logo.jpeg" alt="Ojas Technologies" width={600} height={600} className="rounded-xl object-cover" loading="lazy" />
             </div>
-
-            {/* Repositioned Stats with matching UI */}
+            {/* Floating stats bar */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 12, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="absolute -bottom-10 left-10 right-10 bg-white/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl ring-1 ring-black/5 border border-blue-100"
+              transition={{ delay: 0.2 }}
+              className="absolute -bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-5 border border-indigo-100/50"
             >
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-3">
                 {[
-                  { label: "Projects", value: COMPANY_STATS.projectsDelivered },
-                  { label: "Clients", value: COMPANY_STATS.clients },
-                  { label: "Experience", value: COMPANY_STATS.yearsExperience },
-                  { label: "Team Size", value: COMPANY_STATS.teamSize }
-                ].map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className="text-blue-600 font-bold text-lg">{stat.value}</div>
-                    <div className="text-sm text-gray-600">{stat.label}</div>
+                  { l: "Projects",  v: COMPANY_STATS.projectsDelivered },
+                  { l: "Clients",   v: COMPANY_STATS.clients },
+                  { l: "Exp.",      v: COMPANY_STATS.yearsExperience },
+                  { l: "Team",      v: COMPANY_STATS.teamSize },
+                ].map((s, i) => (
+                  <div key={i} className="text-center">
+                    <div className="text-lg font-bold bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">{s.v}</div>
+                    <div className="text-xs text-gray-400">{s.l}</div>
                   </div>
                 ))}
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Content Section with matching styles */}
+          {/* Content */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8 pt-10"
+            transition={{ duration: 0.5 }}
+            className="space-y-6 pt-8 lg:pt-0"
           >
             <div>
-              <h2 className="text-4xl font-bold tracking-tight mb-4">
-                <span className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
-                  About Us
-                </span>
-              </h2>
-              <p className="text-lg font-semibold text-blue-600">
-                Your Trusted IT Partner Since 2020
-              </p>
+              <div className="section-badge">About Us</div>
+              <h2 className="section-title">Custom Software Company in Kathmandu Since 2020</h2>
             </div>
-
-            <p className="text-gray-600 leading-relaxed">
-              Ojas Technologies (Pvt) Ltd is a premier offshore IT outsourcing and custom software development company based in Kathmandu, Nepal.
-              Established in 2020, our technology innovation center serves as a dedicated remote hub, providing
-              top-tier .NET, React, and Full-Stack engineering talent for startups, agencies, and enterprises worldwide.
+            <p className="text-body">
+              Ojas Technologies is a premier offshore IT outsourcing and custom software development company in Kathmandu, Nepal. Founded in 2020, we provide top-tier .NET, React, and Full-Stack engineering talent for startups and enterprises worldwide.
             </p>
 
-            {/* Core Values with matching card styles */}
-            <div className="grid gap-6">
-              {[
-                {
-                  icon: FiCode,
-                  title: "Technical Excellence",
-                  description: "Delivering top-tier software solutions with cutting-edge technologies"
-                },
-                {
-                  icon: FiUsers,
-                  title: "IT Outstaffing & Dedicated Teams",
-                  description: "Integrate our expert Nepal-based developers as a seamless extension of your in-house team"
-                },
-                {
-                  icon: FiAward,
-                  title: "Quality Assurance",
-                  description: "Rigorous testing and quality control for reliable solutions"
-                }
-              ].map((value, index) => (
+            <div className="space-y-3">
+              {values.map((v, i) => (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  key={i}
+                  initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.2 }}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-sky-500/10 backdrop-blur-sm border border-blue-100"
+                  transition={{ delay: i * 0.08 }}
+                  className="card p-4 flex items-start gap-3"
                 >
-                  <value.icon className="w-6 h-6 text-blue-600 flex-shrink-0" />
+                  <div className="icon-box-dark">
+                    <v.icon className="w-4 h-4" />
+                  </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">
-                      {value.title}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {value.description}
-                    </p>
+                    <h3 className="text-sm font-semibold text-gray-900">{v.title}</h3>
+                    <p className="text-xs text-gray-500 mt-0.5">{v.desc}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* CTA matching hero section style — now a proper link */}
-            <Link href="#services">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-sky-500 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-sky-600 transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-blue-500/30"
-              >
-                Learn More About Our Services
-                <HiCheckCircle className="w-5 h-5" />
-              </motion.div>
+            <Link href="#services" className="btn-primary inline-flex mt-2">
+              Explore Our Services
+              <HiCheckCircle className="w-4 h-4" />
             </Link>
           </motion.div>
         </div>
       </div>
     </section>
   );
-}
+};
