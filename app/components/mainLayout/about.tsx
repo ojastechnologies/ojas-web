@@ -26,7 +26,7 @@ export const About = () => {
             className="relative"
           >
             <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-indigo-500/10 to-blue-500/10 p-1">
-              <Image src="/img/full logo.jpeg" alt="Ojas Technologies" width={600} height={600} className="rounded-xl object-cover" loading="lazy" />
+              <Image src="/img/full logo.jpeg" alt="Ojas Technologies team - Custom software development company in Kathmandu, Nepal" width={600} height={600} className="rounded-xl object-cover" loading="lazy" />
             </div>
             {/* Floating stats bar */}
             <motion.div

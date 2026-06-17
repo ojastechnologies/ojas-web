@@ -44,7 +44,7 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg overflow-hidden bg-indigo-900/50 p-1 ring-1 ring-indigo-800/50">
-                <Image src="/img/logo.jpg" alt="Ojas Technologies" width={40} height={40} className="object-contain" />
+                <Image src="/img/logo.jpg" alt="Ojas Technologies logo - Offshore .NET and React development Nepal" width={40} height={40} className="object-contain" />
               </div>
               <span className="text-lg font-bold text-indigo-200">Ojas Technologies</span>
             </Link>

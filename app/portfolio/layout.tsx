@@ -2,10 +2,14 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Portfolio & Case Studies",
-    description: "Explore our recent projects and case studies. See how Ojas Technologies has delivered custom web, mobile, and cloud software solutions for businesses worldwide.",
+    description: "Explore our portfolio of custom software projects. See how Ojas Technologies delivers HIPAA-compliant healthcare platforms, legal billing systems, and more using .NET, Blazor, and Azure.",
+    alternates: {
+        canonical: "https://ojastech.io/portfolio",
+    },
+    keywords: ["software development portfolio", "case studies .NET", "Blazor projects", "Azure cloud examples", "healthcare platform development", "legal billing software", "Ojas Technologies projects", "offshore development portfolio"],
     openGraph: {
         title: "Portfolio & Case Studies | Ojas Technologies",
-        description: "Explore our recent projects and case studies. See how Ojas Technologies has delivered custom web, mobile, and cloud software solutions.",
+        description: "Explore custom software projects by Ojas Technologies — HIPAA-compliant healthcare platforms, microservices billing systems, and cross-platform apps built with .NET, Blazor, and Azure.",
         url: "https://ojastech.io/portfolio",
         siteName: "Ojas Technologies",
         type: "website",
@@ -14,7 +18,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Portfolio & Case Studies | Ojas Technologies",
-        description: "Explore our recent projects and case studies. See how Ojas Technologies has delivered custom web, mobile, and cloud software solutions.",
+        description: "Explore custom software projects by Ojas Technologies — HIPAA-compliant healthcare platforms, microservices billing systems, and cross-platform apps built with .NET, Blazor, and Azure.",
         images: ["/img/full logo.jpeg"],
     },
 };

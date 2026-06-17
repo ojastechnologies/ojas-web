@@ -67,9 +67,7 @@ body { color: #374151; background: #fff; }
 
 /* ─── Card ───────────────────────────────────────── */
 .card {
-  @apply bg-white rounded-xl border border-indigo-100
-         hover:border-indigo-200
-         transition-colors duration-200;
+  @apply bg-white rounded-xl border border-indigo-200 hover:border-indigo-300 transition-colors duration-200;
 }
 .card-hover {
   @apply card;

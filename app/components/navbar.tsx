@@ -29,7 +29,7 @@ export const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg overflow-hidden ring-1 ring-indigo-200">
-              <Image src="/img/logo.jpg" alt="Ojas Technologies" width={36} height={36} className="object-cover" priority />
+              <Image src="/img/logo.jpg" alt="Ojas Technologies logo - Offshore .NET and React development company" width={36} height={36} className="object-cover" priority />
             </div>
             <div className="hidden sm:block">
               <span className={`text-base font-bold ${scrolled ? "text-gray-900" : "text-white"}`}>Ojas Technologies</span>

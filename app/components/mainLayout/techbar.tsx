@@ -1,13 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
 import { SiDotnet, SiReact, SiBlazor, SiTypescript, SiDocker, SiKubernetes } from "react-icons/si";
-import { TbBrandAzure } from "react-icons/tb";
+import { TbBrandAzure, TbBrandReactNative } from "react-icons/tb";
 
 const techs = [
   { name: ".NET Core", Icon: SiDotnet },
   { name: "Blazor",   Icon: SiBlazor },
-  { name: ".NET MAUI", Icon: SiTypescript },
+  { name: ".NET MAUI", Icon: SiDotnet },
   { name: "React",    Icon: SiReact },
+  { name: "React Native", Icon: TbBrandReactNative },
   { name: "Azure",    Icon: TbBrandAzure },
   { name: "Docker",   Icon: SiDocker },
   { name: "Kubernetes", Icon: SiKubernetes },

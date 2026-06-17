@@ -4,7 +4,7 @@ import { useState } from "react";
 import { HiMail } from "react-icons/hi";
 import { CONTACT_INFO, SOCIAL_LINKS, COMPANY_EMAIL } from "@/app/constants";
 
-export function Contact() {
+export function Contact({ simple }: { simple?: boolean }) {
   const [state, setState] = useState<"idle"|"sending"|"success"|"error">("idle");
   const [d, setD] = useState({ name: "", email: "", subject: "", message: "" });
 
@@ -35,6 +35,7 @@ export function Contact() {
     <section id="contact" className="section-alt overflow-hidden">
       <div className="absolute inset-0 bg-mesh pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {!simple && (
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -45,6 +46,7 @@ export function Contact() {
           <h2 className="section-title">Ready to Build? Let&apos;s Talk</h2>
           <p className="section-sub">Tell us about your project — we&apos;ll get back to you within 24 hours</p>
         </motion.div>
+        )}
 
         <div className="grid lg:grid-cols-5 gap-8 items-start">
           {/* Contact info — 2 cols */}
@@ -133,7 +135,7 @@ export function Contact() {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-8 rounded-xl overflow-hidden border border-gray-200/50"
+          className="mt-8 rounded-xl overflow-hidden border border-indigo-200"
         >
           <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1000!2d85.3339263!3d27.7664155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!1s0x0%3A0x0!5e0!3m2!1sen!2snp" width="100%" height="280" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Ojas Technologies - Tokha, Kathmandu" />
         </motion.div>
