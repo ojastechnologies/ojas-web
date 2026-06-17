@@ -104,7 +104,7 @@ const projects: Project[] = [
       },
       {
         label: "Patient App (Android)",
-        url: "https://play.google.com/store/apps/details?id=com.searchmed.portal&hl=en",
+        url: "https://play.google.com/store/apps/details?id=com.searchmed.portal",
         icon: HiExternalLink,
       },
       {
