@@ -712,8 +712,8 @@ export default function PortfolioPage() {
                     {group.projectName}
                   </span>
 
-                  {/* Services list - 2 columns */}
-                  <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 mt-0.5">
+                  {/* Services list */}
+                  <div className="space-y-1 mt-0.5">
                     {group.services.map((svc, j) => (
                       <div
                         key={j}
