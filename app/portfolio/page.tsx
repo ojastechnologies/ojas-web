@@ -694,7 +694,11 @@ export default function PortfolioPage() {
                 <motion.div
                   key={`services-${group.projectName}-${i}`}
                   variants={cardVariants}
-                  className="bg-indigo-50/50 rounded-xl border border-dashed border-indigo-200 p-4 flex flex-col"
+                  className={`rounded-xl border border-dashed border-indigo-200 p-4 flex flex-col ${
+                    group.projectName === "LeanLaw Billing Platform"
+                      ? "bg-indigo-50/50 lg:col-span-2 xl:col-span-2 p-3"
+                      : "bg-indigo-50/50"
+                  }`}
                 >
                   {/* Header */}
                   <div className="flex items-center gap-1.5 mb-2">
