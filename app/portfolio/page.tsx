@@ -194,7 +194,7 @@ const projects: Project[] = [
       { label: "Company Website", url: "https://leanlaw.co", icon: HiExternalLink },
       {
         label: "Android App",
-        url: "https://play.google.com/store/search?q=leanlaw&c=apps&hl=en",
+        url: "https://play.google.com/store/apps/details?id=co.leanlaw.mobile",
         icon: HiExternalLink,
       },
       {
@@ -218,7 +218,8 @@ const projects: Project[] = [
     ],
     apps: [
       { name: "LeanLaw Web App", platform: "Vue.js" },
-      { name: "LeanLaw Mobile App", platform: "React Native (iOS & Android)" },
+      { name: "LeanLaw Mobile App", platform: "Android (React Native)" },
+      { name: "LeanLaw Mobile App", platform: "iOS (React Native)" },
       { name: "LeanLaw REST API", platform: ".NET Core Web API + MSSQL" },
       { name: "GraphQL API", platform: ".NET Core + GraphQL" },
       { name: "QuickBooks Sync Service", platform: ".NET Core Microservice" },
@@ -344,13 +345,30 @@ function hasMatchingLink(
   const name = app.name.toLowerCase();
   const platform = app.platform.toLowerCase();
 
-  // Direct label match: check if any link label contains the app name or vice versa
-  for (const link of links) {
-    const label = link.label.toLowerCase();
-    if (label.includes(name) || name.includes(label)) return link.url;
+  // 1. Android app → find android link (platform match is most specific)
+  if (platform.includes("android")) {
+    for (const link of links) {
+      if (link.label.toLowerCase().includes("android")) return link.url;
+    }
   }
 
-  // Web App → find Website/Product link
+  // 2. iOS app → find iOS link
+  if (platform.includes("ios")) {
+    for (const link of links) {
+      if (link.label.toLowerCase().includes("ios")) return link.url;
+    }
+  }
+
+  // 3. Shared significant words (for remaining apps)
+  for (const link of links) {
+    const label = link.label.toLowerCase();
+    const nameWords = new Set(name.split(/\s+/));
+    const labelWords = new Set(label.split(/\s+/));
+    const sharedWords = [...nameWords].filter((w) => w.length > 2 && labelWords.has(w));
+    if (sharedWords.length >= 2) return link.url;
+  }
+
+  // 4. Web App → find Website/Product link
   if (name.includes("web app") || name.includes("website")) {
     for (const link of links) {
       const label = link.label.toLowerCase();
@@ -359,46 +377,23 @@ function hasMatchingLink(
     }
   }
 
-  // Portal → find portal link
+  // 5. Portal → patient portals skip provider links
   if (name.includes("portal")) {
+    const isPatient = name.includes("patient");
     for (const link of links) {
-      if (link.label.toLowerCase().includes("portal")) return link.url;
+      const label = link.label.toLowerCase();
+      if (label.includes("portal")) {
+        if (isPatient && label.includes("provider")) continue;
+        return link.url;
+      }
     }
   }
 
-  // Android → find android link
-  if (name.includes("android") || platform.includes("android")) {
-    for (const link of links) {
-      if (link.label.toLowerCase().includes("android")) return link.url;
-    }
-  }
-
-  // iOS → find iOS link
-  if (name.includes("ios") || platform.includes("ios")) {
-    for (const link of links) {
-      if (link.label.toLowerCase().includes("ios")) return link.url;
-    }
-  }
-
-  // Scheduler / Desktop / Windows
-  if (
-    name.includes("scheduler") ||
-    name.includes("desktop") ||
-    name.includes("windows") ||
-    platform.includes("windows")
-  ) {
+  // 6. Scheduler / Desktop / Windows
+  if (name.includes("scheduler") || name.includes("desktop") || name.includes("windows") || platform.includes("windows")) {
     for (const link of links) {
       const label = link.label.toLowerCase();
       if (label.includes("scheduler") || label.includes("desktop") || label.includes("windows"))
-        return link.url;
-    }
-  }
-
-  // Mobile App → find android/ios link
-  if (name.includes("mobile")) {
-    for (const link of links) {
-      const label = link.label.toLowerCase();
-      if (label.includes("android") || label.includes("ios") || label.includes("mobile"))
         return link.url;
     }
   }
@@ -717,8 +712,8 @@ export default function PortfolioPage() {
                     {group.projectName}
                   </span>
 
-                  {/* Services list */}
-                  <div className="space-y-1 mt-0.5">
+                  {/* Services list - 2 columns */}
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 mt-0.5">
                     {group.services.map((svc, j) => (
                       <div
                         key={j}
@@ -737,7 +732,7 @@ export default function PortfolioPage() {
                   </div>
 
                   {/* Count badge */}
-                  <div className="mt-2 pt-2 border-t border-indigo-200/50 text-[10px] font-medium text-gray-400">
+                  <div className="mt-1.5 pt-1.5 border-t border-indigo-200/50 text-[10px] font-medium text-gray-400">
                     {group.services.length} service{group.services.length !== 1 ? "s" : ""}
                   </div>
                 </motion.div>
