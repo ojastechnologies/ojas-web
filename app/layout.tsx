@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     default: "Ojas Technologies | IT Outstaffing & Software Development in Kathmandu",
     template: "%s | Ojas Technologies",
   },
-  description: "Ojas Technologies is a top-tier offshore software development and IT outstaffing company in Kathmandu, Nepal. We provide dedicated teams, custom software, and scalable modern web apps using .NET Core, React, Next.js, and Azure Cloud Solutions.",
-  keywords: ["offshore software development Nepal", "IT outsourcing Kathmandu", "IT outstaffing Nepal", "dedicated development team", "hire developers Nepal", "custom software development", "software outsourcing company", ".NET Core development", "React development", "Next.js developers", "Azure cloud experts", "microservices architecture", "AI automation", "Ojas Technologies", "tech partner Nepal", "scalable software solutions"],
+  description: "Ojas Technologies is a top-tier offshore software development and IT outstaffing company in Kathmandu, Nepal — the best software company in Nepal for dedicated teams, custom software, and scalable modern web apps using .NET Core, React, Next.js, and Azure Cloud Solutions. Trusted by clients across South Asia and beyond.",
+  keywords: ["best software company in Nepal", "offshore software development Nepal", "IT outsourcing Nepal", "IT outsourcing Kathmandu", "IT outstaffing Nepal", "South Asia", "dedicated development team", "hire developers Nepal", "custom software development", "software outsourcing company", ".NET Core development", "React development", "Next.js developers", "Azure cloud experts", "microservices architecture", "AI automation", "Ojas Technologies", "tech partner Nepal", "scalable software solutions"],
   authors: [{ name: "Ojas Technologies" }],
   openGraph: {
     type: "website",
