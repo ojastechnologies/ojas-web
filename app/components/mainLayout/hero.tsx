@@ -7,7 +7,7 @@ import { SiDotnet, SiReact, SiBlazor, SiDocker, SiKubernetes } from "react-icons
 import { TbBrandAzure } from "react-icons/tb";
 
 const techFloats = [
-  { Icon: SiDotnet,   label: ".NET",   x: "12%",  y: "22%",  delay: 0 },
+  { Icon: SiDotnet,   label: ".NET",   x: "70%",  y: "35%",  delay: 0 },
   { Icon: SiBlazor,   label: "Blazor", x: "78%",  y: "12%",  delay: 0.2 },
   { Icon: SiReact,    label: "React",  x: "85%",  y: "58%",  delay: 0.4 },
   { Icon: TbBrandAzure, label: "Azure", x: "8%",  y: "65%",  delay: 0.1 },
