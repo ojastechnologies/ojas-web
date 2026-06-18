@@ -64,6 +64,7 @@ export const NAV_ITEMS = [
     { name: "Hire Developers", href: "/hire-developers" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Blog", href: "/blog" },
+    { name: "In Nepal", href: "/software-development-nepal" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
 ];

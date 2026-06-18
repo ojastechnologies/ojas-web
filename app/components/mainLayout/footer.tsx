@@ -55,7 +55,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <h3 className="text-xs font-semibold text-indigo-200 uppercase tracking-wider mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {[{n:"Hire Developers",h:"/hire-developers"},{n:"Portfolio",h:"/portfolio"},{n:"About Us",h:"/about"},{n:"Contact",h:"/contact"}].map(({n,h}) => (
+              {[{n:"Hire Developers",h:"/hire-developers"},{n:"Portfolio",h:"/portfolio"},{n:"In Nepal",h:"/software-development-nepal"},{n:"About Us",h:"/about"},{n:"Contact",h:"/contact"}].map(({n,h}) => (
                 <li key={h}><Link href={h} className="text-sm text-indigo-300/60 hover:text-blue-400 transition-colors flex items-center gap-1"><HiArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />{n}</Link></li>
               ))}
             </ul>
