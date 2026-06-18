@@ -85,8 +85,7 @@ export default function PrivacyPage() {
               <address className="text-gray-600 not-italic mt-2">
                 Ojas Technologies Pvt. Ltd.<br />
                 Tokha - 03, Kathmandu, Nepal<br />
-                Email: contact@ojastech.io<br />
-                Phone: +977 9841185541
+                Email: contact@ojastech.io
               </address>
             </section>
           </div>

@@ -44,8 +44,8 @@ export const CONTACT_INFO = [
     {
         icon: HiPhone,
         title: "Call Us",
-        content: "+977 9841185541",
-        link: "tel:+9779841185541",
+        content: "Coming soon",
+        link: "#",
     },
     {
         icon: HiMail,
