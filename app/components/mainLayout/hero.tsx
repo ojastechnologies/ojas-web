@@ -3,16 +3,34 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
 import { COMPANY_STATS } from "@/app/constants";
-import { SiDotnet, SiReact, SiBlazor, SiDocker, SiKubernetes } from "react-icons/si";
-import { TbBrandAzure } from "react-icons/tb";
+import { SiDotnet, SiReact, SiBlazor, SiDocker, SiKubernetes, SiTypescript, SiSupabase, SiVercel, SiNetlify, SiPostgresql, SiMongodb, SiExpress, SiNodedotjs, SiVuedotjs, SiFlutter, SiTailwindcss, SiStripe, SiGithubactions, SiRedis } from "react-icons/si";
+import { TbBrandAzure, TbBrandReactNative } from "react-icons/tb";
+import { HiChartBar } from "react-icons/hi";
 
 const techFloats = [
-  { Icon: SiDotnet,   label: ".NET",   x: "70%",  y: "35%",  delay: 0 },
-  { Icon: SiBlazor,   label: "Blazor", x: "78%",  y: "12%",  delay: 0.2 },
-  { Icon: SiReact,    label: "React",  x: "85%",  y: "58%",  delay: 0.4 },
-  { Icon: TbBrandAzure, label: "Azure", x: "65%",  y: "60%",  delay: 0.1 },
-  { Icon: SiDocker,   label: "Docker", x: "72%",  y: "78%",  delay: 0.3 },
-  { Icon: SiKubernetes, label: "K8s",  x: "82%",  y: "80%",  delay: 0.5 },
+  { Icon: SiDotnet,   label: ".NET",       x: "70%", y: "12%", delay: 0 },
+  { Icon: SiBlazor,   label: "Blazor",     x: "82%", y: "22%", delay: 0.08 },
+  { Icon: TbBrandReactNative, label: "React Native", x: "65%", y: "28%", delay: 0.16 },
+  { Icon: SiReact,    label: "React",      x: "88%", y: "38%", delay: 0.24 },
+  { Icon: SiNodedotjs, label: "Node.js",   x: "72%", y: "48%", delay: 0.32 },
+  { Icon: SiVuedotjs, label: "Vue.js",     x: "62%", y: "55%", delay: 0.4 },
+  { Icon: TbBrandAzure, label: "Azure",    x: "85%", y: "58%", delay: 0.08 },
+  { Icon: SiPostgresql, label: "PostgreSQL", x: "68%", y: "68%", delay: 0.48 },
+  { Icon: SiMongodb,  label: "MongoDB",    x: "80%", y: "78%", delay: 0.56 },
+  { Icon: SiRedis,    label: "Redis",      x: "92%", y: "72%", delay: 0.64 },
+  { Icon: SiSupabase, label: "Supabase",   x: "74%", y: "88%", delay: 0.72 },
+  { Icon: SiFlutter,  label: "Flutter",    x: "88%", y: "88%", delay: 0.8 },
+  { Icon: SiTailwindcss, label: "Tailwind", x: "62%", y: "78%", delay: 0.88 },
+  { Icon: SiStripe,   label: "Stripe",     x: "66%", y: "40%", delay: 0.96 },
+  { Icon: SiExpress,  label: "Express",    x: "76%", y: "62%", delay: 1.04 },
+  { Icon: SiVercel,   label: "Vercel",     x: "90%", y: "48%", delay: 1.12 },
+  { Icon: SiNetlify,  label: "Netlify",    x: "84%", y: "68%", delay: 1.2 },
+  { Icon: SiGithubactions, label: "GitHub Actions", x: "64%", y: "18%", delay: 1.28 },
+  { Icon: SiDocker,   label: "Docker",     x: "78%", y: "85%", delay: 0.4 },
+  { Icon: SiKubernetes, label: "K8s",      x: "90%", y: "18%", delay: 0.6 },
+  { Icon: SiDotnet,   label: ".NET MAUI",  x: "86%", y: "85%", delay: 0.5 },
+  { Icon: SiTypescript, label: "TypeScript", x: "78%", y: "35%", delay: 0.7 },
+  { Icon: HiChartBar, label: "SEO",        x: "88%", y: "62%", delay: 0.9 },
 ];
 
 export const Hero = () => {
@@ -27,14 +45,14 @@ export const Hero = () => {
         {techFloats.map((t, i) => (
           <motion.div
             key={i}
-            className="absolute flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/20"
+            className="absolute flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/20"
             style={{ left: t.x, top: t.y }}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8 + t.delay, duration: 0.4 }}
           >
-            <t.Icon className="w-4 h-4 text-blue-300" />
-            <span className="text-xs font-semibold text-white/70">{t.label}</span>
+            <t.Icon className="w-3.5 h-3.5 text-blue-300" />
+            <span className="text-[11px] font-semibold text-white/70 whitespace-nowrap">{t.label}</span>
           </motion.div>
         ))}
       </div>
@@ -109,7 +127,7 @@ export const Hero = () => {
               transition={{ delay: 0.5 }}
               className="md:hidden flex flex-wrap gap-2"
             >
-              {[".NET Core","Blazor",".NET MAUI","React","Azure","Docker / K8s"].map((t) => (
+              {[".NET Core","Blazor","React","React Native","Azure","PostgreSQL","MongoDB","Docker","K8s"].map((t) => (
                 <span key={t} className="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-white/10 text-white/70 border border-white/20">{t}</span>
               ))}
             </motion.div>
