@@ -47,9 +47,24 @@ export const Hero = () => {
             key={i}
             className="absolute flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/20"
             style={{ left: t.x, top: t.y }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 + t.delay, duration: 0.4 }}
+            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: [0, -5, 0, 3, 0], rotate: [0, 1, 0, -1, 0] }}
+            transition={{
+              opacity: { delay: 0.8 + t.delay, duration: 0.5 },
+              scale: { delay: 0.8 + t.delay, duration: 0.5 },
+              y: {
+                duration: 3 + (i % 5) * 0.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.15,
+              },
+              rotate: {
+                duration: 4 + (i % 4) * 0.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.2,
+              },
+            }}
           >
             <t.Icon className="w-3.5 h-3.5 text-blue-300" />
             <span className="text-[11px] font-semibold text-white/70 whitespace-nowrap">{t.label}</span>
