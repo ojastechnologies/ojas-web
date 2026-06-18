@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { SiDotnet, SiReact, SiBlazor, SiTypescript, SiDocker, SiKubernetes, SiSupabase, SiVercel, SiNetlify } from "react-icons/si";
+import { SiDotnet, SiReact, SiBlazor, SiTypescript, SiDocker, SiKubernetes, SiSupabase, SiVercel, SiNetlify, SiPostgresql, SiMongodb, SiExpress, SiNodedotjs, SiVuedotjs, SiFlutter, SiTailwindcss, SiStripe, SiGithubactions, SiRedis } from "react-icons/si";
 import { TbBrandAzure, TbBrandReactNative } from "react-icons/tb";
 import { HiChartBar } from "react-icons/hi";
 
@@ -10,14 +10,24 @@ const techs = [
   { name: ".NET MAUI", Icon: SiDotnet },
   { name: "React",    Icon: SiReact },
   { name: "React Native", Icon: TbBrandReactNative },
+  { name: "Node.js",  Icon: SiNodedotjs },
+  { name: "Vue.js",   Icon: SiVuedotjs },
   { name: "Azure",    Icon: TbBrandAzure },
+  { name: "MongoDB",  Icon: SiMongodb },
+  { name: "PostgreSQL", Icon: SiPostgresql },
+  { name: "Redis",    Icon: SiRedis },
   { name: "Supabase", Icon: SiSupabase },
+  { name: "Flutter",  Icon: SiFlutter },
+  { name: "Tailwind", Icon: SiTailwindcss },
+  { name: "Stripe",   Icon: SiStripe },
+  { name: "Express",  Icon: SiExpress },
   { name: "Vercel",   Icon: SiVercel },
   { name: "Netlify",  Icon: SiNetlify },
-  { name: "SEO",      Icon: HiChartBar },
+  { name: "GitHub Actions", Icon: SiGithubactions },
   { name: "Docker",   Icon: SiDocker },
   { name: "Kubernetes", Icon: SiKubernetes },
   { name: "TypeScript", Icon: SiTypescript },
+  { name: "SEO",      Icon: HiChartBar },
 ];
 
 export function TechBar() {
@@ -35,7 +45,7 @@ export function TechBar() {
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.06 }}
+              transition={{ delay: i * 0.04 }}
               className="flex items-center gap-2"
             >
               <t.Icon className="w-5 h-5 text-blue-400" />
