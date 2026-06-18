@@ -1,5 +1,5 @@
 import { FaWhatsapp, FaLinkedinIn, FaGithub } from "react-icons/fa";
-import { HiLocationMarker, HiPhone, HiMail } from "react-icons/hi";
+import { HiLocationMarker, HiMail } from "react-icons/hi";
 
 // ─── Company Stats (single source of truth) ────────────────────────
 export const COMPANY_STATS = {
@@ -40,12 +40,6 @@ export const CONTACT_INFO = [
         title: "Our Office Location",
         content: "Tokha - 03, Kathmandu, Nepal",
         href: "https://goo.gl/maps/xyz",
-    },
-    {
-        icon: HiPhone,
-        title: "Call Us",
-        content: "Coming soon",
-        link: "#",
     },
     {
         icon: HiMail,
