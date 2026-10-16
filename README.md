@@ -29,8 +29,16 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Previews and releases
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Branch from `main`, then open a pull request into `main`.
+- Netlify posts a Deploy Preview link on every pull request into `main`;
+  Cloudflare Pages also posts a preview link. Test there before merging.
+- Merging into `main` releases the site.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Design system
+
+- Dark theme tokens and surfaces (`glass`, `dark-section`, `btn-glow`, …) live in
+  `app/globals.css`; colours and fonts in `tailwind.config.ts`.
+- Shared animations (`Reveal`, `Stagger`, `SplitText`, `CountUp`, `Magnetic`, `Tilt`)
+  live in `app/components/motion.tsx` and respect `prefers-reduced-motion`.
