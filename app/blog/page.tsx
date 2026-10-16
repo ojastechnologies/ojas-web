@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/mainLayout/footer";
 import { getAllPosts } from "./lib";
+import { HiArrowRight } from "react-icons/hi";
+import { Magnetic, Reveal, SplitText, Stagger, StaggerItem } from "@/app/components/motion";
 
 export const metadata: Metadata = {
     title: "Blog — .NET Development, AI Automation & Tech Insights",
@@ -32,68 +34,92 @@ export default function BlogPage() {
 
     return (
         <>
-            <main className="min-h-screen bg-gradient-to-b from-indigo-50/50 to-white">
+            <main className="min-h-screen bg-ink-950 text-white overflow-x-hidden">
                 <Navbar />
 
                 {/* Header */}
-                <div className="bg-gradient-to-br from-indigo-900 via-blue-900">
-                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
-                        <p className="text-sm font-semibold text-blue-200/70 uppercase tracking-widest mb-3">Our Blog</p>
-                        <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
-                            Insights & Resources
-                        </h1>
-                        <p className="text-lg text-blue-200/70 max-w-xl">
-                            AI automation guides, software development tips, and industry insights from the Ojas team.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Blog Posts */}
-                <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {posts.map((post) => (
-                            <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
-                                <article className="h-full p-6 rounded-xl bg-white border border-indigo-100 hover:border-indigo-200 transition-colors duration-200 flex flex-col">
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {post.tags.slice(0, 2).map((tag) => (
-                                            <span key={tag} className="tag text-[11px]">
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    <h2 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors leading-snug">
-                                        {post.title}
-                                    </h2>
-
-                                    <p className="text-sm text-gray-500 leading-relaxed mb-6 flex-1">
-                                        {post.description}
-                                    </p>
-
-                                    <div className="flex items-center justify-between text-xs text-gray-400 pt-4 border-t border-indigo-100">
-                                        <span>{post.date}</span>
-                                        <span>{post.readingTime}</span>
-                                    </div>
-                                </article>
-                            </Link>
-                        ))}
+                <section className="relative overflow-hidden bg-ink-950">
+                    <div className="orb orb-a w-[420px] h-[420px] -top-40 -left-32 bg-cyan-500/20" />
+                    <div className="orb orb-b w-[460px] h-[460px] -top-24 right-[-15%] bg-violet-600/20" />
+                    <div className="absolute inset-0 bg-grid-fade pointer-events-none" />
+                    <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent to-ink-950 pointer-events-none" />
+                    <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-16 md:pb-20">
+                        <Reveal y={10}>
+                            <p className="dark-badge">Our Blog</p>
+                        </Reveal>
+                        <SplitText
+                            as="h1"
+                            inView={false}
+                            delay={0.1}
+                            className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-white tracking-tight leading-[1.05] mb-5"
+                            segments={[
+                                { text: "Insights &" },
+                                { text: "Resources", className: "text-gradient-animated" },
+                            ]}
+                        />
+                        <Reveal delay={0.3} y={16}>
+                            <p className="dark-sub max-w-xl">
+                                AI automation guides, software development tips, and industry insights from the Ojas team.
+                            </p>
+                        </Reveal>
                     </div>
                 </section>
 
+                {/* Blog Posts */}
+                <section className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 md:pb-28">
+                    <Stagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+                        {posts.map((post) => (
+                            <StaggerItem key={post.slug} className="h-full">
+                                <Link href={`/blog/${post.slug}`} className="group block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300">
+                                    <article className="glass-hover h-full p-6 md:p-7 flex flex-col">
+                                        <div className="flex flex-wrap gap-2 mb-5">
+                                            {post.tags.slice(0, 2).map((tag) => (
+                                                <span key={tag} className="chip-dark">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        <h2 className="font-display text-xl font-semibold text-white mb-3 group-hover:text-cyan-200 transition-colors duration-300 leading-snug tracking-tight">
+                                            {post.title}
+                                        </h2>
+
+                                        <p className="text-sm text-white/55 leading-relaxed mb-6 flex-1">
+                                            {post.description}
+                                        </p>
+
+                                        <div className="flex items-center justify-between gap-3 text-xs text-white/45 pt-4 border-t border-white/[0.06]">
+                                            <span className="font-mono">{post.date}</span>
+                                            <span className="flex items-center gap-2">
+                                                <span className="font-mono">{post.readingTime}</span>
+                                                <HiArrowRight className="w-4 h-4 text-cyan-300/70 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-cyan-200" />
+                                            </span>
+                                        </div>
+                                    </article>
+                                </Link>
+                            </StaggerItem>
+                        ))}
+                    </Stagger>
+                </section>
+
                 {/* CTA */}
-                <section className="py-16 bg-gradient-to-b from-indigo-50/50 to-white">
-                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-3">Want to stay updated?</h2>
-                        <p className="text-gray-500 mb-8">
+                <section className="relative py-20 md:py-28 border-t border-white/[0.06] overflow-hidden">
+                    <div className="absolute inset-0 bg-aurora opacity-40 pointer-events-none" />
+                    <Reveal className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h2 className="font-display text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">Want to stay updated?</h2>
+                        <p className="text-white/55 mb-8">
                             Subscribe to our newsletter for the latest on AI, development, and tech trends.
                         </p>
-                        <Link
-                            href="/#contact"
-                            className="btn-primary"
-                        >
-                            Get in Touch
-                        </Link>
-                    </div>
+                        <Magnetic>
+                            <Link
+                                href="/#contact"
+                                className="group btn-glow"
+                            >
+                                Get in Touch
+                                <HiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            </Link>
+                        </Magnetic>
+                    </Reveal>
                 </section>
             </main>
             <Footer />
