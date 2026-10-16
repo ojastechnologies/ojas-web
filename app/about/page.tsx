@@ -29,7 +29,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-ink-950">
         <Navbar />
         <AboutContent />
       </main>
