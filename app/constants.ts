@@ -39,7 +39,7 @@ export const CONTACT_INFO = [
         icon: HiLocationMarker,
         title: "Our Office Location",
         content: "Tokha - 03, Kathmandu, Nepal",
-        href: "https://goo.gl/maps/xyz",
+        href: "https://www.google.com/maps/search/?api=1&query=27.7664155,85.3339263",
     },
     {
         icon: HiMail,
@@ -55,6 +55,7 @@ export const COMPANY_EMAIL = "contact@ojastech.io";
 // ─── Navigation Items ──────────────────────────────────────────────
 export const NAV_ITEMS = [
     { name: "Home", href: "/" },
+    { name: "AI & RAG", href: "/#ai" },
     { name: "Hire Developers", href: "/hire-developers" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Blog", href: "/blog" },
@@ -70,4 +71,9 @@ export const SERVICES_LIST = [
     "Cloud & DevOps",
     "IT Outstaffing",
     "AI Automation",
+    "RAG & LLM Integration",
 ];
+
+// ─── Featured App Store Listing ────────────────────────────────────
+export const SEARCHMED_PATIENT_APP_URL =
+    "https://apps.apple.com/us/app/searchmed-patient-portal/id6745996128";

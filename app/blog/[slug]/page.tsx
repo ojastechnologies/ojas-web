@@ -7,6 +7,8 @@ import { getPostBySlug, getAllSlugs, getAllPosts } from "../lib";
 import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
+import { HiArrowRight } from "react-icons/hi";
+import { Magnetic, Reveal, Stagger, StaggerItem } from "@/app/components/motion";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -119,82 +121,100 @@ export default async function BlogPostPage({ params }: Props) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
             />
-            <main className="min-h-screen bg-gradient-to-b from-indigo-50/50 to-white">
+            <main className="min-h-screen bg-ink-950 text-white overflow-x-hidden">
                 <Navbar />
 
                 {/* Dark hero header */}
-                <div className="bg-gradient-to-br from-indigo-900 via-blue-900">
-                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12">
+                <section className="relative overflow-hidden bg-ink-950">
+                    <div className="orb orb-a w-[420px] h-[420px] -top-40 -left-32 bg-cyan-500/20" />
+                    <div className="orb orb-b w-[460px] h-[460px] -top-24 right-[-15%] bg-violet-600/20" />
+                    <div className="absolute inset-0 bg-grid-fade pointer-events-none" />
+                    <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent to-ink-950 pointer-events-none" />
+                    <Reveal className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-12 md:pb-16">
                         <div className="mb-8">
-                            <Link href="/blog" className="text-sm text-blue-200/70 hover:text-white transition-colors">
-                                ← Back to Blog
+                            <Link href="/blog" className="group inline-flex items-center gap-1.5 text-sm text-white/55 hover:text-white transition-colors">
+                                <span className="inline-block transition-transform group-hover:-translate-x-1">←</span> Back to Blog
                             </Link>
                         </div>
-                        <div className="flex flex-wrap gap-2 mb-4">
+                        <div className="flex flex-wrap gap-2 mb-6">
                             {post.tags.map((tag: string) => (
-                                <span key={tag} className="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-white/10 text-blue-200/80">{tag}</span>
+                                <span key={tag} className="chip-dark">{tag}</span>
                             ))}
                         </div>
-                        <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4 leading-tight">
+                        <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight mb-6 leading-[1.1] break-words">
                             {post.title}
                         </h1>
-                        <div className="flex items-center gap-4 text-sm text-blue-200/60">
-                            <span>{post.date}</span>
-                            <span>·</span>
-                            <span>{post.readingTime}</span>
-                            <span>·</span>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/55">
+                            <span className="font-mono">{post.date}</span>
+                            <span className="text-white/25">·</span>
+                            <span className="font-mono">{post.readingTime}</span>
+                            <span className="text-white/25">·</span>
                             <span>{post.author}</span>
                         </div>
-                    </div>
-                </div>
+                    </Reveal>
+                </section>
 
                 {/* Content */}
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 md:pb-28">
+                    <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10 md:mb-12" />
                     <div
-                        className="prose prose-indigo max-w-none
-                            prose-headings:text-gray-900 prose-headings:font-bold
-                            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-                            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                            prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-4
-                            prose-strong:text-gray-900
-                            prose-ul:mb-6 prose-li:text-gray-600
-                            prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
-                            prose-code:text-sm prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-gray-700
-                            prose-pre:bg-gradient-to-r prose-pre:from-indigo-900 prose-pre:via-blue-900 prose-pre:to-indigo-900 prose-pre:text-indigo-100 prose-pre:rounded-xl prose-pre:p-4
-                            prose-table:w-full prose-table:border-collapse prose-th:text-left prose-th:font-semibold prose-th:pb-2 prose-th:pr-4 prose-td:py-2 prose-td:pr-4 prose-td:border-b prose-td:border-indigo-100"
+                        className="prose-dark md:prose-lg
+                            prose-h2:mt-12 prose-h2:mb-4
+                            prose-h3:mt-8 prose-h3:mb-3
+                            prose-p:text-white/70 prose-p:leading-relaxed
+                            prose-li:text-white/70 prose-li:marker:text-cyan-300/60
+                            prose-blockquote:border-l-cyan-300/40 prose-blockquote:text-white/70
+                            prose-code:text-sm prose-code:bg-white/[0.06] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+                            prose-pre:bg-[#0b1020] prose-pre:border prose-pre:border-white/[0.08] prose-pre:rounded-xl prose-pre:p-4 prose-pre:overflow-x-auto [&_pre_code]:!bg-transparent [&_pre_code]:!p-0 [&_pre_code]:!text-slate-200 [&_pre_code]:!text-[13px] [&_pre_code]:leading-relaxed
+                            prose-hr:border-white/[0.08]
+                            prose-table:block prose-table:overflow-x-auto prose-table:w-full prose-table:border-collapse prose-th:text-left prose-th:text-white prose-th:font-semibold prose-th:pb-2 prose-th:pr-4 prose-th:border-b prose-th:border-white/15 prose-td:py-2 prose-td:pr-4 prose-td:border-b prose-td:border-white/[0.06] prose-td:text-white/70
+                            prose-img:rounded-xl break-words"
                         dangerouslySetInnerHTML={{ __html: contentHtml }}
                     />
 
                     {/* Related Posts */}
                     {relatedPosts.length > 0 && (
-                        <div className="mt-16">
-                            <h3 className="text-lg font-bold text-gray-900 mb-6">Related Posts</h3>
-                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="mt-20">
+                            <Reveal>
+                                <h3 className="font-display text-xl md:text-2xl font-semibold text-white tracking-tight mb-6">Related Posts</h3>
+                            </Reveal>
+                            <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {relatedPosts.map((rp) => (
-                                    <Link key={rp.slug} href={`/blog/${rp.slug}`} className="group p-4 rounded-xl bg-white border border-indigo-100 hover:border-indigo-200 transition-colors">
-                                        <div className="flex flex-wrap gap-1.5 mb-2">
-                                            {rp.tags.slice(0, 2).map((tag) => (
-                                                <span key={tag} className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-600 font-medium">{tag}</span>
-                                            ))}
-                                        </div>
-                                        <h4 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-1 leading-snug">{rp.title}</h4>
-                                        <p className="text-xs text-gray-500 line-clamp-2">{rp.description}</p>
-                                    </Link>
+                                    <StaggerItem key={rp.slug} className="h-full">
+                                        <Link href={`/blog/${rp.slug}`} className="group glass-hover h-full p-5 flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300">
+                                            <div className="flex flex-wrap gap-1.5 mb-3">
+                                                {rp.tags.slice(0, 2).map((tag) => (
+                                                    <span key={tag} className="chip-dark !text-[10px] !px-2 !py-0.5">{tag}</span>
+                                                ))}
+                                            </div>
+                                            <h4 className="font-display text-sm font-semibold text-white group-hover:text-cyan-200 transition-colors mb-2 leading-snug">{rp.title}</h4>
+                                            <p className="text-xs text-white/50 line-clamp-2 flex-1">{rp.description}</p>
+                                            <HiArrowRight className="mt-4 w-4 h-4 text-cyan-300/70 transition-transform duration-300 group-hover:translate-x-1" />
+                                        </Link>
+                                    </StaggerItem>
                                 ))}
-                            </div>
+                            </Stagger>
                         </div>
                     )}
 
                     {/* Footer CTA */}
-                    <div className="mt-16 p-8 rounded-xl bg-gradient-to-b from-indigo-50/50 to-white border border-indigo-100 text-center">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">Need help with your project?</h3>
-                        <p className="text-gray-500 mb-6">
-                            Let&apos;s discuss how Ojas Technologies can help.
-                        </p>
-                        <Link href="/contact" className="btn-primary">
-                            Start a Conversation
-                        </Link>
-                    </div>
+                    <Reveal className="mt-16">
+                        <div className="relative glass ring-gradient overflow-hidden p-8 md:p-10 text-center">
+                            <div className="absolute inset-0 bg-aurora opacity-50 pointer-events-none" />
+                            <div className="relative">
+                                <h3 className="font-display text-2xl md:text-3xl font-semibold text-white tracking-tight mb-3">Need help with your project?</h3>
+                                <p className="text-white/55 mb-7">
+                                    Let&apos;s discuss how Ojas Technologies can help.
+                                </p>
+                                <Magnetic>
+                                    <Link href="/contact" className="group btn-glow">
+                                        Start a Conversation
+                                        <HiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                    </Link>
+                                </Magnetic>
+                            </div>
+                        </div>
+                    </Reveal>
                 </div>
             </main>
             <Footer />

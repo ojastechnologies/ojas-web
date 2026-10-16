@@ -1,6 +1,7 @@
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/mainLayout/footer";
 import { Contact } from "../components/mainLayout/contact";
+import { Reveal, SplitText } from "../components/motion";
 
 export const metadata = {
   title: "Contact Us",
@@ -29,26 +30,40 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-ink-950">
         <Navbar />
 
         {/* Dark hero header */}
-        <section className="pt-28 pb-16 overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900">
-          <div className="absolute inset-0 bg-dot-grid opacity-[0.06] pointer-events-none" />
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden bg-ink-950">
+          <div className="orb orb-a w-[460px] h-[460px] -top-40 -left-32 bg-cyan-500/20" />
+          <div className="orb orb-b w-[520px] h-[520px] -top-24 right-[-15%] bg-violet-600/20" />
+          <div className="absolute inset-0 bg-grid-fade pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent to-ink-950 pointer-events-none" />
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-20">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 text-xs font-semibold uppercase tracking-wider mb-5">Contact</div>
-              <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
-                Let&apos;s Build Something Together
-              </h1>
-              <p className="text-lg text-blue-200/70 max-w-2xl">
-                Ready to start your next project? Send us a message and we&apos;ll get back to you within 24 hours.
-              </p>
+              <Reveal y={10}>
+                <div className="dark-badge">Contact</div>
+              </Reveal>
+              <SplitText
+                as="h1"
+                inView={false}
+                delay={0.1}
+                className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-white mb-6"
+                segments={[
+                  { text: "Let's Build" },
+                  { text: "Something Together", className: "text-gradient-ai" },
+                ]}
+              />
+              <Reveal delay={0.4} y={16}>
+                <p className="dark-sub">
+                  Ready to start your next project? Send us a message and we&apos;ll get back to you within 24 hours.
+                </p>
+              </Reveal>
             </div>
           </div>
         </section>
 
-        <Contact simple />
+        <Contact simple dark />
       </main>
       <Footer />
     </>

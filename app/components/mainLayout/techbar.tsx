@@ -1,58 +1,81 @@
 "use client";
-import { motion } from "framer-motion";
-import { SiDotnet, SiReact, SiBlazor, SiTypescript, SiDocker, SiKubernetes, SiSupabase, SiVercel, SiNetlify, SiPostgresql, SiMongodb, SiExpress, SiNodedotjs, SiVuedotjs, SiFlutter, SiTailwindcss, SiStripe, SiGithubactions, SiRedis } from "react-icons/si";
-import { TbBrandAzure, TbBrandReactNative } from "react-icons/tb";
-import { HiChartBar } from "react-icons/hi";
+import { IconType } from "react-icons";
+import {
+  SiDotnet, SiReact, SiBlazor, SiTypescript, SiDocker, SiKubernetes, SiPostgresql,
+  SiNextdotjs, SiNodedotjs, SiFlutter, SiRedis, SiGithubactions,
+  SiOpenai, SiAnthropic, SiLangchain, SiHuggingface, SiPython, SiFastapi, SiOllama,
+} from "react-icons/si";
+import { TbBrandAzure, TbBrandReactNative, TbVectorTriangle } from "react-icons/tb";
 
-const techs = [
-  { name: ".NET Core", Icon: SiDotnet },
-  { name: "Blazor",   Icon: SiBlazor },
-  { name: ".NET MAUI", Icon: SiDotnet },
-  { name: "React",    Icon: SiReact },
-  { name: "React Native", Icon: TbBrandReactNative },
-  { name: "Node.js",  Icon: SiNodedotjs },
-  { name: "Vue.js",   Icon: SiVuedotjs },
-  { name: "Azure",    Icon: TbBrandAzure },
-  { name: "MongoDB",  Icon: SiMongodb },
-  { name: "PostgreSQL", Icon: SiPostgresql },
-  { name: "Redis",    Icon: SiRedis },
-  { name: "Supabase", Icon: SiSupabase },
-  { name: "Flutter",  Icon: SiFlutter },
-  { name: "Tailwind", Icon: SiTailwindcss },
-  { name: "Stripe",   Icon: SiStripe },
-  { name: "Express",  Icon: SiExpress },
-  { name: "Vercel",   Icon: SiVercel },
-  { name: "Netlify",  Icon: SiNetlify },
-  { name: "GitHub Actions", Icon: SiGithubactions },
-  { name: "Docker",   Icon: SiDocker },
-  { name: "Kubernetes", Icon: SiKubernetes },
-  { name: "TypeScript", Icon: SiTypescript },
-  { name: "SEO",      Icon: HiChartBar },
+interface Tech { name: string; Icon: IconType }
+
+// AI tooling leads; the engineering stack follows.
+const aiStack: Tech[] = [
+  { name: "Azure OpenAI", Icon: SiOpenai },
+  { name: "Claude", Icon: SiAnthropic },
+  { name: "LangChain", Icon: SiLangchain },
+  { name: "Semantic Kernel", Icon: SiDotnet },
+  { name: "Azure AI Search", Icon: TbBrandAzure },
+  { name: "pgvector", Icon: TbVectorTriangle },
+  { name: "Hugging Face", Icon: SiHuggingface },
+  { name: "Ollama", Icon: SiOllama },
+  { name: "Python", Icon: SiPython },
+  { name: "FastAPI", Icon: SiFastapi },
 ];
+
+const engineeringStack: Tech[] = [
+  { name: ".NET", Icon: SiDotnet },
+  { name: "Blazor", Icon: SiBlazor },
+  { name: ".NET MAUI", Icon: SiDotnet },
+  { name: "React", Icon: SiReact },
+  { name: "Next.js", Icon: SiNextdotjs },
+  { name: "React Native", Icon: TbBrandReactNative },
+  { name: "Flutter", Icon: SiFlutter },
+  { name: "Node.js", Icon: SiNodedotjs },
+  { name: "TypeScript", Icon: SiTypescript },
+  { name: "Azure", Icon: TbBrandAzure },
+  { name: "PostgreSQL", Icon: SiPostgresql },
+  { name: "Redis", Icon: SiRedis },
+  { name: "Docker", Icon: SiDocker },
+  { name: "Kubernetes", Icon: SiKubernetes },
+  { name: "GitHub Actions", Icon: SiGithubactions },
+];
+
+function Row({ items, reverse = false, accent }: { items: Tech[]; reverse?: boolean; accent: string }) {
+  // Items are duplicated so the -50% translate loops seamlessly.
+  const loop = [...items, ...items];
+  return (
+    <div className="marquee-mask overflow-hidden">
+      <div
+        className="flex w-max gap-3 animate-marquee hover:[animation-play-state:paused]"
+        style={reverse ? { animationDirection: "reverse" } : undefined}
+      >
+        {loop.map((t, i) => (
+          <div
+            key={`${t.name}-${i}`}
+            aria-hidden={i >= items.length}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/[0.08] bg-white/[0.03] transition-colors duration-300 hover:border-cyan-300/30 hover:bg-white/[0.07]"
+          >
+            <t.Icon className={`w-4 h-4 ${accent}`} />
+            <span className="text-sm font-medium text-white/70 whitespace-nowrap">{t.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function TechBar() {
   return (
-    <section className="py-14 bg-gradient-to-r from-indigo-900 via-blue-900 to-indigo-900 overflow-hidden">
-      <div className="absolute inset-0 bg-dot-grid opacity-[0.06] pointer-events-none" />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-[11px] font-semibold text-white/50 uppercase tracking-[0.2em] mb-8">
-          Technology Expertise
+    <section className="theme-dark relative py-20 bg-ink-950 border-y border-white/[0.06] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
+        <p className="text-[11px] font-semibold text-white/50 uppercase tracking-[0.2em]">
+          The stack behind our AI and software
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-5">
-          {techs.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.04 }}
-              className="flex items-center gap-2"
-            >
-              <t.Icon className="w-5 h-5 text-blue-400" />
-              <span className="text-sm font-medium text-white/70">{t.name}</span>
-            </motion.div>
-          ))}
-        </div>
+      </div>
+      <div className="space-y-3">
+        <Row items={aiStack} accent="text-cyan-300" />
+        <Row items={engineeringStack} reverse accent="text-violet-300" />
       </div>
     </section>
   );

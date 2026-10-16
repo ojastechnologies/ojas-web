@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useMemo } from "react";
+import { useState, useMemo, type ReactNode } from "react";
 import {
   HiExternalLink,
   HiGlobeAlt,
@@ -10,6 +10,10 @@ import {
   HiChevronRight,
   HiDesktopComputer,
   HiServer,
+  HiSparkles,
+  HiCalendar,
+  HiHeart,
+  HiLockClosed,
 } from "react-icons/hi";
 import {
   SiReact,
@@ -31,6 +35,16 @@ import { TbBrandCSharp, TbBrandAzure } from "react-icons/tb";
 import { IconType } from "react-icons";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/mainLayout/footer";
+import { PhoneMockup } from "../components/phone-mockup";
+import { BrowserMockup } from "../components/browser-mockup";
+import {
+  CountUp,
+  Magnetic,
+  Reveal,
+  SplitText,
+  Stagger,
+  StaggerItem,
+} from "@/app/components/motion";
 
 /* ─── Types ──────────────────────────────────────── */
 interface ProjectLink {
@@ -54,6 +68,12 @@ interface Project {
   apps: { name: string; platform: string }[];
   logo: string;
   screenshots: { src: string; label: string }[];
+  /** Shown instead of screenshots for mobile apps without bundled screenshots */
+  mockup?: { subtitle: string; features: { Icon: IconType; label: string }[] };
+  /** Shown instead of screenshots for websites without a bundled screenshot */
+  site?: { url: string; tagline: string; monogram: string };
+  /** Tile behind the logo in the case-study header (default: white) */
+  logoTile?: string;
   featured: boolean;
 }
 
@@ -103,16 +123,6 @@ const projects: Project[] = [
         icon: HiExternalLink,
       },
       {
-        label: "Patient App (Android)",
-        url: "https://play.google.com/store/apps/details?id=com.searchmed.portal",
-        icon: HiExternalLink,
-      },
-      {
-        label: "Patient App (iOS)",
-        url: "https://apps.apple.com/us/app/searchmed-patient-portal/id6745996128",
-        icon: HiExternalLink,
-      },
-      {
         label: "Provider Scheduler (Windows)",
         url: "ms-windows-store://pdp/?ProductId=9PFDTW1MMHZ6&cid=PCCongratsBnr",
         icon: HiExternalLink,
@@ -120,11 +130,10 @@ const projects: Project[] = [
     ],
     highlights: [
       "AI-powered healthcare provider search & matching (DoctorFind.ai)",
-      "AI chat assistant in patient portal — diagnoses symptoms, recommends providers based on conditions, and offers basic first aid guidance",
       "HIPAA-compliant patient portal with end-to-end encrypted messaging",
       "Real-time appointment scheduling with calendar management",
       "Integrated payment processing via Stripe",
-      "Cross-platform patient app built with .NET MAUI (Android live; iOS releasing soon)",
+      "Cross-platform SearchMed Patient Portal app (.NET MAUI) — live on iOS and Android",
       "Windows desktop Provider Scheduler app (.NET MAUI)",
       "Blazor-based provider portal with profile, scheduling & patient management",
       "Azure cloud infrastructure — App Services, Service Bus, Blob Storage, Notification Hubs, SignalR",
@@ -134,8 +143,6 @@ const projects: Project[] = [
     apps: [
       { name: "SearchMed Web App", platform: "Web" },
       { name: "Provider Portal", platform: "Web (Blazor)" },
-      { name: "Patient Portal App", platform: "Android (.NET MAUI)" },
-      { name: "Patient Portal App", platform: "iOS (.NET MAUI)" },
       {
         name: "Provider Scheduler",
         platform: "Windows Desktop (.NET MAUI)",
@@ -156,6 +163,63 @@ const projects: Project[] = [
       { metric: "50K+", label: "Monthly active patients" },
       { metric: "HIPAA", label: "Full compliance achieved" },
     ],
+    featured: true,
+  },
+  {
+    title: "SearchMed Patient Portal",
+    client: "SearchMed Inc.",
+    location: "Fort Lauderdale, Florida",
+    description:
+      "The patient-facing mobile app of the SearchMed platform, live on the App Store and Google Play. Patients chat with an AI health assistant that helps them understand symptoms and points them to the right kind of provider, then book appointments, track medications, blood pressure and weight, and message their providers over end-to-end encrypted channels. Built once with .NET MAUI for iOS and Android, with SQLite for offline-capable storage and Azure services behind it.",
+    services: [
+      "Mobile App Development",
+      "AI Integration",
+      "Security & Compliance",
+      "App Store Release",
+    ],
+    technologies: [SiDotnet, TbBrandCSharp, TbBrandAzure, SiSqlite],
+    techLabels: [
+      ".NET MAUI",
+      "C#",
+      "AI Chat Assistant",
+      "Azure App Services",
+      "Azure Notification Hubs",
+      "SignalR",
+      "SQLite (offline)",
+      "OpenIdDict Auth",
+      "E2E Encryption",
+      "Stripe",
+    ],
+    links: [
+      { label: "App Store (iOS)", url: "https://apps.apple.com/us/app/searchmed-patient-portal/id6745996128", icon: FaApple },
+      { label: "Google Play (Android)", url: "https://play.google.com/store/apps/details?id=com.searchmed.portal", icon: FaAndroid },
+    ],
+    highlights: [
+      "AI chat assistant — helps patients understand symptoms, recommends providers based on conditions, and offers basic first-aid guidance",
+      "HIPAA-compliant design with end-to-end encrypted patient–provider messaging",
+      "Appointment booking synced with the provider scheduling system",
+      "Medication tracking plus blood pressure and weight monitoring",
+      "Secure private health reports",
+      "One .NET MAUI codebase shipped to both iOS and Android",
+      "Offline-capable local storage with SQLite",
+      "Push notifications via Azure Notification Hubs",
+    ],
+    apps: [
+      { name: "Patient Portal App", platform: "iOS (.NET MAUI)" },
+      { name: "Patient Portal App", platform: "Android (.NET MAUI)" },
+    ],
+    logo: "/img/clients/searchmed.png",
+    brandColor: "#0e7490",
+    screenshots: [],
+    mockup: {
+      subtitle: "iOS · Android",
+      features: [
+        { Icon: HiSparkles, label: "AI health assistant" },
+        { Icon: HiCalendar, label: "Book appointments" },
+        { Icon: HiHeart, label: "Medications & vitals" },
+        { Icon: HiLockClosed, label: "Encrypted messaging" },
+      ],
+    },
     featured: true,
   },
   {
@@ -262,6 +326,8 @@ const projects: Project[] = [
     ],
     apps: [{ name: "Custom Filler Web App", platform: "Next.js / Supabase" }],
     logo: "/img/clients/aerotechlabs.png",
+    // White-on-transparent logo needs a dark tile
+    logoTile: "bg-gray-900",
     brandColor: "#4338ca",
     screenshots: [
       { src: "/img/portfolio/customfiller-web.png", label: "Custom Filler — Homepage" },
@@ -298,13 +364,59 @@ const projects: Project[] = [
     ],
     featured: false,
   },
+  {
+    title: "Tarangini Foundation Website",
+    client: "Tarangini Foundation",
+    location: "Kathmandu, Nepal",
+    description:
+      "Website for Tarangini Foundation (Tarangini Mahila Adhikar Prashikshen Kendra), a Kathmandu-based women's rights organization that documents feminist movements and supports the self-care of women human rights defenders. The site presents the foundation's mission and work to supporters, partners, and the public.",
+    services: ["Web Development", "UI/UX Design"],
+    technologies: [],
+    links: [{ label: "Website", url: "https://tarangini.org.np/", icon: HiGlobeAlt }],
+    highlights: [
+      "Public website for a Kathmandu-based women's rights organization",
+      "Presents the foundation's mission, programs, and work",
+    ],
+    apps: [{ name: "Tarangini Foundation Website", platform: "Web" }],
+    logo: "",
+    brandColor: "#be185d",
+    screenshots: [],
+    site: {
+      url: "tarangini.org.np",
+      tagline: "Women's rights and feminist movement documentation, Kathmandu",
+      monogram: "T",
+    },
+    featured: false,
+  },
 ];
 
 const clients = [
-  { name: "SearchMed Inc.", contact: "Rafael Morel, CTO", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/searchmed.png" },
-  { name: "LeanLaw", contact: "Fred Willerup, CTO", location: "Boise, Idaho", flag: "🇺🇸", logo: "/img/clients/leanlaw.png" },
-  { name: "AeroTechLabs", contact: "Scott Hofman, CEO", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/aerotechlabs.png" },
-  { name: "Vision Sign Advertising", contact: "Basudev Adhikari, CEO", location: "Lalitpur, Nepal", flag: "🇳🇵", logo: "/img/clients/visionsign.png" },
+  {
+    name: "SearchMed Inc.", contact: "Rafael Morel, CTO", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/searchmed.png",
+    products: [
+      { name: "SearchMed Platform", url: "https://searchmed.com" },
+      { name: "SearchMed Patient Portal (iOS)", url: "https://apps.apple.com/us/app/searchmed-patient-portal/id6745996128" },
+    ],
+  },
+  {
+    name: "LeanLaw", contact: "Fred Willerup, CTO", location: "Boise, Idaho", flag: "🇺🇸", logo: "/img/clients/leanlaw.png",
+    products: [{ name: "LeanLaw Billing Platform", url: "https://leanlaw.co" }],
+  },
+  {
+    name: "AeroTechLabs", contact: "Scott Hofman, CEO", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/aerotechlabs.png",
+    // White-on-transparent logo needs a dark tile
+    logoTile: "bg-gray-900 border-gray-900",
+    products: [{ name: "Custom Filler", url: "https://customfiller.com" }],
+  },
+  {
+    name: "Vision Sign Advertising", contact: "Basudev Adhikari, CEO", location: "Lalitpur, Nepal", flag: "🇳🇵", logo: "/img/clients/visionsign.png",
+    products: [{ name: "Company website", url: "https://visionsignadvertising.com.np" }],
+  },
+  {
+    name: "Tarangini Foundation", contact: "", location: "Kathmandu, Nepal", flag: "🇳🇵", logo: "",
+    monogram: "T",
+    products: [{ name: "Foundation website", url: "https://tarangini.org.np/" }],
+  },
 ];
 
 /* ─── Helpers ────────────────────────────────────── */
@@ -464,7 +576,7 @@ function ScreenshotCarousel({
 
   return (
     <div className="relative group/carousel">
-      <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-indigo-50">
+      <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-ink-800 ring-1 ring-white/10 shadow-[0_20px_60px_-25px_rgba(34,211,238,0.35)]">
         <Image
           src={screenshots[current].src}
           alt={screenshots[current].label}
@@ -473,10 +585,11 @@ function ScreenshotCarousel({
           sizes="(max-width: 768px) 100vw, 50vw"
           loading="lazy"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950/40 via-transparent to-transparent pointer-events-none" />
       </div>
 
       {/* Label */}
-      <p className="mt-3 text-xs text-gray-400 text-center">
+      <p className="mt-3 text-xs text-white/55 text-center">
         {screenshots[current].label}
       </p>
 
@@ -484,29 +597,36 @@ function ScreenshotCarousel({
       {screenshots.length > 1 && (
         <>
           <button
+            type="button"
+            aria-label="Previous screenshot"
             onClick={() =>
               setCurrent(
                 (c) => (c - 1 + screenshots.length) % screenshots.length
               )
             }
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity"
+            className="absolute left-2 top-[calc(50%-1.25rem)] -translate-y-1/2 w-9 h-9 bg-ink-900/80 backdrop-blur border border-white/15 hover:bg-ink-800 text-white rounded-full flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 focus-visible:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 transition-opacity"
           >
-            <HiChevronLeft className="w-5 h-5 text-gray-700" />
+            <HiChevronLeft className="w-5 h-5" />
           </button>
           <button
+            type="button"
+            aria-label="Next screenshot"
             onClick={() => setCurrent((c) => (c + 1) % screenshots.length)}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity"
+            className="absolute right-2 top-[calc(50%-1.25rem)] -translate-y-1/2 w-9 h-9 bg-ink-900/80 backdrop-blur border border-white/15 hover:bg-ink-800 text-white rounded-full flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 focus-visible:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 transition-opacity"
           >
-            <HiChevronRight className="w-5 h-5 text-gray-700" />
+            <HiChevronRight className="w-5 h-5" />
           </button>
           {/* Dots */}
           <div className="flex justify-center gap-1.5 mt-2">
-            {screenshots.map((_, i) => (
+            {screenshots.map((s, i) => (
               <button
+                type="button"
                 key={i}
+                aria-label={`Show screenshot ${i + 1}: ${s.label}`}
+                aria-current={i === current ? "true" : undefined}
                 onClick={() => setCurrent(i)}
-                className={`w-1.5 h-1.5 rounded-full transition-all ${
-                  i === current ? "bg-indigo-600 w-4" : "bg-indigo-200"
+                className={`h-1.5 rounded-full transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
+                  i === current ? "bg-cyan-300 w-4" : "bg-white/20 w-1.5 hover:bg-white/40"
                 }`}
               />
             ))}
@@ -514,6 +634,15 @@ function ScreenshotCarousel({
         </>
       )}
     </div>
+  );
+}
+
+/** Small uppercase label used inside case-study cards. */
+function Eyebrow({ children }: { children: ReactNode }) {
+  return (
+    <h4 className="text-[10px] font-semibold text-white/50 uppercase tracking-[0.18em] mb-3">
+      {children}
+    </h4>
   );
 }
 
@@ -544,473 +673,513 @@ export default function PortfolioPage() {
     { value: `${uniqueCountries}`, label: "Countries" },
   ];
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.04 },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
-  };
-
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-ink-950 text-white overflow-x-clip">
         <Navbar />
 
-        {/* ════════ 1. Hero Section — Dark indigo ════════ */}
-        <section className="bg-gradient-to-br from-indigo-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-          {/* Subtle grid pattern overlay */}
+        {/* ════════ 1. Hero ════════ */}
+        <section className="relative overflow-hidden bg-ink-950">
+          <div className="orb orb-a w-[420px] h-[420px] md:w-[520px] md:h-[520px] -top-40 -left-32 bg-cyan-500/25" />
+          <div className="orb orb-b w-[440px] h-[440px] md:w-[560px] md:h-[560px] -top-20 right-[-15%] bg-violet-600/25" />
           <div
-            className="absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-              backgroundSize: "24px 24px",
-            }}
+            className="orb orb-a w-[360px] h-[360px] bottom-[-30%] left-[30%] bg-sky-500/10"
+            style={{ animationDelay: "-7s" }}
           />
+          <div className="absolute inset-0 bg-grid-fade pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent to-ink-950 pointer-events-none" />
 
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-20 md:pb-28 text-center">
+            <motion.span
+              initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              className="dark-badge"
             >
-              <p className="text-sm font-semibold text-blue-300 uppercase tracking-[0.15em] mb-4">
-                Our Work
-              </p>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-4">
-                {totalAppCount}+ Apps Built for
-                <br />
-                Global Clients
-              </h1>
-              <p className="text-lg text-blue-200/80 max-w-2xl mx-auto mb-12">
-                From HIPAA-compliant healthcare platforms to multi-service
-                microservices architectures — we ship production-grade software
-                across web, mobile, and desktop.
-              </p>
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 shadow-[0_0_10px_2px_rgba(103,232,249,0.7)]" />
+              Our Work
+            </motion.span>
 
-              {/* Stat Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden max-w-2xl mx-auto border border-white/10">
-                {heroStats.map((stat, i) => (
-                  <div
-                    key={i}
-                    className="bg-indigo-900/60 backdrop-blur-sm py-5 px-3 text-center"
-                  >
-                    <div className="text-2xl sm:text-3xl font-bold text-white">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-blue-300/80 mt-1">
-                      {stat.label}
-                    </div>
+            <SplitText
+              as="h1"
+              inView={false}
+              delay={0.1}
+              className="font-display text-4xl sm:text-5xl lg:text-7xl font-semibold tracking-tight leading-[1.05] text-white mb-6"
+              segments={[
+                { text: `${totalAppCount}+ Apps Built for`, br: true },
+                { text: "Global Clients", className: "text-gradient-animated" },
+              ]}
+            />
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="text-base md:text-lg text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed"
+            >
+              From HIPAA-compliant healthcare platforms to multi-service
+              microservices architectures — we ship production-grade software
+              across web, mobile, and desktop.
+            </motion.p>
+
+            {/* Stat Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: 0.7, duration: 0.8 }}
+              className="glass ring-gradient grid grid-cols-2 sm:grid-cols-4 max-w-2xl mx-auto overflow-hidden [&>*]:border-white/[0.08]"
+            >
+              {heroStats.map((stat, i) => (
+                <div
+                  key={i}
+                  className={`py-6 px-3 text-center ${i % 2 === 1 ? "border-l" : ""} ${
+                    i >= 2 ? "border-t sm:border-t-0" : ""
+                  } ${i === 2 ? "sm:border-l" : ""}`}
+                >
+                  <CountUp
+                    value={stat.value}
+                    className="block font-display text-3xl sm:text-4xl font-semibold text-white"
+                  />
+                  <div className="text-xs text-white/55 mt-1.5 uppercase tracking-[0.14em]">
+                    {stat.label}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </motion.div>
           </div>
         </section>
 
         {/* ════════ 2. Apps Grid — Visual App Showcase ════════ */}
-        <section className="bg-gradient-to-b from-indigo-50/50 to-white py-20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-10"
-            >
-              <p className="text-sm font-semibold text-gray-400 uppercase tracking-[0.15em] mb-2">
-                Application Portfolio
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
-                Every App We&apos;ve Built
-              </h2>
-              <p className="text-gray-500 mt-2 max-w-xl">
+        <section className="dark-section overflow-hidden !pt-12 md:!pt-16">
+          <div className="absolute inset-0 bg-aurora opacity-30 pointer-events-none" />
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal className="mb-12">
+              <div className="dark-badge">Application Portfolio</div>
+              <SplitText
+                className="dark-title"
+                segments={[
+                  { text: "Every App" },
+                  { text: "We've Built", className: "text-gradient-ai" },
+                ]}
+              />
+              <p className="dark-sub mt-4">
                 {totalAppCount} individual applications across {clients.length}{" "}
                 client projects — web, mobile, desktop, and backend services.
               </p>
-            </motion.div>
+            </Reveal>
 
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-            >
+            <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {/* Individual app cards (apps WITH links) */}
               {linkedApps.map((app, i) => (
-                <motion.div
-                  key={`app-${app.projectName}-${app.name}-${i}`}
-                  variants={cardVariants}
-                  className="bg-white rounded-xl border border-indigo-100/50 hover:border-indigo-200 transition-colors p-4 flex flex-col"
-                >
-                  {/* App name + external link icon */}
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="text-sm font-bold text-gray-900 mb-1 leading-snug">
-                      {app.name}
-                    </h3>
-                    <a
-                      href={app.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center w-6 h-6 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors flex-shrink-0"
-                    >
-                      <HiExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
+                <StaggerItem key={`app-${app.projectName}-${app.name}-${i}`} className="h-full">
+                  <div className="group glass-hover h-full p-5 flex flex-col">
+                    {/* App name + external link icon */}
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-display text-[15px] font-semibold text-white mb-2 leading-snug">
+                        {app.name}
+                      </h3>
+                      <a
+                        href={app.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${app.name} (${app.platform})`}
+                        className="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-white/10 text-white/50 hover:text-cyan-200 hover:border-cyan-300/40 hover:bg-white/[0.06] transition-colors flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                      >
+                        <HiExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
 
-                  {/* Platform + Project badge row */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-flex items-center gap-1 text-[11px] font-medium text-gray-500 bg-gray-50 rounded-md px-1.5 py-0.5">
-                      <PlatformIcon platform={app.platform} />
-                      <PlatformLabel platform={app.platform} />
-                    </span>
-                    <span
-                      className="inline-flex items-center text-[11px] font-medium text-white rounded-md px-1.5 py-0.5 truncate max-w-[120px]"
-                      style={{ backgroundColor: app.projectColor }}
-                    >
-                      {app.projectName}
-                    </span>
-                  </div>
+                    {/* Platform + Project badge row */}
+                    <div className="flex flex-wrap items-center gap-1.5 mb-3 min-w-0">
+                      <span className="chip-dark">
+                        <PlatformIcon platform={app.platform} />
+                        <PlatformLabel platform={app.platform} />
+                      </span>
+                      <span className="chip-dark max-w-[150px] min-w-0">
+                        <span
+                          className="w-1.5 h-1.5 rounded-full flex-shrink-0 ring-1 ring-white/30"
+                          style={{ backgroundColor: app.projectColor }}
+                        />
+                        <span className="truncate">{app.projectName}</span>
+                      </span>
+                    </div>
 
-                  {/* Platform detail */}
-                  <p className="text-[11px] text-gray-400/80 mt-auto leading-tight">
-                    {app.platform}
-                  </p>
-                </motion.div>
+                    {/* Platform detail */}
+                    <p className="text-[11px] font-mono text-white/50 mt-auto leading-tight">
+                      {app.platform}
+                    </p>
+                  </div>
+                </StaggerItem>
               ))}
 
               {/* Grouped service cards (apps WITHOUT links, one per project) */}
               {serviceGroups.map((group, i) => (
-                <motion.div
+                <StaggerItem
                   key={`services-${group.projectName}-${i}`}
-                  variants={cardVariants}
-                  className={`rounded-xl border border-dashed border-indigo-200 p-4 flex flex-col ${
-                    group.projectName === "LeanLaw Billing Platform"
-                      ? "bg-indigo-50/50 lg:col-span-2 xl:col-span-2 p-3"
-                      : "bg-indigo-50/50"
+                  className={`h-full ${
+                    group.projectName === "LeanLaw Billing Platform" ? "lg:col-span-2 xl:col-span-2" : ""
                   }`}
                 >
-                  {/* Header */}
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <HiServer className="w-3.5 h-3.5 text-gray-400" />
-                    <h3 className="text-sm font-bold text-gray-900">
-                      Infrastructure &amp; Services
-                    </h3>
-                  </div>
+                  <div className="h-full rounded-2xl border border-dashed border-white/15 bg-gradient-to-br from-cyan-500/[0.04] to-violet-500/[0.06] p-5 flex flex-col">
+                    {/* Header */}
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <span className="w-6 h-6 rounded-md bg-cyan-400/10 border border-cyan-300/20 flex items-center justify-center">
+                        <HiServer className="w-3.5 h-3.5 text-cyan-300" />
+                      </span>
+                      <h3 className="font-display text-[15px] font-semibold text-white">
+                        Infrastructure &amp; Services
+                      </h3>
+                    </div>
 
-                  {/* Project badge */}
-                  <span
-                    className="inline-flex items-center self-start text-[11px] font-medium text-white rounded-md px-1.5 py-0.5 truncate max-w-[160px] mb-2"
-                    style={{ backgroundColor: group.projectColor }}
-                  >
-                    {group.projectName}
-                  </span>
+                    {/* Project badge */}
+                    <span className="chip-dark self-start max-w-[200px] mb-3">
+                      <span
+                        className="w-1.5 h-1.5 rounded-full flex-shrink-0 ring-1 ring-white/30"
+                        style={{ backgroundColor: group.projectColor }}
+                      />
+                      <span className="truncate">{group.projectName}</span>
+                    </span>
 
-                  {/* Services list */}
-                  <div className="space-y-1 mt-0.5">
-                    {group.services.map((svc, j) => (
-                      <div
-                        key={j}
-                        className="flex items-start gap-1.5 text-[12px] text-gray-700/80"
-                      >
-                        <span className="mt-1.5 w-1 h-1 rounded-full bg-indigo-300 flex-shrink-0" />
-                        <span>
-                          <span className="font-medium">{svc.name}</span>
-                          <span className="text-gray-400/70">
-                            {" "}
-                            — {svc.platform}
+                    {/* Services list */}
+                    <div
+                      className={`space-y-1.5 ${
+                        group.projectName === "LeanLaw Billing Platform"
+                          ? "sm:columns-2 sm:gap-6 sm:space-y-0 [&>*]:sm:mb-1.5 [&>*]:break-inside-avoid"
+                          : ""
+                      }`}
+                    >
+                      {group.services.map((svc, j) => (
+                        <div
+                          key={j}
+                          className="flex items-start gap-2 text-[12px] text-white/70"
+                        >
+                          <span className="mt-[7px] w-1 h-1 rounded-full bg-cyan-300 flex-shrink-0" />
+                          <span>
+                            <span className="font-medium text-white/85">{svc.name}</span>
+                            <span className="text-white/50">
+                              {" "}
+                              — {svc.platform}
+                            </span>
                           </span>
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                        </div>
+                      ))}
+                    </div>
 
-                  {/* Count badge */}
-                  <div className="mt-1.5 pt-1.5 border-t border-indigo-200/50 text-[10px] font-medium text-gray-400">
-                    {group.services.length} service{group.services.length !== 1 ? "s" : ""}
+                    {/* Count badge */}
+                    <div className="mt-auto pt-3">
+                      <div className="pt-2.5 border-t border-white/[0.08] text-[10px] font-mono uppercase tracking-wider text-white/50">
+                        {group.services.length} service{group.services.length !== 1 ? "s" : ""}
+                      </div>
+                    </div>
                   </div>
-                </motion.div>
+                </StaggerItem>
               ))}
-            </motion.div>
+            </Stagger>
           </div>
         </section>
 
         {/* ════════ 3. Project Deep-Dive Sections ════════ */}
-        <section className="bg-white py-20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-10"
-            >
-              <p className="text-sm font-semibold text-gray-400 uppercase tracking-[0.15em] mb-2">
-                Case Studies
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
-                Project Details
-              </h2>
-            </motion.div>
+        <section className="dark-section border-t border-white/[0.06]">
+          <div className="absolute inset-0 bg-grid-fade opacity-50 pointer-events-none" />
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal className="mb-12">
+              <div className="dark-badge">Case Studies</div>
+              <SplitText
+                className="dark-title"
+                segments={[
+                  { text: "Project" },
+                  { text: "Details", className: "text-gradient-ai" },
+                ]}
+              />
+            </Reveal>
 
-            <div className="space-y-12">
+            <div className="space-y-10 md:space-y-14">
               {projects
                 .filter((p) => p.apps.length > 0)
                 .map((project, index) => (
-                  <motion.article
-                    key={index}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="rounded-xl border border-indigo-100/50 hover:border-indigo-200 transition-colors bg-white overflow-hidden"
-                  >
-                    {/* Project header bar */}
-                    <div className="px-6 sm:px-8 py-4 flex items-center justify-between bg-gradient-to-r from-indigo-700 to-blue-600">
-                      <div className="flex items-center gap-3">
-                        {project.logo && (
-                          <div className="w-9 h-9 rounded-lg bg-white/20 p-1.5 flex items-center justify-center">
-                            <Image
-                              src={project.logo}
-                              alt={project.title}
-                              width={28}
-                              height={28}
-                              className="object-contain"
-                            />
-                          </div>
-                        )}
-                        <div>
-                          <h3 className="text-lg font-bold text-white">
-                            {project.title}
-                          </h3>
-                          <p className="text-white/60 text-xs">
-                            {project.client} · {project.location}
-                          </p>
-                        </div>
-                      </div>
-                      {project.featured && (
-                        <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white rounded-full">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Body: screenshot + info */}
-                    <div className="grid lg:grid-cols-2">
-                      {/* Screenshot carousel */}
-                      <div className="p-6 sm:p-8 bg-gradient-to-b from-indigo-50/80 to-white border-b lg:border-b-0 lg:border-r border-indigo-100">
-                        <ScreenshotCarousel
-                          screenshots={project.screenshots}
-                        />
-                      </div>
-
-                      {/* Info */}
-                      <div className="p-6 sm:p-8 flex flex-col gap-5">
-                        <p className="text-sm text-gray-600 leading-relaxed">
-                          {project.description}
-                        </p>
-
-                        {/* Business Outcomes */}
-                        {project.outcomes &&
-                          project.outcomes.length > 0 && (
-                            <div>
-                              <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                Business Impact
-                              </h4>
-                              <div className="grid grid-cols-3 gap-3">
-                                {project.outcomes.map((o, i) => (
-                                  <div
-                                    key={i}
-                                    className="text-center p-3 rounded-lg bg-indigo-50 border border-indigo-100"
-                                  >
-                                    <div className="text-lg font-bold text-gray-700">
-                                      {o.metric}
-                                    </div>
-                                    <div className="text-[10px] text-gray-500 leading-tight">
-                                      {o.label}
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
+                  <Reveal key={index}>
+                    <article className="glass overflow-hidden transition-colors duration-500 hover:border-white/15">
+                      {/* Project header bar */}
+                      <div className="px-5 sm:px-8 py-4 flex items-center justify-between gap-3 bg-gradient-to-r from-cyan-500/10 via-sky-500/[0.06] to-violet-500/10 border-b border-white/[0.06]">
+                        <div className="flex items-center gap-3 min-w-0">
+                          {project.logo && (
+                            <div className={`w-10 h-10 rounded-xl ${project.logoTile ?? "bg-paper"} ring-1 ring-black/5 p-1.5 flex items-center justify-center flex-shrink-0`}>
+                              <Image
+                                src={project.logo}
+                                alt={project.title}
+                                width={28}
+                                height={28}
+                                className="object-contain"
+                              />
                             </div>
                           )}
-
-                        {/* Links */}
-                        <div className="flex flex-wrap gap-2">
-                          {project.links.map((link, i) => (
-                            <a
-                              key={i}
-                              href={link.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors text-gray-700 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100"
-                            >
-                              <link.icon className="w-3.5 h-3.5" />
-                              {link.label}
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Highlights */}
-                    <div className="px-6 sm:px-8 py-5 border-t border-indigo-100">
-                      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                        Highlights
-                      </h4>
-                      <div className="grid sm:grid-cols-2 gap-x-8 gap-y-1.5">
-                        {project.highlights.map((h, i) => (
-                          <div
-                            key={i}
-                            className="flex items-start gap-2.5 py-1"
-                          >
-                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-indigo-500" />
-                            <span className="text-sm text-gray-600">
-                              {h}
-                            </span>
+                          <div className="min-w-0">
+                            <h3 className="font-display text-lg sm:text-xl font-semibold text-white leading-tight">
+                              {project.title}
+                            </h3>
+                            <p className="text-white/50 text-xs mt-0.5">
+                              {project.client} · {project.location}
+                            </p>
                           </div>
-                        ))}
+                        </div>
+                        {project.featured && (
+                          <span className="flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-cyan-200 border border-cyan-300/25 bg-cyan-400/10 rounded-full">
+                            <HiSparkles className="w-3 h-3" />
+                            Featured
+                          </span>
+                        )}
                       </div>
-                    </div>
 
-                    {/* Bottom bar: Services + Tech */}
-                    <div className="px-6 sm:px-8 py-5 bg-gradient-to-b from-indigo-50/50 to-white border-t border-indigo-100">
-                      <div className="grid lg:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                            Services
-                          </h4>
-                          <div className="flex flex-wrap gap-1.5">
-                            {project.services.map((s, i) => (
-                              <span
+                      {/* Body: screenshot + info */}
+                      <div className="grid lg:grid-cols-2">
+                        {/* Screenshot carousel */}
+                        <div className="relative p-5 sm:p-8 bg-gradient-to-b from-white/[0.03] to-transparent border-b lg:border-b-0 lg:border-r border-white/[0.06]">
+                          <ScreenshotCarousel
+                            screenshots={project.screenshots}
+                          />
+                          {project.screenshots.length === 0 && project.site && (
+                            <div className="py-6">
+                              <BrowserMockup
+                                url={project.site.url}
+                                name={project.client}
+                                tagline={project.site.tagline}
+                                monogram={project.site.monogram}
+                              />
+                            </div>
+                          )}
+                          {project.screenshots.length === 0 && project.mockup && (
+                            <div className="py-6">
+                              <PhoneMockup
+                                icon={project.logo}
+                                name={project.title}
+                                subtitle={project.mockup.subtitle}
+                                features={project.mockup.features}
+                                dark
+                              />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Info */}
+                        <div className="p-5 sm:p-8 flex flex-col gap-6">
+                          <p className="text-sm md:text-[15px] text-white/65 leading-relaxed">
+                            {project.description}
+                          </p>
+
+                          {/* Business Outcomes */}
+                          {project.outcomes &&
+                            project.outcomes.length > 0 && (
+                              <div>
+                                <Eyebrow>Business Impact</Eyebrow>
+                                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                                  {project.outcomes.map((o, i) => (
+                                    <div
+                                      key={i}
+                                      className="text-center px-2 py-3 sm:p-4 rounded-xl bg-white/[0.03] border border-white/[0.08]"
+                                    >
+                                      <CountUp
+                                        value={o.metric}
+                                        className="block font-display text-lg sm:text-2xl font-semibold text-gradient-ai"
+                                      />
+                                      <div className="text-[10px] sm:text-[11px] text-white/55 leading-tight mt-1">
+                                        {o.label}
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                          {/* Links */}
+                          <div className="flex flex-wrap gap-2">
+                            {project.links.map((link, i) => (
+                              <a
                                 key={i}
-                                className="px-2.5 py-1 text-[11px] font-medium text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-md"
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-full transition-colors text-white/80 bg-white/[0.04] border border-white/15 hover:bg-white/[0.08] hover:border-cyan-300/40 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
                               >
-                                {s}
-                              </span>
+                                <link.icon className="w-3.5 h-3.5 text-cyan-300" />
+                                {link.label}
+                              </a>
                             ))}
                           </div>
                         </div>
-                        <div className="lg:border-l lg:border-indigo-200 lg:pl-6">
-                          <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                            Tech Stack
-                          </h4>
-                          {project.techLabels ? (
+                      </div>
+
+                      {/* Highlights */}
+                      <div className="px-5 sm:px-8 py-6 border-t border-white/[0.06]">
+                        <Eyebrow>Highlights</Eyebrow>
+                        <div className="grid sm:grid-cols-2 gap-x-8 gap-y-1.5">
+                          {project.highlights.map((h, i) => (
+                            <div
+                              key={i}
+                              className="flex items-start gap-2.5 py-1"
+                            >
+                              <span className="mt-[7px] w-1.5 h-1.5 rounded-full flex-shrink-0 bg-cyan-300 shadow-[0_0_8px_1px_rgba(103,232,249,0.6)]" />
+                              <span className="text-sm text-white/65">
+                                {h}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Bottom bar: Services + Tech */}
+                      <div className="px-5 sm:px-8 py-6 bg-white/[0.02] border-t border-white/[0.06]">
+                        <div className="grid lg:grid-cols-2 gap-6">
+                          <div>
+                            <Eyebrow>Services</Eyebrow>
                             <div className="flex flex-wrap gap-1.5">
-                              {project.techLabels.map((t, i) => (
-                                <span
-                                  key={i}
-                                  className="px-2.5 py-1 text-[11px] font-medium text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-md"
-                                >
-                                  {t}
+                              {project.services.map((s, i) => (
+                                <span key={i} className="chip-dark">
+                                  {s}
                                 </span>
                               ))}
                             </div>
-                          ) : (
-                            <div className="flex flex-wrap gap-2.5">
-                              {project.technologies.map((Tech, i) => (
-                                <Tech
-                                  key={i}
-                                  className="w-5 h-5 text-gray-400"
-                                />
-                              ))}
-                            </div>
+                          </div>
+                          {(project.techLabels || project.technologies.length > 0) && (
+                          <div className="lg:border-l lg:border-white/[0.08] lg:pl-6">
+                            <Eyebrow>Tech Stack</Eyebrow>
+                            {project.techLabels ? (
+                              <div className="flex flex-wrap gap-1.5">
+                                {project.techLabels.map((t, i) => (
+                                  <span
+                                    key={i}
+                                    className="chip-dark font-mono !text-cyan-100/80"
+                                  >
+                                    {t}
+                                  </span>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="flex flex-wrap gap-2.5">
+                                {project.technologies.map((Tech, i) => (
+                                  <Tech
+                                    key={i}
+                                    className="w-5 h-5 text-white/50"
+                                  />
+                                ))}
+                              </div>
+                            )}
+                          </div>
                           )}
                         </div>
                       </div>
-                    </div>
-                  </motion.article>
+                    </article>
+                  </Reveal>
                 ))}
             </div>
           </div>
         </section>
 
         {/* ════════ 4. Clients Section ════════ */}
-        <section className="bg-gradient-to-b from-indigo-50/50 to-white border-t border-indigo-100 py-16">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-10"
-            >
-              <p className="text-sm font-semibold text-gray-400 uppercase tracking-[0.15em] mb-2">
-                Partnerships
-              </p>
-              <h2 className="text-3xl font-bold text-gray-900 tracking-tight">
-                Our Clients
-              </h2>
-            </motion.div>
+        <section className="dark-section overflow-hidden border-t border-white/[0.06]">
+          <div className="absolute inset-0 bg-aurora opacity-30 pointer-events-none" />
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal className="mb-12">
+              <div className="dark-badge">Partnerships</div>
+              <SplitText
+                className="dark-title"
+                segments={[
+                  { text: "Our" },
+                  { text: "Clients", className: "text-gradient-ai" },
+                ]}
+              />
+            </Reveal>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
               {clients.map((client, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
-                  className="bg-white rounded-xl border border-indigo-100/50 p-5 text-center"
-                >
-                  {client.logo ? (
-                    <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-white border border-indigo-100/50 p-2 flex items-center justify-center">
-                      <Image
-                        src={client.logo}
-                        alt={client.name}
-                        width={44}
-                        height={44}
-                        className="object-contain"
-                      />
+                <StaggerItem key={index} className="h-full">
+                  <div className="glass-hover h-full p-6 text-center flex flex-col">
+                    {client.logo ? (
+                      <div
+                        className={`w-16 h-16 mx-auto mb-4 rounded-xl border p-2.5 flex items-center justify-center ring-1 ring-white/10 shadow-[0_10px_30px_-12px_rgba(103,232,249,0.35)] ${
+                          "logoTile" in client ? client.logoTile : "bg-paper border-black/5"
+                        }`}
+                      >
+                        <Image
+                          src={client.logo}
+                          alt={client.name}
+                          width={44}
+                          height={44}
+                          className="object-contain"
+                        />
+                      </div>
+                    ) : "monogram" in client ? (
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-rose-500 to-violet-600 text-paper font-display text-2xl font-semibold flex items-center justify-center shadow-lg">
+                        {client.monogram}
+                      </div>
+                    ) : (
+                      <div className="text-3xl mb-3">{client.flag}</div>
+                    )}
+                    <h3 className="font-display text-base font-semibold text-white mb-1">
+                      {client.name}
+                    </h3>
+                    {client.contact && (
+                      <p className="text-xs text-white/55 mb-1">
+                        {client.contact}
+                      </p>
+                    )}
+                    <p className="text-xs text-white/50">
+                      {client.flag} {client.location}
+                    </p>
+                    <div className="mt-auto pt-4">
+                      <ul className="border-t border-white/[0.08] pt-3 space-y-1.5">
+                        {client.products.map((product) => (
+                          <li key={product.url}>
+                            <a
+                              href={product.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs font-medium text-cyan-200 hover:text-white transition-colors"
+                            >
+                              {product.url.includes("apps.apple.com") && <FaApple className="w-3 h-3" />}
+                              {product.name}
+                              <HiExternalLink className="w-3 h-3 opacity-60" />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  ) : (
-                    <div className="text-3xl mb-3">{client.flag}</div>
-                  )}
-                  <h3 className="text-sm font-semibold text-gray-900 mb-0.5">
-                    {client.name}
-                  </h3>
-                  <p className="text-xs text-gray-500 mb-1">
-                    {client.contact}
-                  </p>
-                  <p className="text-xs text-gray-400">
-                    {client.flag} {client.location}
-                  </p>
-                </motion.div>
+                  </div>
+                </StaggerItem>
               ))}
-            </div>
+            </Stagger>
           </div>
         </section>
 
         {/* ════════ 5. CTA Section ════════ */}
-        <section className="bg-white py-16">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                Ready to Build Something Great?
-              </h2>
-              <p className="text-gray-500 mb-8">
-                Let&apos;s discuss how we can help bring your project to life.
-              </p>
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-blue-500 rounded-xl hover:from-indigo-700 hover:to-blue-600 transition-all"
-              >
-                Start a Conversation
-                <HiExternalLink className="w-4 h-4" />
-              </Link>
-            </motion.div>
+        <section className="relative bg-ink-950 pb-24 md:pb-32 pt-4">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal>
+              <div className="relative glass border-beam !rounded-3xl px-6 py-14 md:px-12 md:py-20 text-center">
+                <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none" aria-hidden>
+                  <div className="orb orb-a w-[320px] h-[320px] -top-32 -left-20 bg-cyan-500/20" />
+                  <div className="orb orb-b w-[320px] h-[320px] -bottom-32 -right-20 bg-violet-600/20" />
+                  <div className="absolute inset-0 bg-grid-fade opacity-60" />
+                </div>
+                <div className="relative">
+                  <h2 className="font-display text-3xl md:text-5xl font-semibold tracking-tight text-white mb-4">
+                    Ready to Build{" "}
+                    <span className="text-gradient-animated">Something Great?</span>
+                  </h2>
+                  <p className="text-white/55 md:text-lg mb-10">
+                    Let&apos;s discuss how we can help bring your project to life.
+                  </p>
+                  <Magnetic>
+                    <Link href="/#contact" className="group btn-glow">
+                      Start a Conversation
+                      <HiExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </Magnetic>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </section>
       </main>

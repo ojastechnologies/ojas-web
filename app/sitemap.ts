@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllSlugs } from "./blog/lib";
+import { getAllPosts } from "./blog/lib";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = "https://ojastech.io";
@@ -16,10 +16,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     ];
 
-    const blogSlugs = getAllSlugs();
-    const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-        url: `${baseUrl}/blog/${slug}`,
-        lastModified: new Date(),
+    // Each post reports its own publish date rather than the build time, so a
+    // redeploy doesn't signal that every article changed.
+    const blogPages: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
         changeFrequency: "monthly",
         priority: 0.6,
     }));
