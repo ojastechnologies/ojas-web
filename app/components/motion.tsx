@@ -169,7 +169,12 @@ export function CountUp({ value, className }: { value: string; className?: strin
     const controls = animate(0, target, {
       duration: 1.6,
       ease: EASE_OUT,
-      onUpdate: (v) => setDisplay(`${match[1]}${v.toFixed(decimals)}${match[3]}`),
+      onUpdate: (v) => {
+        const n = match[2].includes(",")
+          ? Math.round(v).toLocaleString("en-US")
+          : v.toFixed(decimals);
+        setDisplay(`${match[1]}${n}${match[3]}`);
+      },
     });
     return () => controls.stop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
