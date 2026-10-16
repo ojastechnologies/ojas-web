@@ -78,9 +78,10 @@ const services: Service[] = [
 
 export function AiServices() {
   return (
-    <section id="ai" className="dark-section overflow-hidden scroll-mt-20">
+    <section className="dark-section overflow-hidden">
       <div className="absolute inset-0 bg-aurora opacity-50 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="ai" aria-hidden className="absolute -top-px scroll-mt-24 md:scroll-mt-32" />
         <motion.div
           initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}

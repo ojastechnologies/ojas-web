@@ -49,20 +49,73 @@ function RagDemo() {
     return () => clearTimeout(t);
   }, [stage, typed, streamed, reduce]);
 
-  // Render the answer up to `streamed` characters, inserting citations once reached.
-  let remaining = streamed;
-  const answerNodes = ANSWER.map((part, i) => {
-    if (part.cite) {
-      return remaining > 0 || stage === 3 ? (
-        <sup key={i} className="mx-0.5 inline-flex items-center justify-center w-4 h-4 rounded bg-cyan-400/15 text-[9px] font-semibold text-cyan-200 align-top">
-          {part.cite}
-        </sup>
-      ) : null;
-    }
-    const shown = part.text.slice(0, Math.max(0, remaining));
-    remaining -= part.text.length;
-    return <span key={i}>{shown}</span>;
-  });
+  // Render the answer up to `chars` characters, inserting citations once reached.
+  const renderAnswer = (chars: number, done: boolean) => {
+    let remaining = chars;
+    return ANSWER.map((part, i) => {
+      if (part.cite) {
+        return remaining > 0 || done ? (
+          <sup key={i} className="mx-0.5 inline-flex items-center justify-center w-4 h-4 rounded bg-cyan-400/15 text-[9px] font-semibold text-cyan-200 align-top">
+            {part.cite}
+          </sup>
+        ) : null;
+      }
+      const shown = part.text.slice(0, Math.max(0, remaining));
+      remaining -= part.text.length;
+      return <span key={i}>{shown}</span>;
+    });
+  };
+
+  // One body renderer, used twice: an invisible copy of the finished state
+  // reserves the card's final height, so the looping animation never shifts
+  // the page below it (which would throw off #anchor jumps).
+  const body = (st: number, ty: number, chars: number, ghost: boolean) => (
+    <div className="p-5 space-y-4 [grid-area:1/1]" aria-hidden={ghost || undefined} style={ghost ? { visibility: "hidden" } : undefined}>
+      {/* Question */}
+      <div className="flex justify-end">
+        <div className="max-w-[85%] rounded-2xl rounded-br-md bg-white/[0.08] px-4 py-2.5 text-sm text-white/90">
+          {QUESTION.slice(0, ty)}
+          {st === 0 && <span className="inline-block w-[2px] h-4 -mb-0.5 ml-0.5 bg-cyan-300 animate-pulse" />}
+        </div>
+      </div>
+
+      {/* Retrieval */}
+      {st >= 1 && (
+        <motion.div initial={ghost ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
+          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
+            {st === 1 ? "Searching 12,480 chunks…" : "Retrieved · reranked"}
+          </div>
+          <div className="grid gap-1.5">
+            {SOURCES.map((src, i) => (
+              <motion.div
+                key={src.id}
+                initial={ghost ? false : { opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: reduce || ghost ? 0 : i * 0.25 }}
+                className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-1.5"
+              >
+                <span className="font-mono text-[10px] text-cyan-300/80">[{src.id}]</span>
+                <HiDocumentText className="w-3.5 h-3.5 text-white/50" />
+                <span className="font-mono text-[11px] text-white/70 truncate">{src.name}</span>
+                <span className="font-mono text-[10px] text-white/50">{src.loc}</span>
+                <span className="ml-auto font-mono text-[10px] text-emerald-300/70">{src.score}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Answer */}
+      {st >= 2 && (
+        <motion.div initial={ghost ? false : { opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
+          <div className="w-7 h-7 shrink-0 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center">
+            <HiSparkles className="w-3.5 h-3.5 text-paper" />
+          </div>
+          <p className="text-sm leading-relaxed text-white/80">{renderAnswer(chars, st === 3)}</p>
+        </motion.div>
+      )}
+    </div>
+  );
 
   return (
     <div className="relative">
@@ -81,50 +134,9 @@ function RagDemo() {
           </span>
         </div>
 
-        <div className="p-5 space-y-4 min-h-[340px]">
-          {/* Question */}
-          <div className="flex justify-end">
-            <div className="max-w-[85%] rounded-2xl rounded-br-md bg-white/[0.08] px-4 py-2.5 text-sm text-white/90">
-              {QUESTION.slice(0, typed)}
-              {stage === 0 && <span className="inline-block w-[2px] h-4 -mb-0.5 ml-0.5 bg-cyan-300 animate-pulse" />}
-            </div>
-          </div>
-
-          {/* Retrieval */}
-          {stage >= 1 && (
-            <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
-              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
-                {stage === 1 ? "Searching 12,480 chunks…" : "Retrieved · reranked"}
-              </div>
-              <div className="grid gap-1.5">
-                {SOURCES.map((s, i) => (
-                  <motion.div
-                    key={s.id}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: reduce ? 0 : i * 0.25 }}
-                    className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-1.5"
-                  >
-                    <span className="font-mono text-[10px] text-cyan-300/80">[{s.id}]</span>
-                    <HiDocumentText className="w-3.5 h-3.5 text-white/50" />
-                    <span className="font-mono text-[11px] text-white/70 truncate">{s.name}</span>
-                    <span className="font-mono text-[10px] text-white/50">{s.loc}</span>
-                    <span className="ml-auto font-mono text-[10px] text-emerald-300/70">{s.score}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Answer */}
-          {stage >= 2 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
-              <div className="w-7 h-7 shrink-0 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center">
-                <HiSparkles className="w-3.5 h-3.5 text-white" />
-              </div>
-              <p className="text-sm leading-relaxed text-white/80">{answerNodes}</p>
-            </motion.div>
-          )}
+        <div className="grid">
+          {body(3, QUESTION.length, ANSWER_LEN, true)}
+          {body(stage, typed, streamed, false)}
         </div>
 
         {/* Footer metrics */}

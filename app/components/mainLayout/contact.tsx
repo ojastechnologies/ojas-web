@@ -58,9 +58,10 @@ export function Contact({ simple, dark }: { simple?: boolean; dark?: boolean }) 
   };
 
   return (
-    <section id="contact" className={`${t.section} scroll-mt-20`}>
+    <section className={t.section}>
       <div className={`absolute inset-0 pointer-events-none ${dark ? "bg-aurora opacity-40" : "bg-mesh"}`} />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="contact" aria-hidden className="absolute -top-px scroll-mt-24 md:scroll-mt-32" />
         {!simple && (
         <motion.div
           initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}

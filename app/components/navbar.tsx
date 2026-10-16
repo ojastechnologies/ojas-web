@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RiCloseLine, RiMenuLine } from "react-icons/ri";
 import { NAV_ITEMS, SOCIAL_LINKS } from "@/app/constants";
 import { ScrollProgress } from "@/app/components/motion";
@@ -20,11 +20,33 @@ export const Navbar = () => {
   const [hidden, setHidden] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const { scrollY } = useScroll();
+  // While a #section jump is scrolling, keep the bar shown so the section
+  // always lands the same distance below it.
+  const pinnedUntil = useRef(0);
+
+  useEffect(() => {
+    const pin = () => {
+      pinnedUntil.current = Date.now() + 1500;
+      setHidden(false);
+    };
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.("a");
+      if (a?.getAttribute("href")?.includes("#")) pin();
+    };
+    if (window.location.hash) pin();
+    document.addEventListener("click", onClick, true);
+    window.addEventListener("hashchange", pin);
+    return () => {
+      document.removeEventListener("click", onClick, true);
+      window.removeEventListener("hashchange", pin);
+    };
+  }, []);
 
   // Solid background once scrolled; slide away while scrolling down, return on scroll up.
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
     setScrolled(y > 20);
+    if (Date.now() < pinnedUntil.current) return;
     setHidden(y > prev && y > 160 && !open);
   });
 

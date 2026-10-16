@@ -106,9 +106,10 @@ function Lane({ label, steps, accent }: { label: string; steps: Step[]; accent: 
 
 export function RagPipeline() {
   return (
-    <section id="rag" className="theme-dark dark-section overflow-hidden scroll-mt-20 !bg-ink-900">
+    <section className="theme-dark dark-section overflow-hidden !bg-ink-900">
       <div className="absolute inset-0 bg-grid-fade opacity-60 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="rag" aria-hidden className="absolute -top-px scroll-mt-24 md:scroll-mt-32" />
         <motion.div
           initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
