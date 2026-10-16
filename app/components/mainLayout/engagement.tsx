@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { Magnetic, SplitText } from "@/app/components/motion";
 import Link from "next/link";
 import { HiArrowRight, HiCheck } from "react-icons/hi";
 
@@ -34,17 +35,13 @@ export function Engagement() {
       <div className="absolute inset-0 bg-aurora opacity-40 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className="max-w-3xl mb-14"
         >
           <div className="dark-badge">How we engage</div>
-          <h2 className="dark-title mb-5">
-            Start small.
-            <br />
-            <span className="text-gradient-ai">Prove it. Scale it.</span>
-          </h2>
+          <SplitText className="dark-title mb-5" segments={[{ text: "Start small.", br: true }, { text: "Prove it. Scale it.", className: "text-gradient-ai" }]} />
           <p className="dark-sub">
             No year-long AI strategy decks. You see a working result on your own data in
             the first two weeks, then decide how far to take it.
@@ -55,16 +52,16 @@ export function Engagement() {
           {offers.map((o, i) => (
             <motion.div
               key={o.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className={`glass-hover p-7 flex flex-col ${
-                o.highlight ? "ring-gradient bg-gradient-to-b from-cyan-500/[0.07] to-transparent" : ""
+                o.highlight ? "border-beam bg-gradient-to-b from-cyan-500/[0.07] to-transparent" : ""
               }`}
             >
               <div className="flex items-center justify-between mb-6">
-                <span className="font-mono text-xs text-white/35">{o.step}</span>
+                <span className="font-display text-5xl font-semibold text-white/[0.07] leading-none">{o.step}</span>
                 <span className="chip-dark">{o.length}</span>
               </div>
               <h3 className="font-display text-2xl font-semibold text-white mb-3">{o.name}</h3>
@@ -82,17 +79,21 @@ export function Engagement() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          <Link href="/contact" className="btn-glow">
-            Book a 30-min AI call <HiArrowRight className="w-4 h-4" />
-          </Link>
-          <Link href="/hire-developers" className="btn-line">
-            Hire a dedicated team
-          </Link>
+          <Magnetic>
+            <Link href="/contact" className="group btn-glow">
+              Book a 30-min AI call <HiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Magnetic>
+          <Magnetic>
+            <Link href="/hire-developers" className="btn-line">
+              Hire a dedicated team
+            </Link>
+          </Magnetic>
         </motion.div>
       </div>
     </section>

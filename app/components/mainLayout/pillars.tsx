@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { SplitText } from "@/app/components/motion";
 import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
 import { HiServer, HiCode, HiCloud } from "react-icons/hi";
@@ -33,16 +34,14 @@ export function Pillars() {
     <section className="dark-section overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className="grid lg:grid-cols-2 gap-6 lg:items-end mb-14"
         >
           <div>
             <div className="dark-badge">Beyond AI</div>
-            <h2 className="dark-title">
-              AI needs <span className="text-gradient-ai">solid software</span> around it.
-            </h2>
+            <SplitText className="dark-title" segments={[{ text: "AI needs" }, { text: "solid software", className: "text-gradient-ai" }, { text: "around it." }]} />
           </div>
           <p className="dark-sub lg:justify-self-end">
             Most of an AI product is ordinary engineering: APIs, apps, auth, and cloud.
@@ -54,8 +53,8 @@ export function Pillars() {
           {pillars.map((p, i) => (
             <motion.div
               key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="group glass-hover p-7 flex flex-col"

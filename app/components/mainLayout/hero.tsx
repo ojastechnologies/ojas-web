@@ -1,9 +1,10 @@
 "use client";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiArrowRight, HiDocumentText, HiSparkles } from "react-icons/hi";
 import { COMPANY_STATS } from "@/app/constants";
+import { CountUp, Magnetic, SplitText, Tilt } from "@/app/components/motion";
 
 const QUESTION = "Can we refund an annual plan cancelled after 30 days?";
 
@@ -140,68 +141,117 @@ function RagDemo() {
 }
 
 export const Hero = () => {
+  // Soft light that trails the cursor across the hero
+  const mx = useMotionValue(-1000);
+  const my = useMotionValue(-1000);
+  const sx = useSpring(mx, { stiffness: 80, damping: 20 });
+  const sy = useSpring(my, { stiffness: 80, damping: 20 });
+  const glow = useMotionTemplate`radial-gradient(600px circle at ${sx}px ${sy}px, rgba(56,189,248,0.10), transparent 60%)`;
+
   return (
-    <section className="relative w-full overflow-hidden bg-ink-950">
+    <section
+      className="relative w-full overflow-hidden bg-ink-950"
+      onPointerMove={(e) => {
+        if (e.pointerType !== "mouse") return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set(e.clientX - r.left);
+        my.set(e.clientY - r.top);
+      }}
+    >
       {/* Backgrounds */}
-      <div className="absolute inset-0 bg-aurora pointer-events-none" />
+      <div className="orb orb-a w-[520px] h-[520px] -top-40 -left-32 bg-cyan-500/25" />
+      <div className="orb orb-b w-[560px] h-[560px] -top-20 right-[-10%] bg-violet-600/25" />
+      <div className="orb orb-a w-[420px] h-[420px] bottom-[-20%] left-[35%] bg-sky-500/10" style={{ animationDelay: "-7s" }} />
       <div className="absolute inset-0 bg-grid-fade pointer-events-none" />
+      <motion.div className="absolute inset-0 pointer-events-none" style={{ background: glow }} />
       <div className="absolute inset-0 bg-noise opacity-[0.035] mix-blend-overlay pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-b from-transparent to-ink-950 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-20 md:pb-28">
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
-          >
-            <span className="dark-badge !mb-0">
-              <span className="status-dot animate-pulse" />
+          <div className="space-y-8">
+            <motion.span
+              initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              className="dark-badge !mb-0"
+            >
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                <span className="relative inline-flex w-2 h-2 rounded-full bg-emerald-400" />
+              </span>
               AI Engineering · RAG · Agents
-            </span>
+            </motion.span>
 
-            <h1 className="font-display text-5xl sm:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.02] text-white">
-              We build AI that
-              <br />
-              works on <span className="text-gradient-ai">your data.</span>
-            </h1>
+            <SplitText
+              as="h1"
+              inView={false}
+              delay={0.15}
+              className="font-display text-5xl sm:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.02] text-white"
+              segments={[
+                { text: "We build AI that", br: true },
+                { text: "works on" },
+                { text: "your data.", className: "text-gradient-animated" },
+              ]}
+            />
 
-            <p className="text-white/60 text-lg md:text-xl max-w-xl leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="text-white/60 text-lg md:text-xl max-w-xl leading-relaxed"
+            >
               Production RAG pipelines, LLM integrations, and AI agents — shipped by
               senior .NET, React, and Azure engineers from Kathmandu who already build
               HIPAA-grade software for US companies.
-            </p>
+            </motion.p>
 
-            <div className="flex gap-3 flex-wrap">
-              <Link href="/contact" className="btn-glow">
-                Book an AI consultation
-                <HiArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/#rag" className="btn-line">
-                See how our RAG works
-              </Link>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.75, duration: 0.8 }}
+              className="flex gap-3 flex-wrap"
+            >
+              <Magnetic>
+                <Link href="/contact" className="group btn-glow">
+                  Book an AI consultation
+                  <HiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <Link href="/#rag" className="btn-line">
+                  See how our RAG works
+                </Link>
+              </Magnetic>
+            </motion.div>
 
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/[0.08] max-w-lg">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.95, duration: 0.8 }}
+              className="grid grid-cols-3 gap-6 pt-8 border-t border-white/[0.08] max-w-lg"
+            >
               {[
                 { n: COMPANY_STATS.projectsDelivered, l: "Projects delivered" },
                 { n: COMPANY_STATS.yearsExperience, l: "Years in production" },
                 { n: "HIPAA", l: "Compliant builds shipped" },
               ].map((s) => (
                 <div key={s.l}>
-                  <div className="font-display text-2xl md:text-3xl font-semibold text-white">{s.n}</div>
+                  <CountUp value={s.n} className="block font-display text-2xl md:text-3xl font-semibold text-white" />
                   <div className="text-xs md:text-sm text-white/45 mt-1">{s.l}</div>
                 </div>
               ))}
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            initial={{ opacity: 0, y: 40, rotateX: 12, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, rotateX: 0, filter: "blur(0px)" }}
+            transition={{ duration: 1.1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformPerspective: 1200 }}
           >
-            <RagDemo />
+            <Tilt max={5}>
+              <RagDemo />
+            </Tilt>
           </motion.div>
         </div>
       </div>

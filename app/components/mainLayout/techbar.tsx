@@ -54,7 +54,7 @@ function Row({ items, reverse = false, accent }: { items: Tech[]; reverse?: bool
           <div
             key={`${t.name}-${i}`}
             aria-hidden={i >= items.length}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/[0.08] bg-white/[0.03]"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/[0.08] bg-white/[0.03] transition-colors duration-300 hover:border-cyan-300/30 hover:bg-white/[0.07]"
           >
             <t.Icon className={`w-4 h-4 ${accent}`} />
             <span className="text-sm font-medium text-white/70 whitespace-nowrap">{t.name}</span>

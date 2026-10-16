@@ -23,6 +23,8 @@
 }
 
 html { scroll-behavior: smooth; }
+::selection { background: rgba(103, 232, 249, 0.3); color: #fff; }
+:focus-visible { outline: 2px solid rgb(103 232 249); outline-offset: 2px; }
 body { color: #374151; background: #fff; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -144,7 +146,9 @@ body { color: #374151; background: #fff; }
   @apply rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl;
 }
 .glass-hover {
-  @apply glass transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.05];
+  @apply glass transition-[border-color,background-color,transform,box-shadow] duration-500
+         hover:border-white/20 hover:bg-white/[0.05] hover:-translate-y-1
+         hover:shadow-[0_20px_60px_-20px_rgba(34,211,238,0.25)];
 }
 .text-gradient-ai {
   @apply bg-gradient-to-r from-cyan-300 via-sky-300 to-violet-300 bg-clip-text text-transparent;
@@ -201,3 +205,62 @@ body { color: #374151; background: #fff; }
   mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
 }
+
+
+/* ─── Cursor spotlight (coords set by SpotlightTracker in motion.tsx) ─── */
+.spotlight, .glass-hover { position: relative; isolation: isolate; }
+.spotlight::after, .glass-hover::after {
+  content: "";
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(103,232,249,0.09), transparent 45%);
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.spotlight:hover::after, .glass-hover:hover::after { opacity: 1; }
+
+/* ─── Drifting aurora orbs ─────────────────────── */
+@keyframes orb-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(6%, 8%, 0) scale(1.1); }
+  66% { transform: translate3d(-4%, 4%, 0) scale(0.95); }
+}
+@keyframes orb-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-8%, -6%, 0) scale(1.15); }
+}
+.orb { position: absolute; border-radius: 9999px; filter: blur(80px); pointer-events: none; will-change: transform; }
+.orb-a { animation: orb-drift-a 18s ease-in-out infinite; }
+.orb-b { animation: orb-drift-b 22s ease-in-out infinite; }
+
+/* ─── Data packet travelling along a pipeline connector ─── */
+@keyframes packet-x { from { left: 0%; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } to { left: 100%; opacity: 0; } }
+@keyframes packet-y { from { top: 0%; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } to { top: 100%; opacity: 0; } }
+.packet {
+  position: absolute; width: 6px; height: 6px; border-radius: 9999px;
+  background: #67e8f9; box-shadow: 0 0 12px 2px rgba(103,232,249,0.8);
+}
+.packet-x { top: 50%; margin-top: -3px; animation: packet-x 2.4s cubic-bezier(.45,0,.55,1) infinite; }
+.packet-y { left: 50%; margin-left: -3px; animation: packet-y 2.4s cubic-bezier(.45,0,.55,1) infinite; }
+
+/* ─── Animated gradient text ───────────────────── */
+@keyframes gradient-pan { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+.text-gradient-animated {
+  background-image: linear-gradient(90deg, #67e8f9, #7dd3fc, #c4b5fd, #67e8f9);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: gradient-pan 6s linear infinite;
+}
+
+/* ─── Rotating conic border for highlighted cards ─── */
+@property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@keyframes spin-angle { to { --angle: 360deg; } }
+.border-beam { position: relative; }
+.border-beam::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: conic-gradient(from var(--angle), transparent 0deg, rgba(103,232,249,0.9) 40deg, rgba(167,139,250,0.7) 80deg, transparent 120deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: spin-angle 5s linear infinite;
+}
+
+/* ─── Prose on dark pages (blog, legal) ────────── */
+.prose-dark { @apply prose prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-cyan-300 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-cyan-200 max-w-none; }

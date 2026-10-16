@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { SplitText } from "@/app/components/motion";
 import { useState } from "react";
 import { HiMail } from "react-icons/hi";
 import { CONTACT_INFO, SOCIAL_LINKS, COMPANY_EMAIL } from "@/app/constants";
@@ -63,15 +64,15 @@ export function Contact({ simple, dark }: { simple?: boolean; dark?: boolean }) 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!simple && (
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className="section-head"
         >
           {dark ? (
             <>
               <div className="dark-badge">Get in Touch</div>
-              <h2 className="dark-title mb-5">Bring us your <span className="text-gradient-ai">hardest data problem.</span></h2>
+              <SplitText className="dark-title mb-5" segments={[{ text: "Bring us your" }, { text: "hardest data problem.", className: "text-gradient-ai" }]} />
               <p className="dark-sub mx-auto">Tell us what you want AI to do — we&apos;ll reply within 24 hours with how we&apos;d approach it.</p>
             </>
           ) : (
@@ -95,8 +96,8 @@ export function Contact({ simple, dark }: { simple?: boolean; dark?: boolean }) 
             {CONTACT_INFO.map((info, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
                 className={`${t.card} p-5`}
@@ -168,8 +169,8 @@ export function Contact({ simple, dark }: { simple?: boolean; dark?: boolean }) 
 
         {/* Map */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className={`mt-8 rounded-xl overflow-hidden border ${t.map}`}
         >

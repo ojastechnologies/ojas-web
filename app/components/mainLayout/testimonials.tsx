@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { SplitText } from "@/app/components/motion";
 import { TbQuote } from "react-icons/tb";
 
 const testimonials = [
@@ -18,23 +19,21 @@ export function Testimonials() {
       <div className="absolute inset-0 bg-grid-fade opacity-50 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-14"
         >
           <div className="dark-badge">Client Testimonials</div>
-          <h2 className="dark-title">
-            Long-term partners, <span className="text-gradient-ai">not vendors.</span>
-          </h2>
+          <SplitText className="dark-title" segments={[{ text: "Long-term partners," }, { text: "not vendors.", className: "text-gradient-ai" }]} />
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-4">
           {testimonials.map((t, i) => (
             <motion.figure
               key={t.n}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="glass-hover p-7 flex flex-col"

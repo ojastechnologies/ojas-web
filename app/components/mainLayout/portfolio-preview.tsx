@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { SplitText, Tilt } from "@/app/components/motion";
 import Image from "next/image";
 import Link from "next/link";
 import { HiArrowRight, HiCalendar, HiChatAlt2, HiHeart, HiLockClosed, HiSparkles } from "react-icons/hi";
@@ -37,16 +38,14 @@ export function PortfolioPreview() {
       <div className="absolute inset-0 bg-aurora opacity-40 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14"
         >
           <div>
             <div className="dark-badge">Selected Work</div>
-            <h2 className="dark-title">
-              Shipped, live, <span className="text-gradient-ai">and in use.</span>
-            </h2>
+            <SplitText className="dark-title" segments={[{ text: "Shipped, live," }, { text: "and in use.", className: "text-gradient-ai" }]} />
           </div>
           <Link href="/portfolio" className="btn-line self-start md:self-auto">
             All case studies <HiArrowRight className="w-4 h-4" />
@@ -55,10 +54,10 @@ export function PortfolioPreview() {
 
         {/* Featured: SearchMed Patient Portal */}
         <motion.article
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
-          className="glass ring-gradient overflow-hidden grid lg:grid-cols-[1.2fr_1fr] mb-4"
+          className="glass border-beam overflow-hidden grid lg:grid-cols-[1.2fr_1fr] mb-4"
         >
           <div className="p-7 md:p-10 flex flex-col">
             <div className="flex items-center gap-3 mb-6">
@@ -93,15 +92,28 @@ export function PortfolioPreview() {
           </div>
           <div className="relative flex items-center justify-center p-10 bg-gradient-to-br from-cyan-500/[0.06] to-violet-500/[0.08] border-t lg:border-t-0 lg:border-l border-white/[0.06]">
             <div className="absolute inset-0 bg-grid-fade opacity-60 pointer-events-none" />
-            <PhoneMockup
-              icon="/img/clients/searchmed.png"
-              name="SearchMed Patient Portal"
-              subtitle="iOS · Android"
-              features={PATIENT_APP_FEATURES}
-            />
-            <div className="hidden md:flex absolute right-6 bottom-8 items-center gap-2 glass px-3 py-2 text-xs text-white/80">
+            <Tilt max={12}>
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <PhoneMockup
+                  icon="/img/clients/searchmed.png"
+                  name="SearchMed Patient Portal"
+                  subtitle="iOS · Android"
+                  features={PATIENT_APP_FEATURES}
+                />
+              </motion.div>
+            </Tilt>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              className="hidden md:flex absolute right-6 bottom-8 items-center gap-2 glass px-3 py-2 text-xs text-white/80"
+            >
               <HiChatAlt2 className="w-4 h-4 text-cyan-300" /> AI-powered triage
-            </div>
+            </motion.div>
           </div>
         </motion.article>
 
@@ -109,8 +121,8 @@ export function PortfolioPreview() {
           {projects.map((p, i) => (
             <motion.article
               key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="group glass-hover overflow-hidden flex flex-col"

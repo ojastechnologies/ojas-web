@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { MotionProvider } from "./components/motion";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -196,7 +197,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} ${display.variable} ${mono.variable} antialiased`}>
+      <body className={`${inter.className} ${display.variable} ${mono.variable} antialiased bg-ink-950`}>
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-S8CHW8DB9E"
@@ -210,7 +211,7 @@ export default function RootLayout({
             gtag('config', 'G-S8CHW8DB9E');
           `}
         </Script>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

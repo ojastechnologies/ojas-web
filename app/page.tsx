@@ -1,5 +1,3 @@
-"use client";
-import { MotionConfig } from "framer-motion";
 import { Navbar } from "./components/navbar";
 import { Hero } from "./components/mainLayout/hero";
 import { Clients } from "./components/mainLayout/clients";
@@ -15,21 +13,19 @@ import { Footer } from "./components/mainLayout/footer";
 
 export default function Home() {
   return (
-    <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-ink-950">
-        <Navbar />
-        <Hero />
-        <Clients />
-        <AiServices />
-        <RagPipeline />
-        <PortfolioPreview />
-        <Engagement />
-        <Pillars />
-        <TechBar />
-        <Testimonials />
-        <Contact dark />
-        <Footer />
-      </div>
-    </MotionConfig>
+    <div className="min-h-screen bg-ink-950">
+      <Navbar />
+      <Hero />
+      <Clients />
+      <AiServices />
+      <RagPipeline />
+      <PortfolioPreview />
+      <Engagement />
+      <Pillars />
+      <TechBar />
+      <Testimonials />
+      <Contact dark />
+      <Footer />
+    </div>
   );
 }

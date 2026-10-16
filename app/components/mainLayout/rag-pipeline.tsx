@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { SplitText } from "@/app/components/motion";
 import { Fragment } from "react";
 import { IconType } from "react-icons";
 import {
@@ -50,16 +51,17 @@ const productionChecks = [
   { icon: HiAdjustments, title: "Model-agnostic", desc: "Swap between Azure OpenAI, Claude, or open models without a rewrite." },
 ];
 
-function Connector({ vertical = false }: { vertical?: boolean }) {
-  return (
-    <div
-      aria-hidden
-      className={
-        vertical
-          ? "mx-auto w-px h-6 bg-gradient-to-b from-cyan-400/60 to-violet-400/60"
-          : "hidden lg:block flex-1 min-w-6 h-px self-center bg-[linear-gradient(90deg,rgba(103,232,249,0.1),rgba(103,232,249,0.9),rgba(167,139,250,0.1))] bg-[length:200%_100%] animate-shimmer"
-      }
-    />
+function Connector({ vertical = false, delay = 0 }: { vertical?: boolean; delay?: number }) {
+  // A glowing "packet" travels along each link to show data moving through the pipeline.
+  const style = { animationDelay: `${delay}s` };
+  return vertical ? (
+    <div aria-hidden className="relative mx-auto w-px h-8 bg-gradient-to-b from-cyan-400/40 to-violet-400/40">
+      <span className="packet packet-y" style={style} />
+    </div>
+  ) : (
+    <div aria-hidden className="relative hidden lg:block flex-1 min-w-6 h-px self-center bg-gradient-to-r from-cyan-400/20 via-cyan-300/50 to-violet-400/20">
+      <span className="packet packet-x" style={style} />
+    </div>
   );
 }
 
@@ -74,14 +76,14 @@ function Lane({ label, steps, accent }: { label: string; steps: Step[]; accent: 
         {steps.map((s, i) => (
           <Fragment key={s.title}>
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.12 }}
-              className="lg:w-48 xl:w-56 shrink-0 rounded-xl border border-white/[0.08] bg-ink-900/70 p-4"
+              className="group spotlight lg:w-48 xl:w-56 shrink-0 rounded-xl border border-white/[0.08] bg-ink-900/70 p-4 transition-[border-color,transform] duration-500 hover:border-cyan-300/30 hover:-translate-y-1"
             >
               <div className="flex items-center gap-2.5 mb-2">
-                <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-cyan-200">
+                <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-cyan-200 transition-colors duration-500 group-hover:bg-cyan-400/15 group-hover:border-cyan-300/30">
                   <s.icon className="w-4 h-4" />
                 </div>
                 <span className="font-mono text-[10px] text-white/30">0{i + 1}</span>
@@ -91,8 +93,8 @@ function Lane({ label, steps, accent }: { label: string; steps: Step[]; accent: 
             </motion.div>
             {i < steps.length - 1 && (
               <>
-                <Connector />
-                <div className="lg:hidden"><Connector vertical /></div>
+                <Connector delay={i * 0.8} />
+                <div className="lg:hidden"><Connector vertical delay={i * 0.8} /></div>
               </>
             )}
           </Fragment>
@@ -108,15 +110,13 @@ export function RagPipeline() {
       <div className="absolute inset-0 bg-grid-fade opacity-60 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-14 md:mb-16"
         >
           <div className="dark-badge">RAG Pipelines</div>
-          <h2 className="dark-title mb-5">
-            Answers you can <span className="text-gradient-ai">trace to the source.</span>
-          </h2>
+          <SplitText className="dark-title mb-5" segments={[{ text: "Answers you can" }, { text: "trace to the source.", className: "text-gradient-ai" }]} />
           <p className="dark-sub mx-auto">
             Retrieval-augmented generation connects a language model to your own knowledge.
             We engineer both halves: how your data gets in, and how every answer gets out.
@@ -135,10 +135,10 @@ export function RagPipeline() {
 
         {/* Output */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
-          className="mt-4 rounded-2xl border border-cyan-400/20 bg-gradient-to-r from-cyan-500/[0.08] to-violet-500/[0.08] px-6 py-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6"
+          className="border-beam mt-4 rounded-2xl border border-cyan-400/10 bg-gradient-to-r from-cyan-500/[0.08] to-violet-500/[0.08] px-6 py-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6"
         >
           <div className="flex items-center gap-2 text-sm font-semibold text-white">
             <HiServer className="w-4 h-4 text-cyan-300" /> Output
@@ -158,8 +158,8 @@ export function RagPipeline() {
             {productionChecks.map((c, i) => (
               <motion.div
                 key={c.title}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
                 className="glass-hover p-5 flex gap-4"

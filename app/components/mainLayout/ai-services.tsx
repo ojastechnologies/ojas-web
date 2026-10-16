@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { SplitText } from "@/app/components/motion";
 import Link from "next/link";
 import { IconType } from "react-icons";
 import {
@@ -81,15 +82,13 @@ export function AiServices() {
       <div className="absolute inset-0 bg-aurora opacity-50 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           className="max-w-3xl mb-14 md:mb-16"
         >
           <div className="dark-badge">AI Integration</div>
-          <h2 className="dark-title mb-5">
-            From prototype to <span className="text-gradient-ai">production AI.</span>
-          </h2>
+          <SplitText className="dark-title mb-5" segments={[{ text: "From prototype to" }, { text: "production AI.", className: "text-gradient-ai" }]} />
           <p className="dark-sub">
             Most AI demos never ship. We build the parts that make AI dependable in a real
             product: retrieval, permissions, evaluation, monitoring, and the software around it.
@@ -100,8 +99,8 @@ export function AiServices() {
           {services.map((s, i) => (
             <motion.div
               key={s.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.06 }}
               className={`group glass-hover p-6 md:p-7 flex flex-col ${s.span} ${

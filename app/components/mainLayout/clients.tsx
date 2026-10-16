@@ -28,7 +28,7 @@ export function Clients() {
               <motion.div
                 key={c.name}
                 initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
                 className={`h-14 px-5 rounded-xl flex items-center gap-2.5 ${
@@ -47,7 +47,7 @@ export function Clients() {
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true }}
             className="group glass-hover flex items-center gap-3 px-4 py-3 shrink-0"
           >
