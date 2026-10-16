@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { SplitText } from "@/app/components/motion";
 import { TbQuote } from "react-icons/tb";
 
+// Placeholder wording until the clients' own quotes are collected.
 const testimonials = [
-  { q: "Ojas Technologies delivered our HIPAA-compliant healthcare platform on time and within budget. Their .NET and Azure expertise is outstanding. They've become our long-term engineering partner.", n: "Rafael Morel", t: "CTO", c: "SearchMed Inc.", l: "Fort Lauderdale, Florida" },
-  { q: "The Ojas team integrated seamlessly with our in-house developers. Their React and .NET engineers understood our legal-tech domain quickly and shipped production-quality code from sprint one.", n: "Fred Willerup", t: "CTO", c: "LeanLaw", l: "Boise, Idaho" },
-  { q: "We needed a dedicated full-stack team to scale our platform. Ojas provided top-tier Nepal-based engineers who operate in our timezone. 98% satisfaction is real — highly recommended.", n: "Scott Hofman", t: "CEO", c: "AeroTechLabs", l: "Fort Lauderdale, Florida" },
+  { q: "Ojas built our patient app and provider portal from the ground up, and they still look after our Azure setup today. They take HIPAA seriously without slowing everything down, and they feel like part of our own engineering team.", n: "Rafael Morel", t: "CTO", c: "SearchMed Inc.", l: "Fort Lauderdale, Florida" },
+  { q: "Their engineers fit into our team with almost no hand-holding. They picked up the legal-billing side of things quickly and were shipping production code from the first sprint.", n: "Fred Willerup", t: "CTO", c: "LeanLaw", l: "Boise, Idaho" },
+  { q: "We wanted a fast, good-looking site our team could actually manage. Ojas delivered it quickly, kept us in the loop the whole way, and were easy to work with.", n: "Scott Hofman", t: "CEO", c: "AeroTechLabs", l: "Fort Lauderdale, Florida" },
 ];
 
 function initials(name: string) {

@@ -106,9 +106,9 @@ export default function BlogPage() {
                 <section className="relative py-20 md:py-28 border-t border-white/[0.06] overflow-hidden">
                     <div className="absolute inset-0 bg-aurora opacity-40 pointer-events-none" />
                     <Reveal className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="font-display text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">Want to stay updated?</h2>
+                        <h2 className="font-display text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">Have a project in mind?</h2>
                         <p className="text-white/55 mb-8">
-                            Subscribe to our newsletter for the latest on AI, development, and tech trends.
+                            Tell us what you&apos;re building. We&apos;ll reply within 24 hours with how we&apos;d approach it.
                         </p>
                         <Magnetic>
                             <Link
