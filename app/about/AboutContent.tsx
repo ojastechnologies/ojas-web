@@ -102,7 +102,7 @@ export function AboutContent() {
                 {values.map((v) => (
                   <StaggerItem key={v.title}>
                     <div className="glass-hover p-5 flex items-start gap-4">
-                      <div className="p-2.5 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 text-white shrink-0"><v.icon className="w-4 h-4" /></div>
+                      <div className="p-2.5 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 text-paper shrink-0"><v.icon className="w-4 h-4" /></div>
                       <div>
                         <h3 className="font-display text-base font-semibold text-white">{v.title}</h3>
                         <p className="text-sm text-white/55 mt-1 leading-relaxed">{v.desc}</p>

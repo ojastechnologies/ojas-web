@@ -106,7 +106,7 @@ function Lane({ label, steps, accent }: { label: string; steps: Step[]; accent: 
 
 export function RagPipeline() {
   return (
-    <section id="rag" className="dark-section overflow-hidden scroll-mt-20 !bg-ink-900">
+    <section id="rag" className="theme-dark dark-section overflow-hidden scroll-mt-20 !bg-ink-900">
       <div className="absolute inset-0 bg-grid-fade opacity-60 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div

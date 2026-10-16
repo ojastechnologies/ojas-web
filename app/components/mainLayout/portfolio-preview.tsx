@@ -61,7 +61,7 @@ export function PortfolioPreview() {
         >
           <div className="p-7 md:p-10 flex flex-col">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center p-1.5">
+              <div className="w-11 h-11 rounded-xl bg-paper ring-1 ring-black/5 flex items-center justify-center p-1.5">
                 <Image src="/img/clients/searchmed.png" alt="SearchMed" width={34} height={34} />
               </div>
               <div>

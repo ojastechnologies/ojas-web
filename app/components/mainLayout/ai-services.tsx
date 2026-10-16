@@ -110,7 +110,7 @@ export function AiServices() {
               <div
                 className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 ${
                   s.feature
-                    ? "bg-gradient-to-br from-cyan-400 to-violet-500 text-white"
+                    ? "bg-gradient-to-br from-cyan-400 to-violet-500 text-paper"
                     : "bg-white/[0.06] text-cyan-200 border border-white/10"
                 }`}
               >
@@ -122,7 +122,7 @@ export function AiServices() {
               <p className={`text-white/55 leading-relaxed ${s.feature ? "text-base max-w-md" : "text-sm"}`}>{s.desc}</p>
 
               {s.feature && (
-                <div className="mt-8 mb-2 rounded-xl border border-white/[0.06] bg-ink-900/60 p-4 font-mono text-[11px] leading-relaxed text-white/50">
+                <div className="theme-dark mt-8 mb-2 rounded-xl border border-white/[0.06] bg-ink-900 p-4 font-mono text-[11px] leading-relaxed text-white/50">
                   <div><span className="text-violet-300">const</span> answer = <span className="text-cyan-300">await</span> rag.ask(question, {"{"}</div>
                   <div className="pl-4">user: <span className="text-emerald-300">session.user</span>,</div>
                   <div className="pl-4">topK: <span className="text-amber-200">8</span>, rerank: <span className="text-amber-200">true</span>,</div>

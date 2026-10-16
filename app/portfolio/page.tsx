@@ -36,6 +36,7 @@ import { IconType } from "react-icons";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/mainLayout/footer";
 import { PhoneMockup } from "../components/phone-mockup";
+import { BrowserMockup } from "../components/browser-mockup";
 import {
   CountUp,
   Magnetic,
@@ -69,6 +70,10 @@ interface Project {
   screenshots: { src: string; label: string }[];
   /** Shown instead of screenshots for mobile apps without bundled screenshots */
   mockup?: { subtitle: string; features: { Icon: IconType; label: string }[] };
+  /** Shown instead of screenshots for websites without a bundled screenshot */
+  site?: { url: string; tagline: string; monogram: string };
+  /** Tile behind the logo in the case-study header (default: white) */
+  logoTile?: string;
   featured: boolean;
 }
 
@@ -321,6 +326,8 @@ const projects: Project[] = [
     ],
     apps: [{ name: "Custom Filler Web App", platform: "Next.js / Supabase" }],
     logo: "/img/clients/aerotechlabs.png",
+    // White-on-transparent logo needs a dark tile
+    logoTile: "bg-gray-900",
     brandColor: "#4338ca",
     screenshots: [
       { src: "/img/portfolio/customfiller-web.png", label: "Custom Filler — Homepage" },
@@ -357,6 +364,30 @@ const projects: Project[] = [
     ],
     featured: false,
   },
+  {
+    title: "Tarangini Foundation Website",
+    client: "Tarangini Foundation",
+    location: "Kathmandu, Nepal",
+    description:
+      "Website for Tarangini Foundation (Tarangini Mahila Adhikar Prashikshen Kendra), a Kathmandu-based women's rights organization that documents feminist movements and supports the self-care of women human rights defenders. The site presents the foundation's mission and work to supporters, partners, and the public.",
+    services: ["Web Development", "UI/UX Design"],
+    technologies: [],
+    links: [{ label: "Website", url: "https://tarangini.org.np/", icon: HiGlobeAlt }],
+    highlights: [
+      "Public website for a Kathmandu-based women's rights organization",
+      "Presents the foundation's mission, programs, and work",
+    ],
+    apps: [{ name: "Tarangini Foundation Website", platform: "Web" }],
+    logo: "",
+    brandColor: "#be185d",
+    screenshots: [],
+    site: {
+      url: "tarangini.org.np",
+      tagline: "Women's rights and feminist movement documentation, Kathmandu",
+      monogram: "T",
+    },
+    featured: false,
+  },
 ];
 
 const clients = [
@@ -380,6 +411,11 @@ const clients = [
   {
     name: "Vision Sign Advertising", contact: "Basudev Adhikari, CEO", location: "Lalitpur, Nepal", flag: "🇳🇵", logo: "/img/clients/visionsign.png",
     products: [{ name: "Company website", url: "https://visionsignadvertising.com.np" }],
+  },
+  {
+    name: "Tarangini Foundation", contact: "", location: "Kathmandu, Nepal", flag: "🇳🇵", logo: "",
+    monogram: "T",
+    products: [{ name: "Foundation website", url: "https://tarangini.org.np/" }],
   },
 ];
 
@@ -870,7 +906,7 @@ export default function PortfolioPage() {
                       <div className="px-5 sm:px-8 py-4 flex items-center justify-between gap-3 bg-gradient-to-r from-cyan-500/10 via-sky-500/[0.06] to-violet-500/10 border-b border-white/[0.06]">
                         <div className="flex items-center gap-3 min-w-0">
                           {project.logo && (
-                            <div className="w-10 h-10 rounded-xl bg-white/90 ring-1 ring-white/10 p-1.5 flex items-center justify-center flex-shrink-0">
+                            <div className={`w-10 h-10 rounded-xl ${project.logoTile ?? "bg-paper"} ring-1 ring-black/5 p-1.5 flex items-center justify-center flex-shrink-0`}>
                               <Image
                                 src={project.logo}
                                 alt={project.title}
@@ -904,6 +940,16 @@ export default function PortfolioPage() {
                           <ScreenshotCarousel
                             screenshots={project.screenshots}
                           />
+                          {project.screenshots.length === 0 && project.site && (
+                            <div className="py-6">
+                              <BrowserMockup
+                                url={project.site.url}
+                                name={project.client}
+                                tagline={project.site.tagline}
+                                monogram={project.site.monogram}
+                              />
+                            </div>
+                          )}
                           {project.screenshots.length === 0 && project.mockup && (
                             <div className="py-6">
                               <PhoneMockup
@@ -996,6 +1042,7 @@ export default function PortfolioPage() {
                               ))}
                             </div>
                           </div>
+                          {(project.techLabels || project.technologies.length > 0) && (
                           <div className="lg:border-l lg:border-white/[0.08] lg:pl-6">
                             <Eyebrow>Tech Stack</Eyebrow>
                             {project.techLabels ? (
@@ -1020,6 +1067,7 @@ export default function PortfolioPage() {
                               </div>
                             )}
                           </div>
+                          )}
                         </div>
                       </div>
                     </article>
@@ -1044,14 +1092,14 @@ export default function PortfolioPage() {
               />
             </Reveal>
 
-            <Stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
               {clients.map((client, index) => (
                 <StaggerItem key={index} className="h-full">
                   <div className="glass-hover h-full p-6 text-center flex flex-col">
                     {client.logo ? (
                       <div
                         className={`w-16 h-16 mx-auto mb-4 rounded-xl border p-2.5 flex items-center justify-center ring-1 ring-white/10 shadow-[0_10px_30px_-12px_rgba(103,232,249,0.35)] ${
-                          "logoTile" in client ? client.logoTile : "bg-white/90 border-white/20"
+                          "logoTile" in client ? client.logoTile : "bg-paper border-black/5"
                         }`}
                       >
                         <Image
@@ -1062,15 +1110,21 @@ export default function PortfolioPage() {
                           className="object-contain"
                         />
                       </div>
+                    ) : "monogram" in client ? (
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-rose-500 to-violet-600 text-paper font-display text-2xl font-semibold flex items-center justify-center shadow-lg">
+                        {client.monogram}
+                      </div>
                     ) : (
                       <div className="text-3xl mb-3">{client.flag}</div>
                     )}
                     <h3 className="font-display text-base font-semibold text-white mb-1">
                       {client.name}
                     </h3>
-                    <p className="text-xs text-white/55 mb-1">
-                      {client.contact}
-                    </p>
+                    {client.contact && (
+                      <p className="text-xs text-white/55 mb-1">
+                        {client.contact}
+                      </p>
+                    )}
                     <p className="text-xs text-white/40">
                       {client.flag} {client.location}
                     </p>

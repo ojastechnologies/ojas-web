@@ -6,7 +6,7 @@ import { CONTACT_INFO, SOCIAL_LINKS } from "@/app/constants";
 
 export function Footer() {
   return (
-    <footer className="relative py-16 bg-ink-950 border-t border-white/[0.06] text-white/50 overflow-hidden">
+    <footer className="theme-dark relative py-16 bg-ink-950 border-t border-white/[0.06] text-white/50 overflow-hidden">
       <div className="absolute inset-0 bg-dot-grid opacity-[0.04] pointer-events-none" />
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

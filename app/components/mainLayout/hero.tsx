@@ -67,7 +67,7 @@ function RagDemo() {
   return (
     <div className="relative">
       <div className="absolute -inset-8 bg-gradient-to-tr from-cyan-500/20 via-sky-500/10 to-violet-500/20 blur-3xl rounded-full pointer-events-none" />
-      <div className="relative glass ring-gradient overflow-hidden shadow-2xl shadow-black/40">
+      <div className="theme-dark relative glass !bg-ink-900 ring-gradient overflow-hidden shadow-2xl shadow-[rgba(11,16,32,0.35)]">
         {/* Window chrome */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
           <div className="flex gap-1.5">

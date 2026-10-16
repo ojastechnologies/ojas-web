@@ -67,7 +67,7 @@ function Row({ items, reverse = false, accent }: { items: Tech[]; reverse?: bool
 
 export function TechBar() {
   return (
-    <section className="relative py-20 bg-ink-950 border-y border-white/[0.06] overflow-hidden">
+    <section className="theme-dark relative py-20 bg-ink-950 border-y border-white/[0.06] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
         <p className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.2em]">
           The stack behind our AI and software

@@ -223,7 +223,7 @@ export function HireContent() {
           <Reveal className="mt-6">
             <div className="glass p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center">
-                <HiClock className="w-5 h-5 text-white" />
+                <HiClock className="w-5 h-5 text-paper" />
               </div>
               <div>
                 <p className="text-sm text-white/75"><span className="font-semibold text-white">Timezone aligned:</span> Nepal Time (NPT) overlaps with EST morning and PST afternoon — enabling real-time standups and pair programming.</p>

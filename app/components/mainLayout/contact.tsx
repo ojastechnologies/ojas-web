@@ -24,10 +24,9 @@ const DARK = {
   muted: "text-white/45",
   strong: "text-white hover:text-cyan-200",
   input: "w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-white/30 focus:outline-none focus:border-cyan-300/50 focus:ring-2 focus:ring-cyan-300/10 transition-all duration-200",
-  icon: "p-2.5 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 text-white shrink-0",
+  icon: "p-2.5 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 text-paper shrink-0",
   button: "btn-glow !rounded-xl",
-  // Inverting the light Google Maps embed gives a dark map that fits the page
-  map: "border-white/10 [&>iframe]:[filter:invert(0.9)_hue-rotate(180deg)_saturate(0.6)]",
+  map: "border-white/10",
 };
 
 export function Contact({ simple, dark }: { simple?: boolean; dark?: boolean }) {

@@ -22,10 +22,56 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── Theme tokens ──────────────────────────────
+   Light is the default; wrap a section in .theme-dark for a dark band. */
+:root {
+  --c-fg: 11 16 32;
+  --c-bg: 247 248 251;
+  --c-bg-900: 239 241 247;
+  --c-bg-800: 229 232 240;
+  --c-bg-700: 218 222 233;
+  --a-boost: 1.35;
+  --c-cyan-100: 22 78 99;
+  --c-cyan-200: 14 116 144;
+  --c-cyan-300: 8 145 178;
+  --c-violet-200: 91 33 182;
+  --c-violet-300: 109 40 217;
+  --grad-a: #0891b2; --grad-b: #2563eb; --grad-c: #7c3aed;
+  --grid-line: rgba(11, 16, 32, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-bg-hover: rgba(255, 255, 255, 0.95);
+  --glass-shadow: 0 1px 2px rgba(11,16,32,0.04), 0 12px 32px -16px rgba(11,16,32,0.12);
+  --glass-shadow-hover: 0 1px 2px rgba(11,16,32,0.05), 0 24px 48px -20px rgba(8,145,178,0.28);
+  --btn-glow: 0 10px 30px -10px rgba(37, 99, 235, 0.55);
+  --btn-glow-hover: 0 14px 40px -10px rgba(37, 99, 235, 0.7);
+}
+.theme-dark {
+  --c-fg: 255 255 255;
+  --c-bg: 5 6 11;
+  --c-bg-900: 10 12 20;
+  --c-bg-800: 17 20 31;
+  --c-bg-700: 26 30 45;
+  --a-boost: 1;
+  --c-cyan-100: 207 250 254;
+  --c-cyan-200: 165 243 252;
+  --c-cyan-300: 103 232 249;
+  --c-violet-200: 221 214 254;
+  --c-violet-300: 196 181 253;
+  --grad-a: #67e8f9; --grad-b: #7dd3fc; --grad-c: #c4b5fd;
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-hover: rgba(255, 255, 255, 0.05);
+  --glass-shadow: none;
+  --glass-shadow-hover: 0 20px 60px -20px rgba(34, 211, 238, 0.25);
+  --btn-glow: 0 0 40px -8px rgba(103, 232, 249, 0.6);
+  --btn-glow-hover: 0 0 60px -6px rgba(103, 232, 249, 0.8);
+  color: rgb(var(--c-fg) / 0.85);
+}
+
 html { scroll-behavior: smooth; }
-::selection { background: rgba(103, 232, 249, 0.3); color: #fff; }
+::selection { background: rgba(34, 211, 238, 0.3); }
 :focus-visible { outline: 2px solid rgb(103 232 249); outline-offset: 2px; }
-body { color: #374151; background: #fff; }
+body { color: rgb(var(--c-fg) / 0.85); background: rgb(var(--c-bg)); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -143,23 +189,26 @@ body { color: #374151; background: #fff; }
 }
 .dark-sub { @apply text-base md:text-lg text-white/55 max-w-2xl leading-relaxed; }
 .glass {
-  @apply rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl;
+  @apply rounded-2xl border border-white/[0.08] backdrop-blur-xl;
+  background-color: var(--glass-bg);
+  box-shadow: var(--glass-shadow);
 }
 .glass-hover {
   @apply glass transition-[border-color,background-color,transform,box-shadow] duration-500
-         hover:border-white/20 hover:bg-white/[0.05] hover:-translate-y-1
-         hover:shadow-[0_20px_60px_-20px_rgba(34,211,238,0.25)];
+         hover:border-white/20 hover:-translate-y-1;
 }
+.glass-hover:hover { background-color: var(--glass-bg-hover); box-shadow: var(--glass-shadow-hover); }
 .text-gradient-ai {
-  @apply bg-gradient-to-r from-cyan-300 via-sky-300 to-violet-300 bg-clip-text text-transparent;
+  background-image: linear-gradient(90deg, var(--grad-a), var(--grad-b), var(--grad-c));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .btn-glow {
   @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full
-         bg-white text-ink-950 text-sm font-semibold
-         shadow-[0_0_40px_-8px_rgba(103,232,249,0.6)]
-         hover:shadow-[0_0_60px_-6px_rgba(103,232,249,0.8)] transition-all duration-300
+         bg-white text-ink-950 text-sm font-semibold transition-all duration-300
          focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300;
 }
+.btn-glow { box-shadow: var(--btn-glow); }
+.btn-glow:hover { box-shadow: var(--btn-glow-hover); }
 .btn-line {
   @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full
          border border-white/15 text-white text-sm font-semibold
@@ -174,8 +223,8 @@ body { color: #374151; background: #fff; }
 /* Fine grid with a radial fade, used behind dark sections */
 .bg-grid-fade {
   background-image:
-    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
@@ -244,7 +293,7 @@ body { color: #374151; background: #fff; }
 /* ─── Animated gradient text ───────────────────── */
 @keyframes gradient-pan { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
 .text-gradient-animated {
-  background-image: linear-gradient(90deg, #67e8f9, #7dd3fc, #c4b5fd, #67e8f9);
+  background-image: linear-gradient(90deg, var(--grad-a), var(--grad-b), var(--grad-c), var(--grad-a));
   background-size: 200% auto;
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: gradient-pan 6s linear infinite;
@@ -263,4 +312,5 @@ body { color: #374151; background: #fff; }
 }
 
 /* ─── Prose on dark pages (blog, legal) ────────── */
-.prose-dark { @apply prose prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-cyan-300 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-cyan-200 max-w-none; }
+.theme-dark .prose-dark { @apply prose-invert; }
+.prose-dark { @apply prose prose-headings:font-display prose-headings:tracking-tight prose-a:text-cyan-300 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-cyan-200 max-w-none; }

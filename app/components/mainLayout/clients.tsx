@@ -14,6 +14,9 @@ const clients = [
   { name: "Vision Sign Advertising", logo: "/img/clients/visionsign.png", w: 70, h: 37, tile: "light", label: false },
 ] as const;
 
+// Clients without a logo file yet are shown as a monogram + name.
+const textClients = [{ name: "Tarangini Foundation", monogram: "T" }];
+
 export function Clients() {
   return (
     <section className="relative bg-ink-950 border-y border-white/[0.06] py-12">
@@ -32,11 +35,26 @@ export function Clients() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
                 className={`h-14 px-5 rounded-xl flex items-center gap-2.5 ${
-                  c.tile === "light" ? "bg-white/90" : "bg-white/[0.04] border border-white/10"
+                  c.tile === "light" ? "bg-paper border border-white/[0.08] shadow-sm" : "bg-gray-900"
                 }`}
               >
                 <Image src={c.logo} alt={c.name} width={c.w} height={c.h} className="object-contain" />
                 {c.label && <span className="text-sm font-semibold text-gray-800">{c.name}</span>}
+              </motion.div>
+            ))}
+            {textClients.map((c, i) => (
+              <motion.div
+                key={c.name}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (clients.length + i) * 0.06 }}
+                className="h-14 px-5 rounded-xl flex items-center gap-2.5 bg-paper border border-white/[0.08] shadow-sm"
+              >
+                <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-500 to-violet-600 text-paper font-display font-semibold flex items-center justify-center">
+                  {c.monogram}
+                </span>
+                <span className="text-sm font-semibold text-gray-800">{c.name}</span>
               </motion.div>
             ))}
           </div>
@@ -51,7 +69,7 @@ export function Clients() {
             viewport={{ once: true }}
             className="group glass-hover flex items-center gap-3 px-4 py-3 shrink-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1">
+            <div className="w-10 h-10 rounded-xl bg-paper ring-1 ring-black/5 flex items-center justify-center p-1">
               <Image src="/img/clients/searchmed.png" alt="SearchMed Patient Portal app icon" width={32} height={32} />
             </div>
             <div>
