@@ -165,7 +165,7 @@ export default async function BlogPostPage({ params }: Props) {
                             prose-li:text-white/70 prose-li:marker:text-cyan-300/60
                             prose-blockquote:border-l-cyan-300/40 prose-blockquote:text-white/70
                             prose-code:text-sm prose-code:bg-white/[0.06] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
-                            prose-pre:bg-ink-900 prose-pre:border prose-pre:border-white/[0.08] prose-pre:rounded-xl prose-pre:p-4 prose-pre:overflow-x-auto
+                            prose-pre:bg-[#0b1020] prose-pre:border prose-pre:border-white/[0.08] prose-pre:rounded-xl prose-pre:p-4 prose-pre:overflow-x-auto [&_pre_code]:!bg-transparent [&_pre_code]:!p-0 [&_pre_code]:!text-slate-200 [&_pre_code]:!text-[13px] [&_pre_code]:leading-relaxed
                             prose-hr:border-white/[0.08]
                             prose-table:block prose-table:overflow-x-auto prose-table:w-full prose-table:border-collapse prose-th:text-left prose-th:text-white prose-th:font-semibold prose-th:pb-2 prose-th:pr-4 prose-th:border-b prose-th:border-white/15 prose-td:py-2 prose-td:pr-4 prose-td:border-b prose-td:border-white/[0.06] prose-td:text-white/70
                             prose-img:rounded-xl break-words"
