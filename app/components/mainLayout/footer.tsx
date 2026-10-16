@@ -24,7 +24,7 @@ function Newsletter() {
   };
   return (
     <form onSubmit={submit} className="relative flex gap-2">
-      <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email" required className="flex-1 px-3.5 py-2.5 rounded-lg bg-indigo-900/50 border border-indigo-800/50 text-sm text-indigo-200 placeholder-indigo-400/60 focus:outline-none focus:border-blue-500/50 transition-all" />
+      <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email" required className="flex-1 min-w-0 px-3.5 py-2.5 rounded-lg bg-indigo-900/50 border border-indigo-800/50 text-sm text-indigo-200 placeholder-indigo-400/60 focus:outline-none focus:border-blue-500/50 transition-all" />
       <button type="submit" disabled={state === "sending"} className="px-4 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-500 hover:to-blue-400 text-white text-xs font-semibold transition-colors disabled:opacity-50 shrink-0">
         {state === "sending" ? "..." : "Subscribe"}
       </button>
@@ -35,7 +35,7 @@ function Newsletter() {
 
 export function Footer() {
   return (
-    <footer className="relative py-16 bg-indigo-950 text-indigo-300/60 overflow-hidden">
+    <footer className="relative py-16 bg-ink-950 border-t border-white/[0.06] text-indigo-300/60 overflow-hidden">
       <div className="absolute inset-0 bg-dot-grid opacity-[0.04] pointer-events-none" />
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,11 +44,11 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg overflow-hidden bg-indigo-900/50 p-1 ring-1 ring-indigo-800/50">
-                <Image src="/img/logo.jpg" alt="Ojas Technologies logo - Offshore .NET and React development Nepal" width={40} height={40} className="object-contain" />
+                <Image src="/img/logo.jpg" alt="Ojas Technologies logo - AI integration and software engineering, Nepal" width={40} height={40} className="object-contain" />
               </div>
               <span className="text-lg font-bold text-indigo-200">Ojas Technologies</span>
             </Link>
-            <p className="text-sm text-indigo-300/50 leading-relaxed max-w-xs">A premier offshore .NET development and AI automation agency. Custom software from Kathmandu — web, mobile, and cloud solutions for global clients.</p>
+            <p className="text-sm text-indigo-300/50 leading-relaxed max-w-xs">AI integration, RAG pipelines, and senior .NET, React, and Azure engineering from Kathmandu — for companies in the US and worldwide.</p>
           </div>
 
           {/* Quick Links */}

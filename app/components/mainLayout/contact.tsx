@@ -4,7 +4,33 @@ import { useState } from "react";
 import { HiMail } from "react-icons/hi";
 import { CONTACT_INFO, SOCIAL_LINKS, COMPANY_EMAIL } from "@/app/constants";
 
-export function Contact({ simple }: { simple?: boolean }) {
+const LIGHT = {
+  section: "section-alt overflow-hidden",
+  card: "card",
+  label: "text-gray-700",
+  muted: "text-gray-400",
+  strong: "text-gray-900 hover:text-blue-600",
+  input: "input",
+  icon: "icon-box-dark",
+  button: "btn-primary",
+  map: "border-indigo-200",
+};
+
+const DARK = {
+  section: "dark-section overflow-hidden",
+  card: "glass",
+  label: "text-white/70",
+  muted: "text-white/45",
+  strong: "text-white hover:text-cyan-200",
+  input: "w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-white/30 focus:outline-none focus:border-cyan-300/50 focus:ring-2 focus:ring-cyan-300/10 transition-all duration-200",
+  icon: "p-2.5 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 text-white shrink-0",
+  button: "btn-glow !rounded-xl",
+  // Inverting the light Google Maps embed gives a dark map that fits the page
+  map: "border-white/10 [&>iframe]:[filter:invert(0.9)_hue-rotate(180deg)_saturate(0.6)]",
+};
+
+export function Contact({ simple, dark }: { simple?: boolean; dark?: boolean }) {
+  const t = dark ? DARK : LIGHT;
   const [state, setState] = useState<"idle"|"sending"|"success"|"error">("idle");
   const [d, setD] = useState({ name: "", email: "", subject: "", message: "" });
 
@@ -32,8 +58,8 @@ export function Contact({ simple }: { simple?: boolean }) {
   };
 
   return (
-    <section id="contact" className="section-alt overflow-hidden">
-      <div className="absolute inset-0 bg-mesh pointer-events-none" />
+    <section id="contact" className={`${t.section} scroll-mt-20`}>
+      <div className={`absolute inset-0 pointer-events-none ${dark ? "bg-aurora opacity-40" : "bg-mesh"}`} />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!simple && (
         <motion.div
@@ -42,9 +68,19 @@ export function Contact({ simple }: { simple?: boolean }) {
           viewport={{ once: true }}
           className="section-head"
         >
-          <div className="section-badge">Get in Touch</div>
-          <h2 className="section-title">Ready to Build? Let&apos;s Talk</h2>
-          <p className="section-sub">Tell us about your project — we&apos;ll get back to you within 24 hours</p>
+          {dark ? (
+            <>
+              <div className="dark-badge">Get in Touch</div>
+              <h2 className="dark-title mb-5">Bring us your <span className="text-gradient-ai">hardest data problem.</span></h2>
+              <p className="dark-sub mx-auto">Tell us what you want AI to do — we&apos;ll reply within 24 hours with how we&apos;d approach it.</p>
+            </>
+          ) : (
+            <>
+              <div className="section-badge">Get in Touch</div>
+              <h2 className="section-title">Ready to Build? Let&apos;s Talk</h2>
+              <p className="section-sub">Tell us about your project — we&apos;ll get back to you within 24 hours</p>
+            </>
+          )}
         </motion.div>
         )}
 
@@ -63,30 +99,30 @@ export function Contact({ simple }: { simple?: boolean }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="card p-5"
+                className={`${t.card} p-5`}
               >
                 <div className="flex items-center gap-4">
-                  <div className="icon-box-dark">
+                  <div className={t.icon}>
                     <info.icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400 mb-0.5">{info.title}</p>
+                    <p className={`text-xs mb-0.5 ${t.muted}`}>{info.title}</p>
                     {info.link ? (
-                      <a href={info.link} className="text-sm font-semibold text-gray-900 hover:text-blue-600 transition-colors">{info.content}</a>
+                      <a href={info.link} className={`text-sm font-semibold transition-colors ${t.strong}`}>{info.content}</a>
                     ) : (
-                      <p className="text-sm font-semibold text-gray-900">{info.content}</p>
+                      <p className={`text-sm font-semibold ${t.strong}`}>{info.content}</p>
                     )}
                   </div>
                 </div>
               </motion.div>
             ))}
 
-            <div className="card p-5">
-              <p className="text-xs text-gray-400 mb-3">Follow Us</p>
+            <div className={`${t.card} p-5`}>
+              <p className={`text-xs mb-3 ${t.muted}`}>Follow Us</p>
               <div className="flex gap-2">
                 {SOCIAL_LINKS.map(({ Icon, href, color, name }) => (
-                  <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="btn-ghost !p-2.5" aria-label={name}>
-                    <Icon className="w-4 h-4" style={{ color }} />
+                  <a key={href} href={href} target="_blank" rel="noopener noreferrer" className={`btn-ghost !p-2.5 ${dark ? "text-white/70 hover:bg-white/[0.06]" : ""}`} aria-label={name}>
+                    <Icon className="w-4 h-4" style={dark ? undefined : { color }} />
                   </a>
                 ))}
               </div>
@@ -100,26 +136,26 @@ export function Contact({ simple }: { simple?: boolean }) {
             viewport={{ once: true }}
             className="lg:col-span-3"
           >
-            <form onSubmit={submit} className="card p-6 space-y-5">
+            <form onSubmit={submit} className={`${t.card} p-6 space-y-5`}>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1.5">Full Name *</label>
-                  <input type="text" required value={d.name} onChange={e => setD({...d, name: e.target.value})} className="input" placeholder="John Doe" />
+                  <label className={`block text-xs font-medium mb-1.5 ${t.label}`}>Full Name *</label>
+                  <input type="text" required value={d.name} onChange={e => setD({...d, name: e.target.value})} className={t.input} placeholder="John Doe" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1.5">Email *</label>
-                  <input type="email" required value={d.email} onChange={e => setD({...d, email: e.target.value})} className="input" placeholder="john@example.com" />
+                  <label className={`block text-xs font-medium mb-1.5 ${t.label}`}>Email *</label>
+                  <input type="email" required value={d.email} onChange={e => setD({...d, email: e.target.value})} className={t.input} placeholder="john@example.com" />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1.5">Subject</label>
-                <input type="text" value={d.subject} onChange={e => setD({...d, subject: e.target.value})} className="input" placeholder="Project Inquiry" />
+                <label className={`block text-xs font-medium mb-1.5 ${t.label}`}>Subject</label>
+                <input type="text" value={d.subject} onChange={e => setD({...d, subject: e.target.value})} className={t.input} placeholder="Project Inquiry" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1.5">Message *</label>
-                <textarea required rows={5} value={d.message} onChange={e => setD({...d, message: e.target.value})} className="input resize-none" placeholder="Tell us about your project..." />
+                <label className={`block text-xs font-medium mb-1.5 ${t.label}`}>Message *</label>
+                <textarea required rows={5} value={d.message} onChange={e => setD({...d, message: e.target.value})} className={`${t.input} resize-none`} placeholder="Tell us about your project..." />
               </div>
-              <button type="submit" disabled={state === "sending"} className={`btn-primary w-full justify-center ${state === "sending" ? "opacity-50 cursor-not-allowed" : ""}`}>
+              <button type="submit" disabled={state === "sending"} className={`${t.button} w-full justify-center ${state === "sending" ? "opacity-50 cursor-not-allowed" : ""}`}>
                 {state === "sending" ? (
                   <><svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg> Sending...</>
                 ) : "Send Message"}
@@ -135,7 +171,7 @@ export function Contact({ simple }: { simple?: boolean }) {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-8 rounded-xl overflow-hidden border border-indigo-200"
+          className={`mt-8 rounded-xl overflow-hidden border ${t.map}`}
         >
           <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1000!2d85.3339263!3d27.7664155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!1s0x0%3A0x0!5e0!3m2!1sen!2snp" width="100%" height="280" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Ojas Technologies - Tokha, Kathmandu" />
         </motion.div>

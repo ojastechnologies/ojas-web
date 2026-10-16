@@ -10,6 +10,10 @@ import {
   HiChevronRight,
   HiDesktopComputer,
   HiServer,
+  HiSparkles,
+  HiCalendar,
+  HiHeart,
+  HiLockClosed,
 } from "react-icons/hi";
 import {
   SiReact,
@@ -31,6 +35,7 @@ import { TbBrandCSharp, TbBrandAzure } from "react-icons/tb";
 import { IconType } from "react-icons";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/mainLayout/footer";
+import { PhoneMockup } from "../components/phone-mockup";
 
 /* ─── Types ──────────────────────────────────────── */
 interface ProjectLink {
@@ -54,6 +59,8 @@ interface Project {
   apps: { name: string; platform: string }[];
   logo: string;
   screenshots: { src: string; label: string }[];
+  /** Shown instead of screenshots for mobile apps without bundled screenshots */
+  mockup?: { subtitle: string; features: { Icon: IconType; label: string }[] };
   featured: boolean;
 }
 
@@ -103,16 +110,6 @@ const projects: Project[] = [
         icon: HiExternalLink,
       },
       {
-        label: "Patient App (Android)",
-        url: "https://play.google.com/store/apps/details?id=com.searchmed.portal",
-        icon: HiExternalLink,
-      },
-      {
-        label: "Patient App (iOS)",
-        url: "https://apps.apple.com/us/app/searchmed-patient-portal/id6745996128",
-        icon: HiExternalLink,
-      },
-      {
         label: "Provider Scheduler (Windows)",
         url: "ms-windows-store://pdp/?ProductId=9PFDTW1MMHZ6&cid=PCCongratsBnr",
         icon: HiExternalLink,
@@ -120,11 +117,10 @@ const projects: Project[] = [
     ],
     highlights: [
       "AI-powered healthcare provider search & matching (DoctorFind.ai)",
-      "AI chat assistant in patient portal — diagnoses symptoms, recommends providers based on conditions, and offers basic first aid guidance",
       "HIPAA-compliant patient portal with end-to-end encrypted messaging",
       "Real-time appointment scheduling with calendar management",
       "Integrated payment processing via Stripe",
-      "Cross-platform patient app built with .NET MAUI (Android live; iOS releasing soon)",
+      "Cross-platform SearchMed Patient Portal app (.NET MAUI) — live on iOS and Android",
       "Windows desktop Provider Scheduler app (.NET MAUI)",
       "Blazor-based provider portal with profile, scheduling & patient management",
       "Azure cloud infrastructure — App Services, Service Bus, Blob Storage, Notification Hubs, SignalR",
@@ -134,8 +130,6 @@ const projects: Project[] = [
     apps: [
       { name: "SearchMed Web App", platform: "Web" },
       { name: "Provider Portal", platform: "Web (Blazor)" },
-      { name: "Patient Portal App", platform: "Android (.NET MAUI)" },
-      { name: "Patient Portal App", platform: "iOS (.NET MAUI)" },
       {
         name: "Provider Scheduler",
         platform: "Windows Desktop (.NET MAUI)",
@@ -156,6 +150,63 @@ const projects: Project[] = [
       { metric: "50K+", label: "Monthly active patients" },
       { metric: "HIPAA", label: "Full compliance achieved" },
     ],
+    featured: true,
+  },
+  {
+    title: "SearchMed Patient Portal",
+    client: "SearchMed Inc.",
+    location: "Fort Lauderdale, Florida",
+    description:
+      "The patient-facing mobile app of the SearchMed platform, live on the App Store and Google Play. Patients chat with an AI health assistant that helps them understand symptoms and points them to the right kind of provider, then book appointments, track medications, blood pressure and weight, and message their providers over end-to-end encrypted channels. Built once with .NET MAUI for iOS and Android, with SQLite for offline-capable storage and Azure services behind it.",
+    services: [
+      "Mobile App Development",
+      "AI Integration",
+      "Security & Compliance",
+      "App Store Release",
+    ],
+    technologies: [SiDotnet, TbBrandCSharp, TbBrandAzure, SiSqlite],
+    techLabels: [
+      ".NET MAUI",
+      "C#",
+      "AI Chat Assistant",
+      "Azure App Services",
+      "Azure Notification Hubs",
+      "SignalR",
+      "SQLite (offline)",
+      "OpenIdDict Auth",
+      "E2E Encryption",
+      "Stripe",
+    ],
+    links: [
+      { label: "App Store (iOS)", url: "https://apps.apple.com/us/app/searchmed-patient-portal/id6745996128", icon: FaApple },
+      { label: "Google Play (Android)", url: "https://play.google.com/store/apps/details?id=com.searchmed.portal", icon: FaAndroid },
+    ],
+    highlights: [
+      "AI chat assistant — helps patients understand symptoms, recommends providers based on conditions, and offers basic first-aid guidance",
+      "HIPAA-compliant design with end-to-end encrypted patient–provider messaging",
+      "Appointment booking synced with the provider scheduling system",
+      "Medication tracking plus blood pressure and weight monitoring",
+      "Secure private health reports",
+      "One .NET MAUI codebase shipped to both iOS and Android",
+      "Offline-capable local storage with SQLite",
+      "Push notifications via Azure Notification Hubs",
+    ],
+    apps: [
+      { name: "Patient Portal App", platform: "iOS (.NET MAUI)" },
+      { name: "Patient Portal App", platform: "Android (.NET MAUI)" },
+    ],
+    logo: "/img/clients/searchmed.png",
+    brandColor: "#0e7490",
+    screenshots: [],
+    mockup: {
+      subtitle: "iOS · Android",
+      features: [
+        { Icon: HiSparkles, label: "AI health assistant" },
+        { Icon: HiCalendar, label: "Book appointments" },
+        { Icon: HiHeart, label: "Medications & vitals" },
+        { Icon: HiLockClosed, label: "Encrypted messaging" },
+      ],
+    },
     featured: true,
   },
   {
@@ -301,10 +352,27 @@ const projects: Project[] = [
 ];
 
 const clients = [
-  { name: "SearchMed Inc.", contact: "Rafael Morel, CTO", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/searchmed.png" },
-  { name: "LeanLaw", contact: "Fred Willerup, CTO", location: "Boise, Idaho", flag: "🇺🇸", logo: "/img/clients/leanlaw.png" },
-  { name: "AeroTechLabs", contact: "Scott Hofman, CEO", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/aerotechlabs.png" },
-  { name: "Vision Sign Advertising", contact: "Basudev Adhikari, CEO", location: "Lalitpur, Nepal", flag: "🇳🇵", logo: "/img/clients/visionsign.png" },
+  {
+    name: "SearchMed Inc.", contact: "Rafael Morel, CTO", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/searchmed.png",
+    products: [
+      { name: "SearchMed Platform", url: "https://searchmed.com" },
+      { name: "SearchMed Patient Portal (iOS)", url: "https://apps.apple.com/us/app/searchmed-patient-portal/id6745996128" },
+    ],
+  },
+  {
+    name: "LeanLaw", contact: "Fred Willerup, CTO", location: "Boise, Idaho", flag: "🇺🇸", logo: "/img/clients/leanlaw.png",
+    products: [{ name: "LeanLaw Billing Platform", url: "https://leanlaw.co" }],
+  },
+  {
+    name: "AeroTechLabs", contact: "Scott Hofman, CEO", location: "Fort Lauderdale, Florida", flag: "🇺🇸", logo: "/img/clients/aerotechlabs.png",
+    // White-on-transparent logo needs a dark tile
+    logoTile: "bg-gray-900 border-gray-900",
+    products: [{ name: "Custom Filler", url: "https://customfiller.com" }],
+  },
+  {
+    name: "Vision Sign Advertising", contact: "Basudev Adhikari, CEO", location: "Lalitpur, Nepal", flag: "🇳🇵", logo: "/img/clients/visionsign.png",
+    products: [{ name: "Company website", url: "https://visionsignadvertising.com.np" }],
+  },
 ];
 
 /* ─── Helpers ────────────────────────────────────── */
@@ -811,6 +879,17 @@ export default function PortfolioPage() {
                         <ScreenshotCarousel
                           screenshots={project.screenshots}
                         />
+                        {project.screenshots.length === 0 && project.mockup && (
+                          <div className="py-6">
+                            <PhoneMockup
+                              icon={project.logo}
+                              name={project.title}
+                              subtitle={project.mockup.subtitle}
+                              features={project.mockup.features}
+                              dark={false}
+                            />
+                          </div>
+                        )}
                       </div>
 
                       {/* Info */}
@@ -962,7 +1041,7 @@ export default function PortfolioPage() {
                   className="bg-white rounded-xl border border-indigo-100/50 p-5 text-center"
                 >
                   {client.logo ? (
-                    <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-white border border-indigo-100/50 p-2 flex items-center justify-center">
+                    <div className={`w-14 h-14 mx-auto mb-3 rounded-xl border p-2 flex items-center justify-center ${"logoTile" in client ? client.logoTile : "bg-white border-indigo-100/50"}`}>
                       <Image
                         src={client.logo}
                         alt={client.name}
@@ -983,6 +1062,22 @@ export default function PortfolioPage() {
                   <p className="text-xs text-gray-400">
                     {client.flag} {client.location}
                   </p>
+                  <ul className="mt-3 pt-3 border-t border-indigo-100/70 space-y-1">
+                    {client.products.map((product) => (
+                      <li key={product.url}>
+                        <a
+                          href={product.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:text-indigo-800"
+                        >
+                          {product.url.includes("apps.apple.com") && <FaApple className="w-3 h-3" />}
+                          {product.name}
+                          <HiExternalLink className="w-3 h-3 opacity-60" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </motion.div>
               ))}
             </div>

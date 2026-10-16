@@ -1,172 +1,207 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { HiArrowRight } from "react-icons/hi";
+import { useEffect, useState } from "react";
+import { HiArrowRight, HiDocumentText, HiSparkles } from "react-icons/hi";
 import { COMPANY_STATS } from "@/app/constants";
-import { SiDotnet, SiReact, SiBlazor, SiDocker, SiKubernetes, SiTypescript, SiSupabase, SiVercel, SiNetlify, SiPostgresql, SiMongodb, SiExpress, SiNodedotjs, SiVuedotjs, SiFlutter, SiTailwindcss, SiStripe, SiGithubactions, SiRedis } from "react-icons/si";
-import { TbBrandAzure, TbBrandReactNative } from "react-icons/tb";
-import { HiChartBar } from "react-icons/hi";
 
-const techFloats = [
-  { Icon: SiDotnet,   label: ".NET",       x: "70%", y: "12%", delay: 0 },
-  { Icon: SiBlazor,   label: "Blazor",     x: "82%", y: "22%", delay: 0.08 },
-  { Icon: TbBrandReactNative, label: "React Native", x: "65%", y: "28%", delay: 0.16 },
-  { Icon: SiReact,    label: "React",      x: "88%", y: "38%", delay: 0.24 },
-  { Icon: SiNodedotjs, label: "Node.js",   x: "72%", y: "48%", delay: 0.32 },
-  { Icon: SiVuedotjs, label: "Vue.js",     x: "62%", y: "55%", delay: 0.4 },
-  { Icon: TbBrandAzure, label: "Azure",    x: "85%", y: "58%", delay: 0.08 },
-  { Icon: SiPostgresql, label: "PostgreSQL", x: "68%", y: "68%", delay: 0.48 },
-  { Icon: SiMongodb,  label: "MongoDB",    x: "80%", y: "78%", delay: 0.56 },
-  { Icon: SiRedis,    label: "Redis",      x: "92%", y: "72%", delay: 0.64 },
-  { Icon: SiSupabase, label: "Supabase",   x: "74%", y: "88%", delay: 0.72 },
-  { Icon: SiFlutter,  label: "Flutter",    x: "88%", y: "88%", delay: 0.8 },
-  { Icon: SiTailwindcss, label: "Tailwind", x: "62%", y: "78%", delay: 0.88 },
-  { Icon: SiStripe,   label: "Stripe",     x: "66%", y: "40%", delay: 0.96 },
-  { Icon: SiExpress,  label: "Express",    x: "76%", y: "62%", delay: 1.04 },
-  { Icon: SiVercel,   label: "Vercel",     x: "90%", y: "48%", delay: 1.12 },
-  { Icon: SiNetlify,  label: "Netlify",    x: "84%", y: "68%", delay: 1.2 },
-  { Icon: SiGithubactions, label: "GitHub Actions", x: "64%", y: "18%", delay: 1.28 },
-  { Icon: SiDocker,   label: "Docker",     x: "78%", y: "85%", delay: 0.4 },
-  { Icon: SiKubernetes, label: "K8s",      x: "90%", y: "18%", delay: 0.6 },
-  { Icon: SiDotnet,   label: ".NET MAUI",  x: "86%", y: "85%", delay: 0.5 },
-  { Icon: SiTypescript, label: "TypeScript", x: "78%", y: "35%", delay: 0.7 },
-  { Icon: HiChartBar, label: "SEO",        x: "88%", y: "62%", delay: 0.9 },
+const QUESTION = "Can we refund an annual plan cancelled after 30 days?";
+
+const SOURCES = [
+  { id: 1, name: "billing-policy-2025.pdf", loc: "p. 4", score: "0.91" },
+  { id: 2, name: "support-kb/refunds.md", loc: "§ 2", score: "0.87" },
+  { id: 3, name: "enterprise-msa.docx", loc: "§ 7.2", score: "0.82" },
 ];
+
+const ANSWER: { text: string; cite?: number }[] = [
+  { text: "Yes. Annual plans cancelled after 30 days get a prorated refund for unused months, minus a 10% processing fee" },
+  { text: "", cite: 1 },
+  { text: ". Enterprise customers follow the terms in their signed agreement instead" },
+  { text: "", cite: 3 },
+  { text: "." },
+];
+
+const ANSWER_LEN = ANSWER.reduce((n, p) => n + p.text.length, 0);
+
+/** Animated demo of a grounded RAG answer: query → retrieval → cited answer. */
+function RagDemo() {
+  const reduce = useReducedMotion();
+  // stage 0: typing question, 1: retrieving, 2: streaming answer, 3: done
+  const [stage, setStage] = useState(reduce ? 3 : 0);
+  const [typed, setTyped] = useState(reduce ? QUESTION.length : 0);
+  const [streamed, setStreamed] = useState(reduce ? ANSWER_LEN : 0);
+
+  useEffect(() => {
+    if (reduce) return;
+    let t: ReturnType<typeof setTimeout>;
+    if (stage === 0) {
+      if (typed < QUESTION.length) t = setTimeout(() => setTyped(typed + 1), 32);
+      else t = setTimeout(() => setStage(1), 350);
+    } else if (stage === 1) {
+      t = setTimeout(() => setStage(2), 1500);
+    } else if (stage === 2) {
+      if (streamed < ANSWER_LEN) t = setTimeout(() => setStreamed(Math.min(ANSWER_LEN, streamed + 3)), 28);
+      else t = setTimeout(() => setStage(3), 200);
+    } else {
+      t = setTimeout(() => { setTyped(0); setStreamed(0); setStage(0); }, 6000);
+    }
+    return () => clearTimeout(t);
+  }, [stage, typed, streamed, reduce]);
+
+  // Render the answer up to `streamed` characters, inserting citations once reached.
+  let remaining = streamed;
+  const answerNodes = ANSWER.map((part, i) => {
+    if (part.cite) {
+      return remaining > 0 || stage === 3 ? (
+        <sup key={i} className="mx-0.5 inline-flex items-center justify-center w-4 h-4 rounded bg-cyan-400/15 text-[9px] font-semibold text-cyan-200 align-top">
+          {part.cite}
+        </sup>
+      ) : null;
+    }
+    const shown = part.text.slice(0, Math.max(0, remaining));
+    remaining -= part.text.length;
+    return <span key={i}>{shown}</span>;
+  });
+
+  return (
+    <div className="relative">
+      <div className="absolute -inset-8 bg-gradient-to-tr from-cyan-500/20 via-sky-500/10 to-violet-500/20 blur-3xl rounded-full pointer-events-none" />
+      <div className="relative glass ring-gradient overflow-hidden shadow-2xl shadow-black/40">
+        {/* Window chrome */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
+          <div className="flex gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+          </div>
+          <span className="font-mono text-[10px] text-white/40">knowledge-assistant · example</span>
+          <span className="flex items-center gap-1.5 text-[10px] text-emerald-300/80">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> live
+          </span>
+        </div>
+
+        <div className="p-5 space-y-4 min-h-[340px]">
+          {/* Question */}
+          <div className="flex justify-end">
+            <div className="max-w-[85%] rounded-2xl rounded-br-md bg-white/[0.08] px-4 py-2.5 text-sm text-white/90">
+              {QUESTION.slice(0, typed)}
+              {stage === 0 && <span className="inline-block w-[2px] h-4 -mb-0.5 ml-0.5 bg-cyan-300 animate-pulse" />}
+            </div>
+          </div>
+
+          {/* Retrieval */}
+          {stage >= 1 && (
+            <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
+              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">
+                {stage === 1 ? "Searching 12,480 chunks…" : "Retrieved · reranked"}
+              </div>
+              <div className="grid gap-1.5">
+                {SOURCES.map((s, i) => (
+                  <motion.div
+                    key={s.id}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: reduce ? 0 : i * 0.25 }}
+                    className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-1.5"
+                  >
+                    <span className="font-mono text-[10px] text-cyan-300/80">[{s.id}]</span>
+                    <HiDocumentText className="w-3.5 h-3.5 text-white/40" />
+                    <span className="font-mono text-[11px] text-white/70 truncate">{s.name}</span>
+                    <span className="font-mono text-[10px] text-white/35">{s.loc}</span>
+                    <span className="ml-auto font-mono text-[10px] text-emerald-300/70">{s.score}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Answer */}
+          {stage >= 2 && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
+              <div className="w-7 h-7 shrink-0 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center">
+                <HiSparkles className="w-3.5 h-3.5 text-white" />
+              </div>
+              <p className="text-sm leading-relaxed text-white/80">{answerNodes}</p>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Footer metrics */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3 border-t border-white/[0.06] font-mono text-[10px] text-white/40">
+          <span>grounded in 2 of 3 sources</span>
+          <span>·</span>
+          <span>access-controlled</span>
+          <span>·</span>
+          <span>PII redacted</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900 to-indigo-900">
+    <section className="relative w-full overflow-hidden bg-ink-950">
       {/* Backgrounds */}
-      <div className="absolute inset-0 bg-mesh pointer-events-none opacity-30" />
-      <div className="absolute inset-0 bg-dot-grid opacity-[0.08] pointer-events-none" />
+      <div className="absolute inset-0 bg-aurora pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-fade pointer-events-none" />
+      <div className="absolute inset-0 bg-noise opacity-[0.035] mix-blend-overlay pointer-events-none" />
 
-      {/* Floating tech badges */}
-      <div className="hidden lg:block absolute inset-0 pointer-events-none">
-        {techFloats.map((t, i) => (
-          <motion.div
-            key={i}
-            className="absolute flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/20"
-            style={{ left: t.x, top: t.y }}
-            initial={{ opacity: 0, scale: 0.9, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: [0, -5, 0, 3, 0], rotate: [0, 1, 0, -1, 0] }}
-            transition={{
-              opacity: { delay: 0.8 + t.delay, duration: 0.5 },
-              scale: { delay: 0.8 + t.delay, duration: 0.5 },
-              y: {
-                duration: 3 + (i % 5) * 0.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.15,
-              },
-              rotate: {
-                duration: 4 + (i % 4) * 0.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.2,
-              },
-            }}
-          >
-            <t.Icon className="w-3.5 h-3.5 text-blue-300" />
-            <span className="text-[11px] font-semibold text-white/70 whitespace-nowrap">{t.label}</span>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 md:pt-44 pb-20">
-        <div className="max-w-3xl">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-20 md:pb-28">
+        <div className="grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             className="space-y-8"
           >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 text-xs font-semibold uppercase tracking-wider">
-                <span className="status-dot" />
-                Microsoft Ecosystem Specialists
-              </span>
-            </motion.div>
+            <span className="dark-badge !mb-0">
+              <span className="status-dot animate-pulse" />
+              AI Engineering · RAG · Agents
+            </span>
 
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]"
-            >
-              <span className="text-white">Dedicated .NET, Blazor & React</span>
+            <h1 className="font-display text-5xl sm:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.02] text-white">
+              We build AI that
               <br />
-              <span className="bg-gradient-to-r from-indigo-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
-                Teams from Nepal
-              </span>
-            </motion.h1>
+              works on <span className="text-gradient-ai">your data.</span>
+            </h1>
 
-            {/* Sub */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-white/70 text-lg max-w-xl"
-            >
-              Leading offshore .NET development company in Kathmandu. Hire React developers
-              and Azure-ready engineers who embed into your team — same tools,
-              same timezone, better economics.
-            </motion.p>
+            <p className="text-white/60 text-lg md:text-xl max-w-xl leading-relaxed">
+              Production RAG pipelines, LLM integrations, and AI agents — shipped by
+              senior .NET, React, and Azure engineers from Kathmandu who already build
+              HIPAA-grade software for US companies.
+            </p>
 
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex gap-4 flex-wrap"
-            >
-              <Link href="/hire-developers" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-200 text-base">
-                Hire Developers
+            <div className="flex gap-3 flex-wrap">
+              <Link href="/contact" className="btn-glow">
+                Book an AI consultation
                 <HiArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/portfolio" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-200 text-base">
-                See Our Work
-                <HiArrowRight className="w-4 h-4" />
+              <Link href="/#rag" className="btn-line">
+                See how our RAG works
               </Link>
-            </motion.div>
+            </div>
 
-            {/* Mobile tech badges */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="md:hidden flex flex-wrap gap-2"
-            >
-              {[".NET Core","Blazor","React","React Native","Azure","PostgreSQL","MongoDB","Docker","K8s"].map((t) => (
-                <span key={t} className="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-white/10 text-white/70 border border-white/20">{t}</span>
-              ))}
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="flex gap-10 pt-8 border-t border-indigo-700/50"
-            >
+            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/[0.08] max-w-lg">
               {[
-                { n: COMPANY_STATS.projectsDelivered, l: "Projects Delivered" },
-                { n: COMPANY_STATS.clientSatisfaction, l: "Client Satisfaction" },
-                { n: COMPANY_STATS.yearsExperience, l: "Years Experience" },
-              ].map((s, i) => (
-                <div key={i} className="space-y-0.5">
-                  <div className="text-3xl font-bold text-white">
-                    {s.n}
-                  </div>
-                  <div className="text-sm text-white/60">{s.l}</div>
+                { n: COMPANY_STATS.projectsDelivered, l: "Projects delivered" },
+                { n: COMPANY_STATS.yearsExperience, l: "Years in production" },
+                { n: "HIPAA", l: "Compliant builds shipped" },
+              ].map((s) => (
+                <div key={s.l}>
+                  <div className="font-display text-2xl md:text-3xl font-semibold text-white">{s.n}</div>
+                  <div className="text-xs md:text-sm text-white/45 mt-1">{s.l}</div>
                 </div>
               ))}
-            </motion.div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <RagDemo />
           </motion.div>
         </div>
       </div>

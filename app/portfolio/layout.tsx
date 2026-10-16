@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Portfolio & Case Studies",
-    description: "Explore our portfolio of custom software projects. See how Ojas Technologies delivers HIPAA-compliant healthcare platforms, legal billing systems, and more using .NET, Blazor, and Azure.",
+    description: "Explore our portfolio of custom software and AI projects. See how Ojas Technologies delivers HIPAA-compliant healthcare platforms, the AI-powered SearchMed Patient Portal app, legal billing systems, and more using .NET, Blazor, MAUI, and Azure.",
     alternates: {
         canonical: "https://ojastech.io/portfolio",
     },

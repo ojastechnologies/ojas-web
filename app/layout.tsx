@@ -1,10 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
+});
+
+const display = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -13,25 +23,25 @@ export const metadata: Metadata = {
     canonical: "https://ojastech.io",
   },
   title: {
-    default: "Ojas Technologies | IT Outstaffing & Software Development in Kathmandu",
+    default: "Ojas Technologies | AI Integration, RAG Pipelines & Software Engineering",
     template: "%s | Ojas Technologies",
   },
-  description: "Ojas Technologies is a top-tier offshore software development and IT outstaffing company in Kathmandu, Nepal — the best software company in Nepal for dedicated teams, custom software, and scalable modern web apps using .NET Core, React, Next.js, and Azure Cloud Solutions. Trusted by clients across South Asia and beyond.",
-  keywords: ["best software company in Nepal", "offshore software development Nepal", "IT outsourcing Nepal", "IT outsourcing Kathmandu", "IT outstaffing Nepal", "South Asia", "dedicated development team", "hire developers Nepal", "custom software development", "software outsourcing company", ".NET Core development", "React development", "Next.js developers", "Azure cloud experts", "microservices architecture", "AI automation", "Ojas Technologies", "tech partner Nepal", "scalable software solutions"],
+  description: "Ojas Technologies builds production AI on your data — RAG pipelines, LLM integration, and AI agents — alongside senior .NET, React, and Azure engineering teams from Kathmandu, Nepal. Dedicated teams and custom software for clients in the US and beyond.",
+  keywords: ["RAG development company", "RAG pipeline implementation", "LLM integration services", "AI integration company", "Azure OpenAI integration", "AI agents development", "best software company in Nepal", "offshore software development Nepal", "IT outsourcing Nepal", "IT outsourcing Kathmandu", "IT outstaffing Nepal", "South Asia", "dedicated development team", "hire developers Nepal", "custom software development", "software outsourcing company", ".NET Core development", "React development", "Next.js developers", "Azure cloud experts", "microservices architecture", "AI automation", "Ojas Technologies", "tech partner Nepal", "scalable software solutions"],
   authors: [{ name: "Ojas Technologies" }],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://ojastech.io",
     siteName: "Ojas Technologies",
-    title: "Ojas Technologies | IT Outstaffing & Offshore Software Development",
-    description: "Partner with Kathmandu's leading IT outstaffing and software agency. We build scalable custom software using .NET, React, Next.js, and Azure Cloud for global clients.",
+    title: "Ojas Technologies | AI Integration & RAG Pipelines",
+    description: "We build AI that works on your data — RAG pipelines, LLM integration, and AI agents, shipped by senior .NET, React, and Azure engineers from Nepal.",
     images: [{ url: "/img/full logo.jpeg", width: 600, height: 600, alt: "Ojas Technologies - Offshore Software Development Nepal" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ojas Technologies | Software Outsourcing Nepal",
-    description: "Top-tier offshore software development company in Kathmandu. Expert teams in .NET, React, Next.js, and Cloud Solutions.",
+    title: "Ojas Technologies | AI Integration & RAG Pipelines",
+    description: "RAG pipelines, LLM integration, and AI agents — plus senior .NET, React, and Azure teams from Kathmandu.",
     images: ["/img/full logo.jpeg"],
   },
   robots: {
@@ -149,6 +159,16 @@ const jsonLd = {
         },
         {
           "@type": "ListItem",
+          position: 6,
+          item: {
+            "@type": "Service",
+            name: "RAG Pipelines & LLM Integration",
+            description: "Retrieval-augmented generation over your documents and data: ingestion, embeddings, vector search, reranking, cited answers, and evaluation.",
+            provider: { "@id": "https://ojastech.io/#organization" },
+          },
+        },
+        {
+          "@type": "ListItem",
           position: 5,
           item: {
             "@type": "Service",
@@ -176,7 +196,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} ${display.variable} ${mono.variable} antialiased`}>
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-S8CHW8DB9E"
