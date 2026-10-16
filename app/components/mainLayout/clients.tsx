@@ -22,7 +22,7 @@ export function Clients() {
     <section className="relative bg-ink-950 border-y border-white/[0.06] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
-          <p className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40 lg:max-w-[10rem]">
+          <p className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50 lg:max-w-[10rem]">
             Trusted by teams in the US &amp; Nepal
           </p>
 
@@ -78,7 +78,7 @@ export function Clients() {
               </div>
               <div className="text-sm font-semibold text-white">SearchMed Patient Portal</div>
             </div>
-            <HiArrowRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+            <HiArrowRight className="w-4 h-4 text-white/50 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
           </motion.a>
         </div>
       </div>

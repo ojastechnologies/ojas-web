@@ -34,7 +34,7 @@ export default function TermsPage() {
               ]}
             />
             <Reveal delay={0.3} y={12}>
-              <p className="font-mono text-sm text-white/45">Last updated: {new Date().getFullYear()}</p>
+              <p className="font-mono text-sm text-white/55">Last updated: {new Date().getFullYear()}</p>
             </Reveal>
           </div>
         </section>

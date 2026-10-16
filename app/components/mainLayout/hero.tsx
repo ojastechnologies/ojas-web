@@ -75,7 +75,7 @@ function RagDemo() {
             <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
             <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
           </div>
-          <span className="font-mono text-[10px] text-white/40">knowledge-assistant · example</span>
+          <span className="font-mono text-[10px] text-white/50">knowledge-assistant · example</span>
           <span className="flex items-center gap-1.5 text-[10px] text-emerald-300/80">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> live
           </span>
@@ -93,7 +93,7 @@ function RagDemo() {
           {/* Retrieval */}
           {stage >= 1 && (
             <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
-              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">
+              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
                 {stage === 1 ? "Searching 12,480 chunks…" : "Retrieved · reranked"}
               </div>
               <div className="grid gap-1.5">
@@ -106,9 +106,9 @@ function RagDemo() {
                     className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-1.5"
                   >
                     <span className="font-mono text-[10px] text-cyan-300/80">[{s.id}]</span>
-                    <HiDocumentText className="w-3.5 h-3.5 text-white/40" />
+                    <HiDocumentText className="w-3.5 h-3.5 text-white/50" />
                     <span className="font-mono text-[11px] text-white/70 truncate">{s.name}</span>
-                    <span className="font-mono text-[10px] text-white/35">{s.loc}</span>
+                    <span className="font-mono text-[10px] text-white/50">{s.loc}</span>
                     <span className="ml-auto font-mono text-[10px] text-emerald-300/70">{s.score}</span>
                   </motion.div>
                 ))}
@@ -128,7 +128,7 @@ function RagDemo() {
         </div>
 
         {/* Footer metrics */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3 border-t border-white/[0.06] font-mono text-[10px] text-white/40">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3 border-t border-white/[0.06] font-mono text-[10px] text-white/50">
           <span>grounded in 2 of 3 sources</span>
           <span>·</span>
           <span>access-controlled</span>
@@ -237,7 +237,7 @@ export const Hero = () => {
               ].map((s) => (
                 <div key={s.l}>
                   <CountUp value={s.n} className="block font-display text-2xl md:text-3xl font-semibold text-white" />
-                  <div className="text-xs md:text-sm text-white/45 mt-1">{s.l}</div>
+                  <div className="text-xs md:text-sm text-white/55 mt-1">{s.l}</div>
                 </div>
               ))}
             </motion.div>

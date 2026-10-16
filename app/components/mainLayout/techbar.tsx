@@ -69,7 +69,7 @@ export function TechBar() {
   return (
     <section className="theme-dark relative py-20 bg-ink-950 border-y border-white/[0.06] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
-        <p className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.2em]">
+        <p className="text-[11px] font-semibold text-white/50 uppercase tracking-[0.2em]">
           The stack behind our AI and software
         </p>
       </div>

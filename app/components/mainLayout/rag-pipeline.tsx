@@ -70,7 +70,7 @@ function Lane({ label, steps, accent }: { label: string; steps: Step[]; accent: 
     <div className="glass p-5 md:p-6">
       <div className="flex items-center gap-2 mb-5">
         <span className={`w-1.5 h-1.5 rounded-full ${accent}`} />
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/45">{label}</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/55">{label}</span>
       </div>
       <div className="flex flex-col lg:flex-row lg:items-stretch">
         {steps.map((s, i) => (
@@ -86,10 +86,10 @@ function Lane({ label, steps, accent }: { label: string; steps: Step[]; accent: 
                 <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-cyan-200 transition-colors duration-500 group-hover:bg-cyan-400/15 group-hover:border-cyan-300/30">
                   <s.icon className="w-4 h-4" />
                 </div>
-                <span className="font-mono text-[10px] text-white/30">0{i + 1}</span>
+                <span className="font-mono text-[10px] text-white/50">0{i + 1}</span>
               </div>
               <div className="text-sm font-semibold text-white">{s.title}</div>
-              <div className="text-xs text-white/45 mt-1 leading-relaxed">{s.detail}</div>
+              <div className="text-xs text-white/55 mt-1 leading-relaxed">{s.detail}</div>
             </motion.div>
             {i < steps.length - 1 && (
               <>
@@ -126,7 +126,7 @@ export function RagPipeline() {
         <div className="space-y-4">
           <Lane label="Ingestion · runs on every document change" steps={ingest} accent="bg-violet-400" />
           <div className="flex justify-center" aria-hidden>
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-ink-950 font-mono text-[10px] text-white/45">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-ink-950 font-mono text-[10px] text-white/55">
               <HiCollection className="w-3 h-3 text-cyan-300" /> shared vector + keyword index
             </div>
           </div>

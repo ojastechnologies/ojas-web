@@ -589,7 +589,7 @@ function ScreenshotCarousel({
       </div>
 
       {/* Label */}
-      <p className="mt-3 text-xs text-white/45 text-center">
+      <p className="mt-3 text-xs text-white/55 text-center">
         {screenshots[current].label}
       </p>
 
@@ -640,7 +640,7 @@ function ScreenshotCarousel({
 /** Small uppercase label used inside case-study cards. */
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-[0.18em] mb-3">
+    <h4 className="text-[10px] font-semibold text-white/50 uppercase tracking-[0.18em] mb-3">
       {children}
     </h4>
   );
@@ -743,7 +743,7 @@ export default function PortfolioPage() {
                     value={stat.value}
                     className="block font-display text-3xl sm:text-4xl font-semibold text-white"
                   />
-                  <div className="text-xs text-white/45 mt-1.5 uppercase tracking-[0.14em]">
+                  <div className="text-xs text-white/55 mt-1.5 uppercase tracking-[0.14em]">
                     {stat.label}
                   </div>
                 </div>
@@ -808,7 +808,7 @@ export default function PortfolioPage() {
                     </div>
 
                     {/* Platform detail */}
-                    <p className="text-[11px] font-mono text-white/40 mt-auto leading-tight">
+                    <p className="text-[11px] font-mono text-white/50 mt-auto leading-tight">
                       {app.platform}
                     </p>
                   </div>
@@ -859,7 +859,7 @@ export default function PortfolioPage() {
                           <span className="mt-[7px] w-1 h-1 rounded-full bg-cyan-300 flex-shrink-0" />
                           <span>
                             <span className="font-medium text-white/85">{svc.name}</span>
-                            <span className="text-white/40">
+                            <span className="text-white/50">
                               {" "}
                               — {svc.platform}
                             </span>
@@ -870,7 +870,7 @@ export default function PortfolioPage() {
 
                     {/* Count badge */}
                     <div className="mt-auto pt-3">
-                      <div className="pt-2.5 border-t border-white/[0.08] text-[10px] font-mono uppercase tracking-wider text-white/40">
+                      <div className="pt-2.5 border-t border-white/[0.08] text-[10px] font-mono uppercase tracking-wider text-white/50">
                         {group.services.length} service{group.services.length !== 1 ? "s" : ""}
                       </div>
                     </div>
@@ -984,7 +984,7 @@ export default function PortfolioPage() {
                                         value={o.metric}
                                         className="block font-display text-lg sm:text-2xl font-semibold text-gradient-ai"
                                       />
-                                      <div className="text-[10px] sm:text-[11px] text-white/45 leading-tight mt-1">
+                                      <div className="text-[10px] sm:text-[11px] text-white/55 leading-tight mt-1">
                                         {o.label}
                                       </div>
                                     </div>
@@ -1125,7 +1125,7 @@ export default function PortfolioPage() {
                         {client.contact}
                       </p>
                     )}
-                    <p className="text-xs text-white/40">
+                    <p className="text-xs text-white/50">
                       {client.flag} {client.location}
                     </p>
                     <div className="mt-auto pt-4">

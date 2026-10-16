@@ -138,7 +138,7 @@ export function PortfolioPreview() {
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-transparent to-transparent" />
               </div>
               <div className="p-6 flex flex-col flex-1">
-                <div className="text-xs text-white/45 mb-1">{p.client}</div>
+                <div className="text-xs text-white/55 mb-1">{p.client}</div>
                 <h3 className="font-display text-xl font-semibold text-white mb-2">{p.title}</h3>
                 <p className="text-sm text-white/55 leading-relaxed mb-5">{p.desc}</p>
                 <div className="flex flex-wrap gap-1.5 mb-5">

@@ -47,7 +47,7 @@ export function Testimonials() {
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-white">{t.n}</div>
-                  <div className="text-xs text-white/45">{t.t}, {t.c} · {t.l}</div>
+                  <div className="text-xs text-white/55">{t.t}, {t.c} · {t.l}</div>
                 </div>
               </figcaption>
             </motion.figure>

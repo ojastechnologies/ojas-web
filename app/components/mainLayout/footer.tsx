@@ -19,7 +19,7 @@ export function Footer() {
               </div>
               <span className="font-display text-lg font-semibold text-white">Ojas Technologies</span>
             </Link>
-            <p className="text-sm text-white/45 leading-relaxed max-w-xs">AI integration, RAG pipelines, and senior .NET, React, and Azure engineering from Kathmandu — for companies in the US and worldwide.</p>
+            <p className="text-sm text-white/55 leading-relaxed max-w-xs">AI integration, RAG pipelines, and senior .NET, React, and Azure engineering from Kathmandu — for companies in the US and worldwide.</p>
           </div>
 
           {/* Quick Links */}
@@ -68,7 +68,7 @@ export function Footer() {
           ojas
         </div>
 
-        <div className="relative pt-6 border-t border-white/[0.06] flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/35">
+        <div className="relative pt-6 border-t border-white/[0.06] flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/50">
           <p>&copy; {new Date().getFullYear()} Ojas Technologies Pvt. Ltd. All Rights Reserved.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-cyan-300 transition-colors">Privacy</Link>

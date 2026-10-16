@@ -212,7 +212,7 @@ export function HireContent() {
                     i === 0 ? "border-beam bg-gradient-to-b from-cyan-500/[0.07] to-transparent" : ""
                   }`}
                 >
-                  <span className="font-mono text-xs text-white/35 mb-5">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-mono text-xs text-white/50 mb-5">{String(i + 1).padStart(2, "0")}</span>
                   <h3 className="font-display text-xl font-semibold text-white mb-4">{t.title}</h3>
                   <p className="font-mono text-xs leading-relaxed text-cyan-100/80 mb-5">{t.members}</p>
                   <p className="mt-auto pt-4 border-t border-white/[0.06] text-sm text-white/55">{t.best}</p>
@@ -227,7 +227,7 @@ export function HireContent() {
               </div>
               <div>
                 <p className="text-sm text-white/75"><span className="font-semibold text-white">Timezone aligned:</span> Nepal Time (NPT) overlaps with EST morning and PST afternoon — enabling real-time standups and pair programming.</p>
-                <p className="text-xs text-white/45 mt-1">Custom team compositions available. Tell us what you need.</p>
+                <p className="text-xs text-white/55 mt-1">Custom team compositions available. Tell us what you need.</p>
               </div>
             </div>
           </Reveal>

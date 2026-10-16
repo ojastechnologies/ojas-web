@@ -171,7 +171,7 @@ export default function SoftwareDevelopmentNepalPage() {
                                     <p className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight">
                                         <CountUp value={stat.value} />
                                     </p>
-                                    <p className="text-xs sm:text-sm text-white/45 mt-2">{stat.label}</p>
+                                    <p className="text-xs sm:text-sm text-white/55 mt-2">{stat.label}</p>
                                 </StaggerItem>
                             ))}
                         </Stagger>

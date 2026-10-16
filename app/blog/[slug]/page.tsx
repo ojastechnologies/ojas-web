@@ -144,7 +144,7 @@ export default async function BlogPostPage({ params }: Props) {
                         <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight mb-6 leading-[1.1] break-words">
                             {post.title}
                         </h1>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/45">
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/55">
                             <span className="font-mono">{post.date}</span>
                             <span className="text-white/25">·</span>
                             <span className="font-mono">{post.readingTime}</span>

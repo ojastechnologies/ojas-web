@@ -88,7 +88,7 @@ export default function BlogPage() {
                                             {post.description}
                                         </p>
 
-                                        <div className="flex items-center justify-between gap-3 text-xs text-white/45 pt-4 border-t border-white/[0.06]">
+                                        <div className="flex items-center justify-between gap-3 text-xs text-white/55 pt-4 border-t border-white/[0.06]">
                                             <span className="font-mono">{post.date}</span>
                                             <span className="flex items-center gap-2">
                                                 <span className="font-mono">{post.readingTime}</span>

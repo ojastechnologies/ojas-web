@@ -92,7 +92,7 @@ export function AboutContent() {
                   <StaggerItem key={s.l}>
                     <div className="glass-hover p-4 text-center">
                       <CountUp value={s.v} className="block font-display text-2xl font-semibold text-gradient-ai" />
-                      <div className="text-xs text-white/45 mt-1">{s.l}</div>
+                      <div className="text-xs text-white/55 mt-1">{s.l}</div>
                     </div>
                   </StaggerItem>
                 ))}
